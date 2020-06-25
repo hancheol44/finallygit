@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						https://www.springframework.org/schema/context/spring-context.xsd">
+				
+						
+	<bean id="qDAO" class="com.proj.pro.dao.QnaDAO" />
+	<bean id="sDAO" class="com.proj.pro.dao.SalesDAO" />
+	<bean id="bDAO" class="com.proj.pro.dao.BoardDAO" />
+	<bean id="lDAO" class="com.proj.pro.dao.LoginDAO" />
+	<bean id="iDAO" class="com.proj.pro.dao.InfoDAO" />
+	<!-- 게시판 관련 데이터베이스 작업 dao bean 처리 -->
+	<!-- 
+	<bean id="bDAO" class="com.increpas.cls.dao.BoardDAO" />
+	 -->
+	<!-- 댓글 게시판 관련 데이터베이스 작업 dao bean 처리 
+	<bean id="rDAO" class="com.project.cls.dao.ReboardDAO" />
+	-->
+	 
+</beans>		

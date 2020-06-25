@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+ 			PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 					
+<mapper namespace="iSQL">
+	<select id="sel_ac" resultType="iVO">
+		SELECT
+			ifno, ifname, iftel, NVL(ifpri, '정보 없음') ifpri, NVL(iflink, '정보 없음') iflink
+		FROM
+			info
+		WHERE
+			ifct = 'acp'
+			AND ifshow = 'Y'
+	</select>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   
+   <!-- Root Context: defines shared resources visible to all other web components -->
+   <!-- 
+         annotation-config 태그는 기본 xml에서는 제공하지 않는 태그이다.
+         이 태그를 사용하도록 하기 위해서는 context라는 스키마를 사용하겠다고 선언해 줘야 한다.
+         
+         1. 스키마 사용 선언을 해준다.
+         2. 해당 스키마를 파싱(번역)할 수 있는 도구를 지정해야 한다.
+    -->
+       <context:annotation-config />
+       <tx:annotation-driven transaction-manager="transactionManager"/>
+
+		<!-- Transaction Setting -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		    <property name="dataSource" ref="dataSource"/>
+		</bean>
+    <!-- 
+          bean 처리를 하기 위한 태그
+          
+          빈 등록하는 방법
+          
+             <bean id="구분값" class="실제클래스의 패키지 경로와 클래스이름">
+             
+          예 ]
+             <bean id="boardDAO" class="com.increpas.cls.dao.BoardDAO" />
+     -->
+     
+    <!-- 
+          mybatis 설정
+             
+             주의 ]
+                 xml 파일은 자바 파일이 아니다.
+                 따라서 자바의 패키지 경로를 사용하는 것이 아니고
+                 일반 파일의 폴더 경로로 처리해야 한다.
+                 
+                 따라서 경로를 구분할 때 구분자로 /를 사용해서 처리한다.
+                 
+             mybatis를 이용해서 데이터베이스를 처리하기 위해서는 커넥션이 반드시 필요하다.
+             
+             그런데 jsp에서 커넥션이라고 부르는 것은
+             오라클에서 Session 이라고 부르고
+             마이바티스 역시 Session 이라고 부른다.
+             
+             이 세션이 DAO 클래스에서 사용이 되어야 할 것이기 때문에
+             이것도 빈처리가 되어야 한다.
+             
+              
+    -->
+    <!-- Oracle Setting -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+    	<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+    	<property name="username" value="proj" />
+    	<property name="password" value="proj" />
+    	<property name="maxActive" value="8" />
+    </bean>
+    
+    <!-- myBatis 환경 설정 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource" />
+    	<property name="configLocation" value="classpath:/resources/mybatis-config.xml" />
+    </bean>
+    
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="maxUploadSize" value="100000000" />
+	<property name="maxInMemorySize" value="100000000" />
+	<property name="defaultEncoding" value="UTF-8" />
+</bean>
+</beans>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sSQL">
+	<select id="saList" resultType="sVO">
+		SELECT
+		    ee.rno, ee.pno, ee.ptt, ee.bceo, ee.today, ee.bcnt, ee.memid
+		FROM
+		(SELECT
+		    rownum rno, e.pno, e.ptt, e.bceo, e.today, e.bcnt, e.memid
+		FROM
+		(SELECT
+			pno, ptt, bceo, TO_CHAR(today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, m.memid
+		FROM
+			promotion p, boss b, member m
+		WHERE
+			p.bno = b.bno AND b.memno = m.memno AND p.pshow = 'Y'
+		ORDER BY
+			today desc) e) ee
+	</select>
+	<select id="saDetail" resultType="sVO" >
+		SELECT
+			p.pno, ptt, pbd, bceo, b.bno, TO_CHAR(p.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, bloc, cate, m.memid, b.bname,
+			NVL(imgno, 0) imgno, NVL(oriname, 'none') oriname, NVL(savename, 'none') savename, r.rcnt
+		FROM
+			promotion p, image i, boss b, member m,
+            (SELECT COUNT(*) rcnt FROM (SELECT * FROM review) WHERE rshow = 'Y' AND pno = #{pno}) r
+		WHERE
+			p.pno = i.pno(+)
+			AND b.bno = p.bno
+			AND b.memno = m.memno(+) AND p.pshow = 'Y'
+			AND p.pno = #{pno}
+	</select>
+	<insert id="saWrite" parameterType="sVO">
+		INSERT INTO
+			promotion(pno, ptt, bno, pbd, cate)
+		VALUES(
+			(SELECT NVL(MAX(pno)+1, 1000) FROM promotion),
+			#{ptt},
+			(SELECT bno FROM boss b, member m WHERE b.memno = m.memno AND memid = #{memid}),
+			#{pbd}, #{cate}
+			)
+	</insert>
+	<update id="saDelete" parameterType="int">
+		UPDATE
+			promotion
+		SET
+			pshow = 'N'
+		WHERE
+			pno = #{pno}
+	</update>
+	<update id="saEdit" parameterType="sVO">
+		UPDATE
+			promotion
+		SET
+			ptt = #{ptt},
+			pbd = #{pbd},
+			cate = #{cate}
+		WHERE
+			pno = #{pno}
+	</update>
+	<update id="saBcnt" parameterType="int">
+		UPDATE
+			promotion
+		SET
+			bcnt = bcnt + 1
+		WHERE
+			pno = #{pno}
+	</update>
+	<insert id="reWrite" parameterType="sVO">
+			INSERT INTO
+			    review(rno, pno, rtt, rbd, memno, rst)
+			VALUES(
+			    (SELECT NVL(MAX(rno)+1, 100000) FROM review),
+			    #{pno}, #{rtt}, #{rbd},
+			    (SELECT memno FROM member WHERE memid = #{memid}),
+			    #{rst}
+			)
+	</insert>
+	<select id="reList" parameterType="int" resultType="sVO">
+		SELECT
+			ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno
+			FROM
+				(SELECT
+					rownum rrno, rno,name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno
+				FROM
+					(SELECT
+						p.pno, ptt, bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, pshow, cate, rno, rtt, rbd, memno, rst, rshow
+					FROM 
+						PROMOTION p, REVIEW r
+					WHERE
+						rshow = 'Y'
+						AND 
+						p.pno = r.pno 
+						AND
+						p.pno = #{pno}
+						) e, member m
+				WHERE
+					m.memno = e.memno
+				ORDER BY
+			 		today
+			 	) ee
+	</select>
+	<update id="reDelete" parameterType="sVO">
+		UPDATE
+	        review	
+	    SET
+	        rshow = 'N'
+	    WHERE
+	        rno = #{rno}
+	</update>
+	
+	<insert id="saImage">
+		INSERT INTO
+			image(imgno, oriname, savename, pno)
+		VALUES(
+			(SELECT NVL(MAX(imgno)+1, 10000000) FROM image), 
+			#{oriname}, #{savename}, (SELECT NVL(MAX(pno), 10000000) FROM promotion)
+		)
+	</insert>
+
+</mapper>

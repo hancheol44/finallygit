@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ 			PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 					
+
+<mapper namespace="qSQL">
+	<!-- 작성글 리스트 가져오기 -->
+	<select id="qnaList" resultType="qVO" parameterType="page">
+		SELECT
+    qno, qtt, name, today
+    FROM
+    (
+    SELECT
+       ROWNUM rno, brd.*
+    FROM
+        (SELECT
+        qno, qtt, name, qna.today today
+    FROM
+        qna, member
+    WHERE
+        member.memno = qna.memno
+        AND qna.qshow = 'Y'
+    ORDER BY
+        today desc) brd
+    )
+    WHERE
+        rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	<select id="selCnt" resultType="int">
+		SELECT
+			COUNT(*) totalCount
+		FROM
+			qna
+		WHERE
+			qshow = 'Y'
+	</select>
+	
+	
+	<!-- 작성자이름 선택 sql -->
+	<select id="qnaName" resultType="String">
+		SELECT
+			name
+		FROM
+			member
+		WHERE
+			memid = #{SID}
+	</select>
+	
+	<!-- 작성글 상세보기 sql -->
+	<select id="qnaDetail" resultType="qVO">
+		SELECT
+			qtt, qip, TO_CHAR(today, 'yyyy/MM/dd') qDate, name, memid
+		FROM
+			qna q, member m
+		WHERE
+			qno = #{qno}
+			AND q.memno = m.memno
+	</select>
+	
+	<!-- 글쓰기 sql -->
+	<insert id="qnaWrite" >
+		INSERT INTO
+			qna(qno, qtt, qip, memno)
+		VALUES(
+			(SELECT NVL(MAX(qno)+1,1000)FROM qna),
+			#{qtt}, #{qip}, (SELECT memno FROM member WHERE memid = #{memid})
+			  )
+	</insert>
+	
+	<update id="qnaDel">
+		UPDATE
+			qna
+		SET
+			qshow = 'N'
+		WHERE 
+			qno = #{qno}
+	</update>
+
+</mapper>

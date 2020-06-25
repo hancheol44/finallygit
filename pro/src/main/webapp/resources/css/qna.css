@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Header/Blog Title */
+.header1 {
+  padding: 30px;
+  text-align: center;
+  background: white;
+}
+
+.header1 h1 {
+  font-size: 50px;
+}
+
+
+#customers th {
+  background-color : #2E2E2E; 
+  color: white;
+}
+
+
+th{
+  background-color : #2E2E2E; 
+  color: white;
+}
+#customers tr:nth-child(odd){background-color: #c0c0c0;}
+
+#customers tr:hover {background-color: #ff8040;} 
+
+/*
+table.qnadetail {
+	width: 70%;
+	border-collapse: collapse;
+	border: 2px solid #ddd;
+
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+table.qnadetail td, table.qnadetail th {
+  border: 2px solid #ddd;
+  padding: 8px;
+}
+
+
+table.qnadetail th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+ 
+}
+
+table.qnadetail th{
+  background-color : #2E2E2E; 
+  color: white;	
+}
+*/
+/* qnaDetail 테이블 양식*/
+table.qnadetail, table.qnaWrite {
+	border-spacing: 0px;
+	width: 100%;
+	border: 1px solid orange;
+	align: center;
+}
+table.qnadetail td, table.qnaWrite td {
+	width: 0em;
+	border: 1px solid orange;
+} 
+table.qnadetail th, table.qnaWrite th {
+	width: 100%;
+	border: 1px solid orange;
+}
+
+#qttin {
+	width: 100%;
+ 	border: 1px solid white;
+}
+
+textarea {
+ 	resize: none;
+ 	width: 100%;
+ 	height: 30em;
+ 	border: 1px solid white;
+ }
