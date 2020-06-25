@@ -35,6 +35,10 @@
       <h2>물어봥</h2>
 		<table class="qnaWrite">
 					<c:if test="${empty qno}">
+						<%-- <tr>
+							<td id="title">작성일</td>
+							<td style="text-align: left;">${TODAY}</td>
+						</tr> --%>
 						<tr>
 							<td id="title">작성자</td>
 							<td style="text-align: left;">${NAME}</td>

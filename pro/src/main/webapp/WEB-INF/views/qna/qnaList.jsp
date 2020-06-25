@@ -13,13 +13,16 @@
 
 </style>
 <script type="text/javascript">
-  
+
 </script>
 </head>
 <jsp:include page="/head.pro" flush="true" />
 <body>
 <jsp:include page="/left.pro" flush="true" />
 <!-- Form태그 작성 -->
+<form method="POST" action="" id="frm">
+	<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage }">
+</form>
 
 <!-- 1. Detail 데이터 전담 Form -->
 <form method="GET" action="" id="DetailFrm">

@@ -36,9 +36,29 @@ $(document).ready(function(){
 		$('#qip').val(ip);
 		$('#frm').attr('action','/pro/qna/qnaWriteProc.pro');
 		$('#frm').submit();
+	});	
+	// qna 페이징 처리
+	$('.pbtn').click(function(){
+		var str = $(this).text();
+		$('#nowPage').val(str);
+		$('#frm').attr('action', '/pro/qna/qnaList.pro');
+		$('#frm').submit();
 	});
-	// 페이징 기능처리
-	
-	
-	
+	$('.w3-button').click(function(){
+		var str = $(this).html();
+		if(str == 'PRE'){
+			$('#nowPage').val('${PAGE.startPage - 1}');
+		}else if(str == 'NEXT'){
+			$('#nowPage').val('${PAGE.EndPage + 1}');
+		}else{
+			return;
+		}
+		$('#frm').attr('action', '/pro/qna/qnaList');
+		$('#frm').submit();
+	});
+	// 글 수정 버튼 기능처리
+		$('#modibtn').click(function(){
+			$('#qttin').attr('readonly', false);
+			$('#qip4').attr('readonly', false);
+		});
 });

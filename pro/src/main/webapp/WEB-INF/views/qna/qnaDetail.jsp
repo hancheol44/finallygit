@@ -15,12 +15,7 @@
 
 </style>
 <script type="text/javascript">
- $(document).ready(function(){
-	$('#modibtn').click(function(){
-		alert('제 소원은 readonly 삭제입니다');
-		$('#qttin').attr('readonly', false);
-	});
- });
+
 </script>
 </head>
 <jsp:include page="/head.pro" flush="true" />
@@ -72,8 +67,8 @@
 						<c:if test="${SID ne 'sej0267@naver.com'}">
 							<c:if test="${SID eq DETAIL.memid}">
 								<td colspan="5">
-									<input type="submit" value="글수정" id="modibtn"> 
-									<input type="reset" value="취소" id="wcbtn"> 
+									<button class="obtn" id="modibtn" >글수정</button>
+									<button class="pbtn" id="wcbtn">취소</button>
 								</td>
 							</c:if>
 						</c:if>
