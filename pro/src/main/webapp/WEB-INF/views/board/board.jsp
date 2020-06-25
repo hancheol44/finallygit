@@ -8,6 +8,7 @@
 -->
 <html>
 <head>
+<!-- 풀커밋 테스트 -->
 <meta charset="utf-8" />
 <title>메인페이지</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
