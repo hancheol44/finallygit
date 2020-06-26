@@ -75,7 +75,7 @@ public class KaKaoLogin {
     }
 	
 	public HashMap<String, Object> getUserInfo(String access_Token) {
-		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+		HashMap<String, Object> userInfo = new HashMap<>();
 	    String reqURL = "https://kapi.kakao.com/v2/user/me";
 	    try {
 	        URL url = new URL(reqURL);
@@ -105,10 +105,14 @@ public class KaKaoLogin {
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 	        
 	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        int id = element.getAsJsonObject().get("id").getAsInt();
 	        
-	        userInfo.put("nickname", nickname);
-	        userInfo.put("email", email);
+	        //String email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        userInfo.put("nickname", nickname);    	
+	        //userInfo.put("email", email); 
+	        userInfo.put("id", id);
+	        
+	        
 	        
 	    } catch (IOException e) {
 	        // TODO Auto-generated catch block

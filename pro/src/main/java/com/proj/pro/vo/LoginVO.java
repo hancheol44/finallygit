@@ -5,32 +5,21 @@ import java.text.*;
 
 public class LoginVO {
 	
-	private int memno, carno;
+	private int kmemno, carno, kcarno, kid;
 	private double rd;
-	private String id, pw, bno, name, phone, sDate, membir, bname, bloc;
+	private String kmail, bno, kname, kphone, sDate, kmembir, bname, bloc;
 	private Date joinDate;
 	private Time joinTime;
 	
 	
 	
 	
-	public String getId() {
-		return id;
+	
+	public int getKmemno() {
+		return kmemno;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-	public int getMemno() {
-		return memno;
-	}
-	public void setMemno(int memno) {
-		this.memno = memno;
+	public void setKmemno(int kmemno) {
+		this.kmemno = kmemno;
 	}
 	public int getCarno() {
 		return carno;
@@ -38,30 +27,53 @@ public class LoginVO {
 	public void setCarno(int carno) {
 		this.carno = carno;
 	}
+	public int getKcarno() {
+		return kcarno;
+	}
+	public void setKcarno(int kcarno) {
+		this.kcarno = kcarno;
+	}
+	public int getKid() {
+		return kid;
+	}
+	public void setKid(int kid) {
+		this.kid = kid;
+	}
 	public double getRd() {
 		return rd;
 	}
 	public void setRd(double rd) {
 		this.rd = rd;
 	}
-	
+	public String getKmail() {
+		return kmail;
+	}
+	public void setKmail(String kmail) {
+		this.kmail = kmail;
+	}
 	public String getBno() {
 		return bno;
 	}
 	public void setBno(String bno) {
 		this.bno = bno;
 	}
-	public String getName() {
-		return name;
+	public String getKname() {
+		return kname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setKname(String kname) {
+		this.kname = kname;
 	}
-	public String getPhone() {
-		return phone;
+	public String getKphone() {
+		return kphone;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setKphone(String kphone) {
+		this.kphone = kphone;
+	}
+	public String getKmembir() {
+		return kmembir;
+	}
+	public void setKmembir(String kmembir) {
+		this.kmembir = kmembir;
 	}
 	public String getsDate() {
 		return sDate;
@@ -75,12 +87,6 @@ public class LoginVO {
 		String str = form1.format(joinDate) + " " + form2.format(joinTime);
 				
 		this.sDate = str;
-	}
-	public String getMembir() {
-		return membir;
-	}
-	public void setMembir(String membir) {
-		this.membir = membir;
 	}
 	public String getBname() {
 		return bname;
@@ -108,9 +114,10 @@ public class LoginVO {
 	}
 	@Override
 	public String toString() {
-		return "LoginVO [memno=" + memno + ", carno=" + carno + ", rd=" + rd + ", id=" + id + ", pw=" + pw
-				+ ", bno=" + bno + ", name=" + name + ", phone=" + phone + ", sDate=" + sDate + ", membir=" + membir
-				+ ", bname=" + bname + ", bloc=" + bloc + ", joinDate=" + joinDate + ", joinTime=" + joinTime + "]";
+		return "LoginVO [kmemno=" + kmemno + ", carno=" + carno + ", kcarno=" + kcarno + ", kid=" + kid + ", rd=" + rd
+				+ ", kmail=" + kmail + ", bno=" + bno + ", kname=" + kname + ", kphone=" + kphone + ", sDate=" + sDate
+				+ ", kmembir=" + kmembir + ", bname=" + bname + ", bloc=" + bloc + ", joinDate=" + joinDate
+				+ ", joinTime=" + joinTime + "]";
 	}
 	
 	

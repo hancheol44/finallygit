@@ -24,6 +24,15 @@
 			<include refid="selCNT" />#{id}
 		</select>	
 		
+		<select id="kidCount" resultType="int" parameterType="int">
+			SELECT
+				count(*) cnt
+			FROM
+				kmember
+			WHERE
+				kid = #{kid}
+		</select>
+		
 		<insert id="join">
 			INSERT INTO
 				member(memno, memid, mempw, phone, name, membir, carno)

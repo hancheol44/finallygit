@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.proj.pro.dao.LoginDAO;
+
 @Controller
 @RequestMapping("/kakao")
 public class kakaoController {
 	
 	@Autowired
 	private KaKaoLogin kakao;
+	
+	@Autowired
+	private LoginDAO lDAO;
 	
 	@RequestMapping(value="/")
 	public String index() {
@@ -27,13 +33,21 @@ public class kakaoController {
 	@RequestMapping(value="/kakaoLogin.pro")
     public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv) {
         String access_Token = kakao.getAccessToken(code);
-        RedirectView rv = new RedirectView("/pro/main.pro");
+        RedirectView rv = null; 
+        String view = "/login/loginList";
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
         
-        if(userInfo.get("email") != null) {
-        	session.setAttribute("SID", userInfo.get("email"));
+        int cad = (int) userInfo.get("id");
+        int cnt = lDAO.kidCheck(cad);
+        
+        if(cnt == 1) {
+        	session.setAttribute("userId", userInfo.get("id"));
         	session.setAttribute("access_Token", access_Token);
+        	System.out.println(userInfo.get("id"));
+        	rv = new RedirectView("/pro/main.pro");
+        } else {        	
+        	rv = new RedirectView("/pro/login/loginList.pro");
         }
         mv.setView(rv);
         return mv;
