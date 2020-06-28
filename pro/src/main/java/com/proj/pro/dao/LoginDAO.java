@@ -24,9 +24,13 @@ public class LoginDAO {
 		return sqlSession.selectOne("lSQL.kidCount", kid);
 	}
 	
-	  public int login(LoginVO lVO) { 
+	public int login(LoginVO lVO) { 
 		  return sqlSession.selectOne("lSQL.Login",lVO); 
-		  }
+	}
+	
+	public int join(LoginVO lVO) {
+		return sqlSession.insert("lSQL.join",lVO);
+	}
 	 
 
 	

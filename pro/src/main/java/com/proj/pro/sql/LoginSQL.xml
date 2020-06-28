@@ -15,11 +15,6 @@
 		
 		</sql>
 		
-		<select id="Login" resultType="int" parameterType="lVO">
-			
-		<include refid="selCNT" /> #{id}
-			AND mempw = #{pw}
-		</select>
 		<select id="idCount" resultType="int" parameterType="string">
 			<include refid="selCNT" />#{id}
 		</select>	
@@ -28,15 +23,17 @@
 			SELECT
 				count(*) cnt
 			FROM
-				kmember
+				member
 			WHERE
-				kid = #{kid}
+				memno = #{memno}
 		</select>
 		
 		<insert id="join">
 			INSERT INTO
-				member(memno, memid, mempw, phone, name, membir, carno)
-		
+				member(memno, memid, phone, name, membir, carno, bno, bname, bloc)
+			VALUES(
+				#{memno},#{memid},#{phone},#{name},#{membir},#{carno},#{bno},#{bname},#{bloc}
+			)
 		</insert>
 		
 		

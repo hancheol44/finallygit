@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.proj.pro.dao.LoginDAO;
+import com.proj.pro.vo.LoginVO;
 
 @Controller
 @RequestMapping("/kakao")
@@ -23,18 +24,28 @@ public class kakaoController {
 	@Autowired
 	private LoginDAO lDAO;
 	
-	@RequestMapping(value="/")
-	public String index() {
+	// 회원가입 뷰 맵핑 처리
+	@RequestMapping("/Signup.pro")
+	public ModelAndView singup(HttpSession session, ModelAndView mv) {
 		
-		return "main";
+		String sid = (String) session.getAttribute("userId");
+		String view = "/login/Singup";
+		if(sid != null) {
+			System.out.println("Session userId : " + session.getAttribute("userId"));
+			RedirectView rv = new RedirectView("/pro/main");
+			mv.setView(rv);
+		}else {
+			mv.setViewName(view);
+		}
+		return mv;
 	}
+
 	
 	// 카카오 로그인 맵핑처리
 	@RequestMapping(value="/kakaoLogin.pro")
     public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv) {
         String access_Token = kakao.getAccessToken(code);
         RedirectView rv = null; 
-        String view = "/login/loginList";
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
         
@@ -47,7 +58,7 @@ public class kakaoController {
         	System.out.println(userInfo.get("id"));
         	rv = new RedirectView("/pro/main.pro");
         } else {        	
-        	rv = new RedirectView("/pro/login/loginList.pro");
+        	rv = new RedirectView("/pro/kakao/Signup.pro");
         }
         mv.setView(rv);
         return mv;
@@ -63,5 +74,16 @@ public class kakaoController {
 	    mv.setView(rv);
 	    return mv;
 	}
+	
+	//회원가입 맵핑 처리
+	@RequestMapping("/join.pro")
+	public ModelAndView join(HttpSession session, ModelAndView mv, LoginVO lVO) {
+		int sid = (int) session.getAttribute("userId");
+		lVO.setMemno(sid);
+		lDAO.join(lVO);
+		System.out.println(lVO);
+		return mv;
+	}
+	
 	
 }
