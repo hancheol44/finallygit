@@ -28,9 +28,9 @@ public class kakaoController {
 	@RequestMapping("/Signup.pro")
 	public ModelAndView singup(HttpSession session, ModelAndView mv) {
 		
-		String sid = (String) session.getAttribute("userId");
+		int sid = (int) session.getAttribute("userId");
 		String view = "/login/Singup";
-		if(sid != null) {
+		if(sid == 1) {
 			System.out.println("Session userId : " + session.getAttribute("userId"));
 			RedirectView rv = new RedirectView("/pro/main");
 			mv.setView(rv);
@@ -48,7 +48,6 @@ public class kakaoController {
         RedirectView rv = null; 
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
-        
         int cad = (int) userInfo.get("id");
         int cnt = lDAO.kidCheck(cad);
         
@@ -57,7 +56,8 @@ public class kakaoController {
         	session.setAttribute("access_Token", access_Token);
         	System.out.println(userInfo.get("id"));
         	rv = new RedirectView("/pro/main.pro");
-        } else {        	
+        } else {
+        	session.setAttribute("userId", userInfo.get("id"));
         	rv = new RedirectView("/pro/kakao/Signup.pro");
         }
         mv.setView(rv);
@@ -70,18 +70,21 @@ public class kakaoController {
 	    kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 	    session.removeAttribute("access_Token");
 	    session.removeAttribute("userId");
-	    RedirectView rv = new RedirectView("/pro/login/loginList.pro");
+	    RedirectView rv = new RedirectView("/pro/main.pro");
 	    mv.setView(rv);
 	    return mv;
 	}
 	
 	//회원가입 맵핑 처리
-	@RequestMapping("/join.pro")
+	@RequestMapping("/joinProc.pro")
 	public ModelAndView join(HttpSession session, ModelAndView mv, LoginVO lVO) {
 		int sid = (int) session.getAttribute("userId");
+		System.out.println("sid" + sid);
 		lVO.setMemno(sid);
 		lDAO.join(lVO);
-		System.out.println(lVO);
+		System.out.println(sid);
+		RedirectView rv = new RedirectView("/pro/main.pro");
+		mv.setView(rv);
 		return mv;
 	}
 	

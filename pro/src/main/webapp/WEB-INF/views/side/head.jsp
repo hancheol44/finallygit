@@ -99,7 +99,7 @@ $(document).ready(function(){
 				<li><a id="qna" href="/pro/qna/qnaList.pro">물어봥</a></li>
 				<li><a id="board" href="/pro/board/board.pro">놀러왕</a></li>
 				<c:if test="${empty SID && empty userId}">
-					<li><a href="/pro/login/loginList.pro">로그인</a></li>
+					<li><a href="https://kauth.kakao.com/oauth/authorize?client_id=1c4b9b851fe834e6428dd0977d0c3cbc&redirect_uri=http://localhost:80/pro/kakao/kakaoLogin.pro&response_type=code">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty SID && empty userId}">
 					<li><a href="/pro/login/logout.pro">로그아웃</a></li>
