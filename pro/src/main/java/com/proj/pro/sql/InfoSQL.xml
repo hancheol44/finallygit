@@ -8,11 +8,57 @@
 <mapper namespace="iSQL">
 	<select id="sel_ac" resultType="iVO">
 		SELECT
-			ifno, ifname, iftel, NVL(ifpri, '정보 없음') ifpri, NVL(iflink, '정보 없음') iflink
+		ifno ,ifname, iftel, NVL(ifpri, '정보 없음') ifpri, NVL(iflink, '정보 없음') iflink
 		FROM
 			info
 		WHERE
 			ifct = 'acp'
 			AND ifshow = 'Y'
 	</select>
+	
+	
+	<select id="Detail_ac" resultType="iVO">
+		SELECT
+		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink,
+		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst
+		FROM
+		    info i, review r
+		WHERE
+		    ifct = 'acp'
+		    AND i.ifno = r.ifno(+)
+		    AND i.ifno = #{ifno}
+	</select>
+	
+	
+	<select id="review_ac" resultType="iVO">
+		SELECT
+		    rtt ifrtt, rbd ifrbd, name ifname, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
+		FROM
+		    member m , info i , review r
+		WHERE
+		    i.ifno = #{ifno}
+		    AND r.ifno = i.ifno
+		    AND r.memno = m.memno
+		    AND r.isshow = 'Y'
+		ORDER BY
+		    r.today
+	</select>
+	
+	<insert id="review_ac_add">
+		INSERT INTO
+ 		   review(rno, ifno, rtt, rbd, memno, rst)
+		VALUES (
+    	  (SELECT NVL(MAX(rno) +1, 100000)FROM review), #{ifno}, #{ifrtt}, #{ifrbd}, 
+          (SELECT memno FROM member WHERE memid = #{memid}), #{ifrst}
+        )
+	</insert>
+	
+	<update id="review_ac_del">
+		UPDATE
+		    review
+		SET
+		    isshow = 'N'
+		WHERE
+		    rno = #{ifrno}
+	</update>
 </mapper>

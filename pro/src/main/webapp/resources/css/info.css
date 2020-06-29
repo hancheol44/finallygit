@@ -69,8 +69,57 @@ table.cp th {
 	color: orange;
 }
 
+#strpoint {
+	color: orange;
+}
+
+.avgstr {
+	float: left;
+	margin-right: 10px;
+}
 
 /* Button  */
+#delbtn, #modbtn{
+  background: #0080ff;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:20px;
+  font-size:0.8em;
+  padding:0 1em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  margin-right: 1em;
+}
+#delbtn:hover, #modbtn:hover{
+  background:#fff;
+  color:#0080ff;
+}
+#delbtn:before,#delbtn:after, #modbtn:before,#modbtn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #0080ff;
+  transition:400ms ease all;
+}
+#delbtn:after, #modbtn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+#delbtn:hover:before,#delbtn:hover:after, #modbtn:hover:before,#modbtn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
+
+
 button{
   background: #0080ff;
   color:#fff;
@@ -107,3 +156,4 @@ button:hover:before,button:hover:after{
   width:100%;
   transition:800ms ease all;
 }
+

@@ -45,6 +45,22 @@
       </div>
 	  <div id="map"></div>
 	  <div class='w3-row'><p></p></div>
+	  
+	  <div id="remove_point">
+							<div id="rlist'+obj.ifno+'" class="line">
+							<div>
+							<span><b>평점 : <span id="rrst">+ obj.ifrst +</span></b></span><br>
+							<span id="rname">작성자 : + obj.memid + </span><br>
+							<span id="rrtt">제목 : '+ obj.ifrtt + '</span>
+							</div>
+							<div>
+							<span id="rrbd">내용 : '+ obj.ifrbd + '</span>
+							</div>
+							<button id="delbtn">삭제</button>
+							</div>
+					</div>
+					<br>
+					
 	  <div class="detail_card">
 	  	<div><h3>선택된 극장 이름</h3></div>
 	  	<div><h4>주소 : ㅇㅇㅇㅇㅇㅇㅇ</h4></div>

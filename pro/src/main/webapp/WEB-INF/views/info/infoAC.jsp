@@ -21,6 +21,10 @@
 <jsp:include page="/head.pro" flush="true" />
 <body>
 <jsp:include page="/left.pro" flush="true" />
+  <!-- form 태그 영역 -->
+  <input type="hidden" id="sid" name="SID" value="${SID}" />
+  <!-- 클릭된 캠핑장 ifno -->
+  <input type="hidden" id="c_ifno" name="ifno"/>
   
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <div class="centercolumn w3-center">
@@ -32,7 +36,7 @@
 			  <tr>
 			    <th style="width: 300px;"><h2>자동차 캠핑 List</h2></th>
 			  </tr>
-			  <c:forEach var="data" items="${LIST}">
+			  <c:forEach var="data" items="${AC_NAME_LIST}">
 				  <tr>
 				  	<td id="${data.ifno}">${data.ifname}</td>
 				  </tr>
@@ -48,12 +52,13 @@
 			<span> 주소 : </span> <span id="acaddr"></span><br><br>
 			<span> 이용가격 : </span> <span id="acpri"></span><br><br>
 			<span> 홈페이지 : </span> <a id="hplink" href="" target="_blank"><span id="ctlink">링크</span></a><br><br>
-			<span> 길찾기 바로가기 : </span> <a id="search" href="" target="_blank"><span id="ctlink">링크</span></a><br><br>
+			<span> 길찾기 바로가기 : </span> <a id="search" href="" target="_blank"><span>링크</span></a><br><br>
 		</div>
 	  	<div class="mgbottom">
-		  	<div style="float: left;">평점 : </div>
-		  	<div style="color: orange;">★데이터</div>
+		  	<div class="avgstr">평점 : </div>
+		  	<div id="strpoint"></div>
 	  	</div>
+	  	<br>
 	  	<button class="rebtn" id="reviewbt" >리뷰</button>
 	  	<div id="reviewWrite">
    		<br><br>
@@ -63,7 +68,8 @@
             </div>
             <div>
                 <div>                    
-                    <div>
+                    <div id="reviewhidden">
+                    <button id="addReview">리뷰작성</button>
                         <div id="rWrite">
                         	 <div id="rst"><h6><b>평점</b></h6>
 								<select id="rstSelect" name="rst">
@@ -78,8 +84,12 @@
 	                            <textarea id="rett" placeholder="리뷰제목을 입력해주세요."></textarea>
 	                            <textarea id="rebd" placeholder="리뷰내용을 입력해주세요."></textarea>
                             <br>
-                                <button id="">등록</button>
+                                <button id="inputreview">등록</button>
+					            
                                </div>
+					            <div id="reviewList">
+					            <!-- 리뷰 들어갈 위치 -->
+					            </div>
                             </div>
                         </div>
                     </div>

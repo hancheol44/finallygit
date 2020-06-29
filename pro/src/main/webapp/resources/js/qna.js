@@ -18,7 +18,7 @@ $(document).ready(function(){
 	$('#delbtn').click(function(){
 	 
 	  $('#delfrm').attr('action','/pro/qna/qnaDelProc.pro');
-	  $('#delfrm').submit()
+	  $('#delfrm').submit();
 	});
 
 	// qnaWrite.jsp 기능처리

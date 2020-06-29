@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/pro/css/w3.css" />
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
 <script type="text/javascript">
+
 // 카카오 로그아웃 처리 함수
 function popup(){
      var url = "https://developers.kakao.com/logout";
@@ -59,8 +60,6 @@ $(document).ready(function(){
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 <body>
-
-
 
 	<header id="header">
 		<div class="inner">

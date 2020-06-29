@@ -1,12 +1,28 @@
 package com.proj.pro.vo;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class InfoVO {
-	private String ifct, ifname, ifshow, iftel, ifpri, ifaddr, iflink, ifrtt, ifrbd;
+	private String memid ,ifct, ifname, ifshow, iftel, ifpri, ifaddr, iflink, ifrtt, ifrbd, rdate, name;
 	private int ifno, ifmno, ifrno, ifrst, ifrcnt;	
 	private Date redate;
+	private Time retime;
 	
+	
+	
+	public String getMemid() {
+		return memid;
+	}
+	public void setMemid(String memid) {
+		this.memid = memid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getIfct() {
 		return ifct;
 	}
@@ -91,12 +107,44 @@ public class InfoVO {
 	public void setIfrcnt(int ifrcnt) {
 		this.ifrcnt = ifrcnt;
 	}
+	
+	public String getRdate() {
+		return rdate;
+	}
+	public void setRdate() {
+		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat form2 = new SimpleDateFormat("HH:mm:ss");
+		this.rdate = form1.format(redate) + " " + form2.format(retime);
+	}
+	public void setRdate(String rdate) {
+		this.rdate = rdate;
+	}
 	public Date getRedate() {
 		return redate;
 	}
 	public void setRedate(Date redate) {
 		this.redate = redate;
 	}
+	public Time getRetime() {
+		return retime;
+	}
+	public void setRetime(Time retime) {
+		this.retime = retime;
+	}
+	
+	
+	// VO클래스의 데이터 유뮤 체크를 하기 위해 
+	@Override
+	public String toString() {
+		return "InfoVO [ifct=" + ifct + ", ifname=" + ifname + ", ifshow=" + ifshow + ", iftel=" + iftel + ", ifpri="
+				+ ifpri + ", ifaddr=" + ifaddr + ", iflink=" + iflink + ", ifrtt=" + ifrtt + ", ifrbd=" + ifrbd
+				+ ", rdate=" + rdate + ", ifno=" + ifno + ", ifmno=" + ifmno + ", ifrno=" + ifrno + ", ifrst=" + ifrst
+				+ ", ifrcnt=" + ifrcnt + ", redate=" + redate + "]";
+	}
+	
+	
+	
+	
 	
 	
 }
