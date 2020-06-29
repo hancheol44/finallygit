@@ -45,17 +45,27 @@
     	<input type="hidden" name="memid" id="memid"> 
     	<input type="hidden" name="rst" id="rst"> 
    	</form>
-	
-	 
-	 <input type="hidden" id="asid" value="${SID}">
-	 <input type="hidden" id="apno" value="${DATA.pno}">
-	 <input type="hidden" id="aptt" value="${DATA.ptt}">
-	 <input type="hidden" id="apbd" value="${DATA.pbd}">
-	 <input type="hidden" id="acate" value="${DATA.cate}">
+	<form method="post" action="" id="likefrm">
+		 <input type="hidden" id="asid" name="memid" value="${SID}">
+		 <input type="hidden" id="apno" name="pno" value="${DATA.pno}">
+		 <input type="hidden" id="aptt" name="ptt" value="${DATA.ptt}">
+		 <input type="hidden" id="apbd" name="pbd" value="${DATA.pbd}">
+		 <input type="hidden" id="acate" name="cate" value="${DATA.cate}">
+	</form>
 	 
 	<div id="detail">
 		<br>
-		<div id="topForm"><h3><b>매장 정보</b></h3></div>
+		<div id="topForm"><h3><b>매장 정보</b>
+			<span id="burger" value="${MEMID}">&nbsp
+				<c:if test="${MEMID eq null}">
+					<img id="burger1" alt="" src="/pro/upload/burger1.png">
+				</c:if>
+				<c:if test="${MEMID == SID}">
+					<img id="burger2" alt="" src="/pro/upload/burger2.png">
+				</c:if>
+				&nbsp<span id="likecnt">${DATA.lcnt}</span>
+			</span></h3>
+		</div>
 		<hr>
 		<br>
 		<div id="board">
@@ -71,10 +81,11 @@
 		</div>
 		<br>
 		 <br>
-		 <div id="map"></div>
-		 <span style="margin: 20px;">
-		 <img id="img" alt="" src="/pro/upload/${DATA.savename}">
+		 <div style="display: flex; justify-content:center; align-items: center;">
+		 <span id="map">
 		</span>
+			<img id="img" alt="" src="/pro/upload/${DATA.savename}">
+		 </div>
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bfbcb2a9b1a94611a8804b0d71d6315c&libraries=services"></script>
 		<script>
 		var mapContainer = document.getElementById('map');
@@ -149,6 +160,9 @@
                 <div>                    
                     <div>
                         <div id="rWrite">
+                        <form id="ajax" action="" method="post">
+                        	<input type="hidden" name="pno" value="${DATA.pno}">
+                        	<input type="hidden" name="memid" value="${SID}">
                         	 <div id="rst"><h6><b>평점</b></h6>
 								<select id="rstSelect" name="rst">
 									<option value="5">★★★★★
@@ -159,12 +173,15 @@
 								</select>
 								<br>
 								<h6><b>이미지첨부</b></h6>
-								<input type="file" id="file_saWrite"><br>
+							<!-- 	<form id="imgfrm" method="post" enctype="multipart/fom"> -->
+								<input type="file" name="file" id="file_saWrite"><br>
+							<!-- 	</form> -->
 							</div>
-	                            <textarea id="reviewTitle" placeholder="리뷰제목을 입력해주세요."></textarea>
-	                            <textarea id="reviewArea" placeholder="리뷰내용을 입력해주세요."></textarea>
+	                            <textarea id="reviewTitle" name="rtt" placeholder="리뷰제목을 입력해주세요."></textarea>
+	                            <textarea id="reviewArea" name="rbd" placeholder="리뷰내용을 입력해주세요."></textarea>
                             <br>
                                 <button id="reviewOK">등록</button>
+                        </form>
                                </div>
                             </div>
                         </div>

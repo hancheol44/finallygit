@@ -4,24 +4,56 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SalesVO {
-	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt;
-	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd;
+	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno;
+	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut;
 	private Date pDate;
 	private Time pTime;
-
-	
+	private MultipartFile file;
 	
 	
 	@Override
 	public String toString() {
 		return "SalesVO [pno=" + pno + ", bcnt=" + bcnt + ", rno=" + rno + ", imgno=" + imgno + ", memno=" + memno
-				+ ", rst=" + rst + ", rpno=" + rpno + ", rcnt=" + rcnt + ", ptt=" + ptt + ", bno=" + bno + ", pbd="
-				+ pbd + ", name=" + name + ", today=" + today + ", cate=" + cate + ", bceo=" + bceo + ", memid=" + memid
-				+ ", bname=" + bname + ", bloc=" + bloc + ", oriname=" + oriname + ", savename=" + savename + ", rtt="
-				+ rtt + ", rbd=" + rbd + ", pDate=" + pDate + ", pTime=" + pTime + "]";
+				+ ", rst=" + rst + ", rpno=" + rpno + ", rcnt=" + rcnt + ", lcnt=" + lcnt + ", lno=" + lno + ", ptt="
+				+ ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name + ", today=" + today + ", cate=" + cate
+				+ ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname + ", bloc=" + bloc + ", oriname=" + oriname
+				+ ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd + ", isshow=" + isshow + ", imgrut="
+				+ imgrut + ", pDate=" + pDate + ", pTime=" + pTime + ", file=" + file + "]";
+	}
+	public String getImgrut() {
+		return imgrut;
+	}
+	public void setImgrut(String imgrut) {
+		this.imgrut = imgrut;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public int getLno() {
+		return lno;
+	}
+	public void setLno(int lno) {
+		this.lno = lno;
+	}
+	public String getIsshow() {
+		return isshow;
+	}
+	public void setIsshow(String isshow) {
+		this.isshow = isshow;
 	}
 
+	public int getLcnt() {
+		return lcnt;
+	}
+	public void setLcnt(int lcnt) {
+		this.lcnt = lcnt;
+	}
 	public int getRcnt() {
 		return rcnt;
 	}

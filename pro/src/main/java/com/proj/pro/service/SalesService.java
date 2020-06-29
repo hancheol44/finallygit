@@ -59,18 +59,56 @@ public class SalesService {
 	// Sales Image Add
 	public int saImage(FileVO fVO, HttpSession session) {
 		try {
-			// 중복 파일이 안만들어짐
 			MultipartFile file = fVO.getFile();
 			String filePath = session.getServletContext().getRealPath("resources/upload");
 //			String savename = FileUtil.rename(filePath, fVO.getOriname());
 			String savename = FileUtil.getSavename(session, file, "upload");
 			fVO.setOriname(file.getOriginalFilename());
 			fVO.setSavename(savename);
-				file.transferTo(new File(filePath, fVO.getOriname()));
+			file.transferTo(new File(filePath, fVO.getOriname()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return sDAO.saImage(fVO);
+	}
+	// Review Image Add
+	public int reImage(SalesVO sVO, HttpSession session) {
+		try {
+			MultipartFile file = sVO.getFile();
+			System.out.println("ser.file : " + file);
+			String filePath = session.getServletContext().getRealPath("resources/upload");
+			String savename = FileUtil.getSavename(session, file, "upload");
+			sVO.setOriname(file.getOriginalFilename());
+			sVO.setSavename(savename);
+			file.transferTo(new File(filePath, sVO.getOriname()));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return sDAO.reImage(sVO);
+	}
+	public SalesVO likeCheck(SalesVO sVO) {
+		String vo = sDAO.likeCheck(sVO);
+		if(vo == null){
+			sDAO.like(sVO);
+			sDAO.likeUp(sVO);
+//			likeck(sVO);
+		} else if(vo.equals(sVO.getMemid())) {
+			sDAO.disLike(sVO);
+			sDAO.likeDown(sVO);
+		}
+		return sVO;
+	}
+	public String likeck(SalesVO sVO) {
+		String svo = sDAO.likeCheck(sVO);
+		System.out.println("ser.svo : " + svo);
+		String result;
+		if(svo == null) {
+			result = " ";
+		} else {
+			result = svo;
+		}
+		System.out.println("result : " + result);
+		return result;
 	}
 }

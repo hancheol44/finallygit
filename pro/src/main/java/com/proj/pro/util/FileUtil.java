@@ -3,11 +3,14 @@ package com.proj.pro.util;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.proj.pro.vo.FileVO;
 
 public class FileUtil {
    // 동일한 파일명이 존재하면 이름을 바꿔주는 함수
@@ -35,7 +38,7 @@ public class FileUtil {
       }
       return oldName;
    }
-   
+ /*
    public MultipartFile[] setArr(MultipartFile[] file) {
       MultipartFile[] tmp = null;
       List<MultipartFile> list = (List<MultipartFile>) Arrays.asList(file);
@@ -45,24 +48,30 @@ public class FileUtil {
       tmp = (MultipartFile[])list.toArray();
       return tmp;
    }
-   
+  */
    public static String getSavename(HttpSession session, MultipartFile file, String folder) {
       String savename = null;
       String filePath = session.getServletContext().getRealPath("resources") + "/" + folder;
       
-//      for(int i = 0; i < file.length; i++) {
          String oriname = file.getOriginalFilename();
+         System.out.println("util.oriname : " + oriname);
          if(oriname != null) {
-            savename = rename(filePath,oriname);
-            System.out.println("savename : " + savename);
+            savename = getUUID(oriname);
+            System.out.println("util.savename : " + savename);
          }
          try {
             File refile = new File(filePath, savename);
-            System.out.println("refile : " + refile);
+            byte[] fByte = file.getBytes();
+            FileCopyUtils.copy(fByte, refile);
          } catch(Exception e) {
             e.printStackTrace();
          }
-//      }
       return savename;
+   }
+   
+   public static String getUUID(String oriname) {
+	   UUID uuid = UUID.randomUUID();
+	   String savename = uuid.toString()+"_"+oriname;
+	   return savename;
    }
 }

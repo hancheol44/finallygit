@@ -5,32 +5,31 @@
 <mapper namespace="sSQL">
 	<select id="saList" resultType="sVO">
 		SELECT
-		    ee.rno, ee.pno, ee.ptt, ee.bceo, ee.today, ee.bcnt, ee.memid
+		    rno, pno, ptt, name, today, bcnt, memid, lcnt, savename
 		FROM
-		(SELECT
-		    rownum rno, e.pno, e.ptt, e.bceo, e.today, e.bcnt, e.memid
-		FROM
-		(SELECT
-			pno, ptt, bceo, TO_CHAR(today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, m.memid
-		FROM
-			promotion p, boss b, member m
-		WHERE
-			p.bno = b.bno AND b.memno = m.memno AND p.pshow = 'Y'
-		ORDER BY
-			today desc) e) ee
+			(SELECT
+			    rownum rno, pno, ptt, name, today, bcnt, memid, lcnt, savename
+			FROM
+				(SELECT
+					p.pno, ptt, name, TO_CHAR(today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, m.memid, lcnt, savename
+				FROM
+					promotion p, member m, image i
+				WHERE
+					p.memno = m.memno AND p.isshow = 'Y' AND i.pno = p.pno
+				ORDER BY
+					today desc) e) ee
 	</select>
 	<select id="saDetail" resultType="sVO" >
 		SELECT
-			p.pno, ptt, pbd, bceo, b.bno, TO_CHAR(p.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, bloc, cate, m.memid, b.bname,
-			NVL(imgno, 0) imgno, NVL(oriname, 'none') oriname, NVL(savename, 'none') savename, r.rcnt
+		    p.pno, ptt, pbd, name, bno, TO_CHAR(p.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, bloc, cate, m.memid, bname,
+		    NVL(imgno, 0) imgno, NVL(oriname, 'none') oriname, NVL(savename, 'none') savename, r.rcnt, lcnt
 		FROM
-			promotion p, image i, boss b, member m,
-            (SELECT COUNT(*) rcnt FROM (SELECT * FROM review) WHERE rshow = 'Y' AND pno = #{pno}) r
+		    promotion p, image i, member m,
+		    (SELECT COUNT(*) rcnt FROM (SELECT * FROM review) WHERE isshow = 'Y' AND pno = #{pno}) r
 		WHERE
-			p.pno = i.pno(+)
-			AND b.bno = p.bno
-			AND b.memno = m.memno(+) AND p.pshow = 'Y'
-			AND p.pno = #{pno}
+		    p.pno = i.pno(+)
+		    AND p.memno = m.memno(+) AND p.isshow = 'Y'
+		    AND p.pno = #{pno}
 	</select>
 	<insert id="saWrite" parameterType="sVO">
 		INSERT INTO
@@ -38,7 +37,7 @@
 		VALUES(
 			(SELECT NVL(MAX(pno)+1, 1000) FROM promotion),
 			#{ptt},
-			(SELECT bno FROM boss b, member m WHERE b.memno = m.memno AND memid = #{memid}),
+			(SELECT bno FROM member m WHERE AND memid = #{memid}),
 			#{pbd}, #{cate}
 			)
 	</insert>
@@ -80,18 +79,20 @@
 	</insert>
 	<select id="reList" parameterType="int" resultType="sVO">
 		SELECT
-			ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno
+			ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename
 			FROM
 				(SELECT
-					rownum rrno, rno,name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno
+					rownum rrno,rno, name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno, savename
 				FROM
 					(SELECT
-						p.pno, ptt, bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, pshow, cate, rno, rtt, rbd, memno, rst, rshow
+						p.pno, ptt, bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, pshow, cate, r.rno, rtt, rbd, memno, rst, rshow, savename
 					FROM 
-						PROMOTION p, REVIEW r
+						PROMOTION p, REVIEW r, image i
 					WHERE
 						rshow = 'Y'
-						AND 
+                        AND
+                        i.rno = r.rno
+                        AND
 						p.pno = r.pno 
 						AND
 						p.pno = #{pno}
@@ -119,5 +120,67 @@
 			#{oriname}, #{savename}, (SELECT NVL(MAX(pno), 10000000) FROM promotion)
 		)
 	</insert>
-
+	<insert id="reImage">
+		INSERT INTO
+			image(imgno, oriname, savename, rno)		
+		VALUES(
+			(SELECT NVL(MAX(imgno)+1, 10000000) FROM image),
+			#{oriname}, #{savename},
+			(SELECT NVL(MAX(rno), 100000) FROM review)
+		)
+	</insert>
+	<select id="likecheck" resultType="string" parameterType="sVO">
+		SELECT
+		    m.memid
+		FROM
+		    plike p, member m
+		WHERE
+		    p.pno = #{pno}
+		    AND
+		    p.memno = (SELECT memno FROM member WHERE memid = #{memid})
+		    AND
+		    m.memno = p.memno
+			
+	</select>
+	<insert id="like">
+		INSERT INTO
+		    plike(lno, pno, memno)
+		VALUES(
+		    (SELECT NVL(MAX(lno)+1, 100000) FROM plike), 
+		    #{pno}, (SELECT memno FROM member WHERE memid=#{memid})
+		    )
+	</insert>
+	<update id="likeup">
+		UPDATE
+		    promotion
+		SET
+		    lcnt = lcnt + 1
+		WHERE
+		    pno = #{pno}
+	</update>
+	<update id="likedown">
+		UPDATE
+		    promotion
+		SET
+		    lcnt = lcnt - 1
+		WHERE
+		    pno = #{pno}
+	</update>
+	<!-- <update id="dislike">
+		UPDATE
+		    plike
+		SET
+		    isshow = 'N'
+		WHERE
+		    pno = #{pno}
+	</update> -->
+	<delete id="dislike">
+		DELETE FROM 
+		    plike
+		WHERE
+		    pno = #{pno}
+		    AND
+		    memno = (SELECT memno FROM member WHERE memid=#{memid})
+	</delete>
+	
 </mapper>

@@ -26,7 +26,7 @@
   <!-- 가운데 영역 (주내용 담길 곳) -->
 	<form method="get" action="" id="frm">
 		<input type="hidden" name="pno" id="pno">
-		<input type="hidden" name="id" id="id">
+		<!-- <input type="hidden" name="memid" id="memid"> -->
 	</form>
 	<form method="post" action="/pro/sales/sales_bcnt.pro" id="frm1">
 		<input type="hidden" name="bpno" id="bpno">
@@ -34,6 +34,8 @@
 	<form method="post" action="/pro/sales/sales_review.pro" id="frm2">
 		<input type="hidden" name="rpno" id="rpno">
 	</form>
+	
+	<input type="hidden" id="sid" name="memid" value="${SID}">
 	
   <div class="centercolumn w3-center">
     <div class="card">
@@ -46,17 +48,21 @@
 			<table id="saList">
 			  <tr>
 			    <th id="rno">NO</th>
+			    <th id="limg">썸네일</th>
 			    <th id="ptt">제목</th>
 			    <th id="bceo">작성자</th>
 			    <th id="today">작성일</th>
+			    <th id="bcnt">좋아요</th>
 			    <th id="bcnt">조회수</th>
 			  </tr>
 			  <c:forEach var="data" items="${LIST}">
 				  <tr class="salesList" id="${data.pno}" value="${data.memid}">
 				  	<td>${data.rno}</td>
+				  	<td><img id="rimg" src="/pro/upload/${data.savename}"></td>
 				  	<td>${data.ptt}</td>
 				  	<td>${data.bceo}</td>
 				  	<td>${data.today}</td>
+				  	<td>${data.lcnt}</td>
 				  	<td>${data.bcnt}</td>
 				  </tr>
 			  <div id="sales_memid" value="${data.memid}"></div>

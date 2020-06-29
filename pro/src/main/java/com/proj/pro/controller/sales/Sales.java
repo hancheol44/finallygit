@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -50,16 +52,16 @@ public class Sales {
 //	}
 	
 	// sales detail page
-	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.GET, params={"pno"})
-	public ModelAndView saDetail(ModelAndView mv, SalesVO sVO, int pno, String memid) {
+	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.GET)
+	public ModelAndView saDetail(ModelAndView mv, SalesVO sVO) {
 		try {
 			String view = "sales/sales_inside";
-			service.saBcnt(pno);
+			service.saBcnt(sVO.getPno());
 			SalesVO vo = service.saDetail(sVO);
-//			mv.addObject("IMG", FileVO.get)
+//			String vv = service.likeck(sVO);
+//			System.out.println("detail.sVO : " + sVO.toString());
 			mv.addObject("DATA", vo);
-			mv.addObject("PNO", pno);
-			mv.addObject("ID", memid);
+			mv.addObject("PNO", sVO.getPno());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,7 +77,7 @@ public class Sales {
 	
 	// sales write action
 	@RequestMapping(value="/sales_write.pro", method=RequestMethod.POST)
-	@ResponseBody
+//	@ResponseBody
 	public ModelAndView saWriteProc(SalesVO sVO, ModelAndView mv, FileVO fVO,  HttpSession session) {
 		try {
 			String view = "sales/sales_write";
@@ -137,26 +139,23 @@ public class Sales {
 		return mv;
 	}
 	// review add(ajax)
-	@RequestMapping(value="/sales_review.pro", method=RequestMethod.POST,params= {"pno", "rtt", "rbd", "memid", "rst"})
+	@RequestMapping(value="/sales_review.pro", method=RequestMethod.POST)
 	@ResponseBody
-	public SalesVO reWrite(int pno, String rtt, String rbd, String memid, int rst, SalesVO sVO, HttpSession session, ModelAndView mv) {
+	public SalesVO reWrite(SalesVO sVO, @RequestParam("file")MultipartFile file, HttpSession session, ModelAndView mv) {
 		try {
 			String view = "sales/sales_inside";
-			SalesVO vo = service.reWrite(sVO);
+			service.reWrite(sVO);
+			if(sVO.getRbd() != null) {
+				String ii = file.getOriginalFilename();
+				System.out.println("oriname : " + ii);
+				sVO.setFile(file);
+				service.reImage(sVO, session);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sVO;
 	}
-	// review List
-//	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.POST, params= {"rpno"})
-//	public ModelAndView reList(int rpno, SalesVO sVO, ModelAndView mv) {
-//		String view = "sales/sales_inside";
-//		ArrayList<SalesVO> list = (ArrayList<SalesVO>)sDAO.reList(rpno);
-//		mv.addObject("LIST", list);
-//		mv.setViewName(view);
-//		return mv;
-//	}
 	// review List(ajax)
 	@RequestMapping("/reviewList.pro")
 	@ResponseBody
@@ -165,6 +164,7 @@ public class Sales {
 			mv.addObject("LIST", list);
 		return list;
 	}
+	// review delete
 	@RequestMapping(value="/reviewDelete.pro", method=RequestMethod.POST, params= {"rno"})
 	@ResponseBody
 	public Map reDelete(ModelAndView mv, int rno, SalesVO sVO) {
@@ -182,4 +182,12 @@ public class Sales {
 		}
 		return map;
 	}
+	
+	@RequestMapping(value="/likeCheck.pro", method=RequestMethod.POST)
+	@ResponseBody
+	public SalesVO like(SalesVO sVO) {
+		SalesVO vo = service.likeCheck(sVO);
+		return sVO;
+	}
+	
 }

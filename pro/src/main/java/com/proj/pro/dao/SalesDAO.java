@@ -58,4 +58,25 @@ public class SalesDAO {
 	public int saImage(FileVO fVO) {
 		return sqlSession.insert("sSQL.saImage", fVO);
 	}
+	// review add image
+	public int reImage(SalesVO sVO) {
+		return sqlSession.insert("sSQL.reImage", sVO);
+	}
+	// Like Up
+	public void like(SalesVO sVO) {
+		sqlSession.insert("sSQL.like", sVO);
+	}
+	public void likeUp(SalesVO sVO) {
+		sqlSession.update("sSQL.likeup", sVO);
+	}
+	// Like Down
+	public void likeDown(SalesVO sVO) {
+		sqlSession.update("sSQL.likedown", sVO);
+	}
+	public void disLike(SalesVO sVO) {
+		sqlSession.update("sSQL.dislike", sVO);
+	}
+	public String likeCheck(SalesVO sVO) {
+		return sqlSession.selectOne("sSQL.likecheck", sVO);
+	}
 }
