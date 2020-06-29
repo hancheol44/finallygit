@@ -86,6 +86,7 @@ public class kakaoController {
 	@RequestMapping("/joinProc.pro")
 	public ModelAndView join(HttpSession session, ModelAndView mv, LoginVO lVO) {
 		int sid = (int) session.getAttribute("userId");
+		session.setAttribute("SID", lVO.getMemid());
 		System.out.println("sid");
 		lVO.setMemno(sid);
 		lDAO.join(lVO);

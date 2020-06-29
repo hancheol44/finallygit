@@ -38,18 +38,7 @@ $('.submit').click(function() {
   	  var name = $('#name').val();
   	  var phone = $('#phone').val();
   	  var birth = $('#birth').val();
-  	  
-  	     if (!isName(name)) {
-  	    	alert('이름은 한글2~4글자로 입력해주세요.'); 
-  	    	return;
-  	     } else if (!isPhone(phone)) {
-  	    	 alert('핸드폰 번호를 다시입력해주세요. ex) 01x-xxxx-xxxx');
-    			$('#Phone').focus();
-    			return;
-  	     } else if (!isBir(birth)) {
-  	    	 alert('생년월일 8자리를 입력해주세요. ex)19xx-xx-xx');
-  	    	 return;
-  	     } 
+  	 
     $('.msform').submit();
     alert('회원가입을 축하합니다.');
 });
