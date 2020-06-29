@@ -31,6 +31,10 @@ public class LoginDAO {
 	public int join(LoginVO lVO) {
 		return sqlSession.insert("lSQL.join",lVO);
 	}
+	
+	public String sid(int memno) {
+		return sqlSession.selectOne("lSQL.kakasid", memno);
+	}
 	 
 
 	

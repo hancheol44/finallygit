@@ -88,7 +88,7 @@ public class login {
 	   //로그아웃 처리요청
 		@RequestMapping("/logout.pro")
 		public ModelAndView logout(HttpSession session, ModelAndView mv) {
-			String view = "/pro/login/loginList.pro";
+			String view = "/pro/main.pro";
 			
 			RedirectView rv = null;
 			session.removeAttribute("SID");

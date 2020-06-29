@@ -4,10 +4,54 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
+//이메일 체크 정규식
+
+function isEmail(id) {
+
+	var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+	return regExp.test(id); // 형식에 맞는 경우 true 리턴	
+
+}
+
+//이름 정규식
+function isName(na) {
+var name = /^[가-힣]{2,4}$/;
+return name.test(na);
+}
+
+// 핸드폰번호 정규식
+	function isPhone(ph) {
+var phone = /(^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})$/;
+
+return phone.test(ph);
+}
+
+// 생년월일 정규식
+	function isBir(bi) {
+var bir = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+return bir.test(bi);
+}
+
+//회원가입 아이디 정규식 처리
 $('.submit').click(function() {
-	alert('이거아니야');
+  	  var name = $('#name').val();
+  	  var phone = $('#phone').val();
+  	  var birth = $('#birth').val();
+  	  
+  	     if (!isName(name)) {
+  	    	alert('이름은 한글2~4글자로 입력해주세요.'); 
+  	    	return;
+  	     } else if (!isPhone(phone)) {
+  	    	 alert('핸드폰 번호를 다시입력해주세요. ex) 01x-xxxx-xxxx');
+    			$('#Phone').focus();
+    			return;
+  	     } else if (!isBir(birth)) {
+  	    	 alert('생년월일 8자리를 입력해주세요. ex)19xx-xx-xx');
+  	    	 return;
+  	     } 
     $('.msform').submit();
-    alert('왜안되?');
+    alert('회원가입을 축하합니다.');
 });
 
 $(".next").click(function(){

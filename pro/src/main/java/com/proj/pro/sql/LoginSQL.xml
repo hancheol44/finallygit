@@ -28,6 +28,7 @@
 				memno = #{memno}
 		</select>
 		
+		
 		<insert id="join">
 			INSERT INTO
 				member(memno, memid, phone, name, membir, carno, bno, bname, bloc)
@@ -35,6 +36,15 @@
 				#{memno},#{memid},#{phone},#{name},#{membir},#{carno},#{bno},#{bname},#{bloc}
 			)
 		</insert>
+		
+		<select id="kakasid" resultType="string" parameterType="int">
+			SELECT
+				memid
+			FROM
+				member
+			WHERE
+				memno = #{memno}
+		</select>
 		
 		
 </mapper>

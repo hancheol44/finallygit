@@ -1,5 +1,6 @@
 package com.proj.pro.controller.login;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -43,18 +44,23 @@ public class kakaoController {
 	
 	// 카카오 로그인 맵핑처리
 	@RequestMapping(value="/kakaoLogin.pro")
-    public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv) {
+    public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv, LoginVO lVO) {
         String access_Token = kakao.getAccessToken(code);
         RedirectView rv = null; 
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
         int cad = (int) userInfo.get("id");
         int cnt = lDAO.kidCheck(cad);
+        String abc = lDAO.sid(cad);
+        System.out.println(abc);
+        
         
         if(cnt == 1) {
         	session.setAttribute("userId", userInfo.get("id"));
         	session.setAttribute("access_Token", access_Token);
         	System.out.println(userInfo.get("id"));
+        	session.setAttribute("SID", abc);
+        	System.out.println(abc);
         	rv = new RedirectView("/pro/main.pro");
         } else {
         	session.setAttribute("userId", userInfo.get("id"));
@@ -70,6 +76,7 @@ public class kakaoController {
 	    kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 	    session.removeAttribute("access_Token");
 	    session.removeAttribute("userId");
+	    session.removeAttribute("SID");
 	    RedirectView rv = new RedirectView("/pro/main.pro");
 	    mv.setView(rv);
 	    return mv;
@@ -79,7 +86,7 @@ public class kakaoController {
 	@RequestMapping("/joinProc.pro")
 	public ModelAndView join(HttpSession session, ModelAndView mv, LoginVO lVO) {
 		int sid = (int) session.getAttribute("userId");
-		System.out.println("sid" + sid);
+		System.out.println("sid");
 		lVO.setMemno(sid);
 		lDAO.join(lVO);
 		System.out.println(sid);
