@@ -89,9 +89,11 @@ public class SalesService {
 	}
 	public SalesVO likeCheck(SalesVO sVO) {
 		String vo = sDAO.likeCheck(sVO);
+		System.out.println("vo : " + vo);
 		if(vo == null){
 			sDAO.like(sVO);
 			sDAO.likeUp(sVO);
+			System.out.println("sVO.toString : " + sVO.toString());
 //			likeck(sVO);
 		} else if(vo.equals(sVO.getMemid())) {
 			sDAO.disLike(sVO);

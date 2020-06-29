@@ -18,18 +18,18 @@ $('#reviewOK').click(function reOK() {
 						$('#reviewArea').val('');
 //						reList();
 						$('#reviewList').prepend('<div>'+
-								'<div id="rlist" class="line">'+
+								'<div id="rlist'+obj.rno+'" class="line">'+
+								'<div id="rCenter"><div><img src="/pro/upload/'+obj.savename+'" id="rimg"></div>'+
 								'<div>'+
-//								'<span><img id="img" alt="" src="/pro/upload/'+ obj.savename + '></span></b></span><br>'+
 								'<span><b>평점 : <span id="rrst">'+ obj.rst + '</span></b></span><br>'+
 								'<span id="rname">ID : '+ obj.memid + '</span><br>'+
-								'<span id="rrtt">'+ obj.rtt + '</span>'+
+								'<span id="rrtt">'+ obj.rtt + '</span><br>'+
+								'<span id="rrbd">'+ obj.rbd + '</span><br>'+
 								'</div>'+
-								'<div>'+
-								'<span id="rrbd">'+ obj.rbd + '</span>'+
 								'</div>'+
-								'<div id="reDelete">'+
-								'<a href="/pro/sales/reviewDelete.pro?rno='+obj.rno+'&pno='+obj.pno+'">삭제</a>'+
+								'<div id="reDelete" class="reDelete" value="'+obj.pno+'">'+
+								'<a class="delete" value="'+obj.rno+'"onclick="remove()">삭제</a></div>'+
+								'</div>'+
 						'</div>')
 			},
 			error: function(){
@@ -53,12 +53,8 @@ function reList(){
 				for(var i = 0; i < len; i++){
 					if(sid == obj[i].memid){
 						$('#reviewList').prepend('<div>'+
-//								'<div id="rimgdiv">'+
-//								'</div>'+
 								'<div id="rlist'+obj[i].rno+'" class="line">'+
 								'<div id="rCenter"><div><img src="/pro/upload/'+obj[i].savename+'" id="rimg"></div>'+
-//								'</div>'+
-//								'<div>'+
 								'<div>'+
 								'<span><b>평점 : <span id="rrst">'+ obj[i].rst + '</span></b></span><br>'+
 								'<span id="rname">ID : '+ obj[i].memid + '</span><br>'+
@@ -73,13 +69,13 @@ function reList(){
 					} else {
 						$('#reviewList').prepend('<div>'+
 								'<div id="rlist'+obj[i].rno+'" class="line">'+
+								'<div id="rCenter"><div><img src="/pro/upload/'+obj[i].savename+'" id="rimg"></div>'+
 								'<div>'+
 								'<span><b>평점 : <span id="rrst">'+ obj[i].rst + '</span></b></span><br>'+
 								'<span id="rname">ID : '+ obj[i].memid + '</span><br>'+
-								'<span id="rrtt">'+ obj[i].rtt + '</span>'+
+								'<span id="rrtt">'+ obj[i].rtt + '</span><br>'+
+								'<span id="rrbd">'+ obj[i].rbd + '</span><br>'+
 								'</div>'+
-								'<div>'+
-								'<span id="rrbd">'+ obj[i].rbd + '</span>'+
 								'</div>'+
 								'<div id="reDelete" class="reDelete" value="'+obj[i].pno+'">'+
 								'</div>'+
@@ -94,6 +90,7 @@ function reList(){
 	};
 
 $(document).on('click','#burger', function like(){
+	alert("클릭!");
 	form = $('#likefrm');
 	formData = new FormData(form[0]);
 	$.ajax({
@@ -135,14 +132,9 @@ $(document).on('click','.delete', function remove(){
 });
 
 $(document).on('click','#reviewOK', function imgadd(e){
-//	var file = $('#file_saWrite').val();
 	var profile = e.target.files;
 	var form =  $('#ajax');
-//	form.method = "POST";
-//	alert('form : ' + form + " type : " + typeof form);
 	var formData = new FormData(form[0]);
-//	alert("formData" + formData);
-//	alert("file : " + file + " / type : " + typeof file);
 		$.ajax({
 			url: '/pro/sales/sales_review.pro',
 			type: 'POST',

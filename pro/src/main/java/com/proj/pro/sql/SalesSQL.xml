@@ -33,11 +33,11 @@
 	</select>
 	<insert id="saWrite" parameterType="sVO">
 		INSERT INTO
-			promotion(pno, ptt, bno, pbd, cate)
+			promotion(pno, ptt, memno, pbd, cate)
 		VALUES(
 			(SELECT NVL(MAX(pno)+1, 1000) FROM promotion),
 			#{ptt},
-			(SELECT bno FROM member m WHERE AND memid = #{memid}),
+			(SELECT memno FROM member WHERE memid = #{memid}),
 			#{pbd}, #{cate}
 			)
 	</insert>
@@ -71,7 +71,7 @@
 			INSERT INTO
 			    review(rno, pno, rtt, rbd, memno, rst)
 			VALUES(
-			    (SELECT NVL(MAX(rno)+1, 100000) FROM review),
+			    (SELECT NVL(MAX(rno)+1, 10000) FROM review),
 			    #{pno}, #{rtt}, #{rbd},
 			    (SELECT memno FROM member WHERE memid = #{memid}),
 			    #{rst}
@@ -85,15 +85,17 @@
 					rownum rrno,rno, name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno, savename
 				FROM
 					(SELECT
-						p.pno, ptt, bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, pshow, cate, r.rno, rtt, rbd, memno, rst, rshow, savename
+						p.pno, ptt, m.bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, p.isshow, cate, r.rno, rtt, rbd, p.memno, rst, r.isshow, savename
 					FROM 
-						PROMOTION p, REVIEW r, image i
+						PROMOTION p, REVIEW r, image i, member m
 					WHERE
-						rshow = 'Y'
+						r.isshow = 'Y'
                         AND
-                        i.rno = r.rno
+                        i.pno = p.pno
                         AND
-						p.pno = r.pno 
+                        m.memno = p.memno
+                        AND
+						p.pno = null OR r.rno = i.rno
 						AND
 						p.pno = #{pno}
 						) e, member m
@@ -107,7 +109,7 @@
 		UPDATE
 	        review	
 	    SET
-	        rshow = 'N'
+	        isshow = 'N'
 	    WHERE
 	        rno = #{rno}
 	</update>

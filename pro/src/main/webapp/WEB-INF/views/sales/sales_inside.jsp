@@ -76,7 +76,7 @@
 			</div>
 		</c:if>
 				<h2 id="pro_ptt" name="ptt"><b>${DATA.ptt}</b></h2>
-				<h4 id="pro_bceo" name="bceo">${DATA.bceo}</h4>
+				<h4 id="pro_bceo" name="bceo">${DATA.name}</h4>
 				<h4 id="pro_bloc" name="bloc">${DATA.bloc}</h4>
 		</div>
 		<br>
