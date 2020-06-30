@@ -1,6 +1,28 @@
 $(document).ready(function(){
+	// 리뷰 작성 후 카운트
+	function reviewCount(){
+		alert('리뷰 카운트 왔니?');
+		var ifn = $('#c_ifno').val();
+		
+		$.ajax({
+			url: '/pro/info/infoAC_Detail.pro',
+			type: 'post',
+			dataType: 'json',
+			data:{
+				'ifno':ifn
+			},
+			success: function(obj){
+				alert(obj.ifrcnt);
+				$('#ifrcnt').text('('+obj.ifrcnt+')');
+			},
+			error: function(){
+				alert('리뷰카운트 전송실패');
+			}
+	});
 	
+}	
 	
+// 글 삭제후 리스트 다시 호출	
 function reList(){
 		var ifn = $('#c_ifno').val();
 			alert('여기는 삭제 후 리스트 :'+ifn);
@@ -26,7 +48,7 @@ function reList(){
 									'<div>'+
 									'<span id="rrbd">'+ obj[i].ifrbd + '</span>'+
 									'</div>'+
-									'<a class="modbtn" value="'+obj[i].ifrno+'" id="delbtn">수정</a>'+
+									'<a class="modbtn" value="'+obj[i].ifrno+'" id="modbtn">수정</a>'+
 									'<a class="delbtn" value="'+obj[i].ifrno+'" id="delbtn" onclick="remove()">삭제</a>'+
 									//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
 									//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
@@ -59,9 +81,7 @@ function reList(){
 		
 		};
 	
-	
-	
-	
+
 	
 	
 	
@@ -92,26 +112,51 @@ $(document).on('click','.delbtn', function remove(){
 		}
 	});
 	reList(); // 리뷰 목록 다시 불러오는 함수
+	reviewCount(); //리뷰 카운트 다시 불러오는 함수
 });
+
 
 
 // 글 수정
 $(document).on('click','.modbtn', function modi(){
 	var ifrno = $(this).attr('value');
-	alert('여기글수정??'+ifrno);
 	var modbtn = $(this).html();
-	alert(modbtn);
 	var rttt = $('#'+'rtt'+ifrno).html();
 	var rtbd = $('#'+'rbd'+ifrno).html();
-	alert('rttt : '+rttt +'   rtbd : '+rtbd);
+	
 	if(modbtn === '수정'){
-		$('#'+'rtt'+ifrno).contents().unwrap().wrap('<textarea style="resize: none;"></textarea>');
-		$('#'+'rbd'+ifrno).contents().unwrap().wrap('<textarea style="resize: none;"></textarea>');
+		$('#'+'rtt'+ifrno).replaceWith('<textarea id="rtt'+ifrno+'" style="resize: none;">'+rttt+'</textarea>');
+		$('#'+'rbd'+ifrno).replaceWith('<textarea id="rbd'+ifrno+'" style="resize: none;">'+rtbd+'</textarea>');
 		$(this).text('등록');
 	} else {
-		$('#'+'rtt'+ifrno).contents().unwrap().wrap('<span></span>');
-		$('#'+'rbd'+ifrno).contents().unwrap().wrap('<span></span>');
+		var modirt = $('#'+'rtt'+ifrno).val();
+		var modibd = $('#'+'rbd'+ifrno).val();
+		
 		$(this).text('수정');
+		
+		$.ajax({
+			url:'/pro/info/infoAC_ReviewMod.pro',
+			type:'post',
+			dataType:'json',
+			data:{
+				'ifrno':ifrno,
+				'ifrtt':modirt,
+				'ifrbd':modibd
+			},
+			success: function(obj){
+				if(obj == 1){
+				$('#'+'rtt'+ifrno).replaceWith('<span id="rtt'+ifrno+'">'+modirt+'</span>');
+				$('#'+'rbd'+ifrno).replaceWith('<span id="rbd'+ifrno+'">'+modibd+'</span>');
+				$(this).text('수정');
+				} else {
+					alert('수정처리 실패');
+				}
+			},
+			error: function(request, error){
+				alert('수정실패!!');
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
 	}
 	
 	
@@ -152,6 +197,7 @@ $(document).on('click','.modbtn', function modi(){
 					$('#strpoint').html(' ');
 				}
 				
+				$('#ifrcnt').text('('+obj.ifrcnt+')');
 				$('#acname').html(name);
 				$('#actel').html(tel);
 				$('#acaddr').html(addr);
@@ -280,8 +326,8 @@ $(document).on('click','.modbtn', function modi(){
 							'<div>'+
 							'<span id="rrbd">내용 : '+ obj.ifrbd + '</span>'+
 							'</div>'+
-							//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
-							//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
+							//'<a class="modbtn" id="modbtn">수정</a>'+
+							//'<a class="delbtn" id="delbtn" onclick="remove()">삭제</a>'+
 							'</div>'+
 					'</div>'+
 					'<br>')
@@ -292,11 +338,8 @@ $(document).on('click','.modbtn', function modi(){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
+			reList(); // 리뷰 목록 다시 불러오는 함수
+			reviewCount(); //리뷰 카운트 다시 불러오는 함수
 	});
-	
-	
-	
-	
-	
 	
 });

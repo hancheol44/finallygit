@@ -38,4 +38,9 @@ public class InfoDAO {
 		return sqlSession.update("iSQL.review_ac_del", ifrno);
 	}
 	
+	// infoAC_review Modi sql 가져오기
+	public int modAC_Review(InfoVO iVO) {
+		return sqlSession.update("iSQL.review_ac_mod", iVO);
+	}
+	
 }

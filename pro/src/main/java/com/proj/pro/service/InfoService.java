@@ -38,4 +38,9 @@ public class InfoService {
 	public int delAC_Review(int ifrno) throws Exception {
 		return iDAO.delAC_Review(ifrno);
 	}
+	
+	// InfoAC Review Modi
+	public int modAC_Review(InfoVO iVO) throws Exception{
+		return iDAO.modAC_Review(iVO);
+	}
 }

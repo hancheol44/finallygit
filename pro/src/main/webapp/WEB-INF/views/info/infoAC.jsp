@@ -59,7 +59,7 @@
 		  	<div id="strpoint"></div>
 	  	</div>
 	  	<br>
-	  	<button class="rebtn" id="reviewbt" >리뷰</button>
+	  	<button class="rebtn" id="reviewbt" >리뷰</button><span id="ifrcnt"></span>
 	  	<div id="reviewWrite">
    		<br><br>
         <div>
@@ -99,14 +99,69 @@
 	  
       <!-- 자동차 캠핑 리스트 위치 끝 -->
 	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd8f721c7ccf9b1ba7c336d64d77a8aa&libraries=services"></script>
-	  <script>
-	  	var container = document.getElementById('map');
-	  	var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.5706670),
-			level: 3
-	  	};
-	  	
-	  	var map = new kakao.maps.Map(container, options);
+	  <script type="text/javascript">
+	 	var mapContainer = document.getElementById('map');
+		var mapOption = {
+		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		    level: 3 // 지도의 확대 레벨
+		}// 지도를 표시할 div 
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	  
+	  $('td').click(function(){
+		 alert('맵동기'); 
+		 var ifno = $(this).attr('id');
+		 
+		 $.ajax({
+			 url: '/pro/info/infoAC_Detail.pro',
+				type: 'post',
+				dataType: 'json',
+				data:{
+					'ifno':ifno
+				},
+				success: function(obj){
+				var ifaddr = obj.ifaddr;
+				var ifname = obj.ifname;
+				
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				 
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(ifaddr , function(result, status) {
+				
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				     
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				        
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new kakao.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+				        
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new kakao.maps.InfoWindow({
+
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+ifname+'</div>'
+				        });
+				        infowindow.open(map, marker);
+				        
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        
+				        map.setCenter(coords);
+				     }
+				});
+				
+			},
+			error: function(request, error){
+				alert('### 에러 ###');
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		 });
+	  });
+		
 	  </script>
     </div>
   </div>

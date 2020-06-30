@@ -73,6 +73,19 @@ public class InfoController {
 		return iVO;
 	}
 	
+	// infoAC Review Modi ajax 처리
+	@RequestMapping(value="/infoAC_ReviewMod", method=RequestMethod.POST, params= {"ifrno", "ifrtt", "ifrbd"})
+	@ResponseBody
+	public Integer AC_ReviewMod(InfoVO iVO) {
+		int cnt = 0;
+		try {
+			cnt = service.modAC_Review(iVO);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	// infoAC Review Del ajax 처리
 	@RequestMapping(value="/infoAC_ReviewDel", method=RequestMethod.POST, params= {"ifrno"})
 	@ResponseBody

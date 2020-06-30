@@ -20,7 +20,7 @@
 	<select id="Detail_ac" resultType="iVO">
 		SELECT
 		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink,
-		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst
+		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, (SELECT COUNT(*) FROM review WHERE ifno =#{ifno} AND isshow ='Y') ifrcnt
 		FROM
 		    info i, review r
 		WHERE
@@ -58,6 +58,16 @@
 		    review
 		SET
 		    isshow = 'N'
+		WHERE
+		    rno = #{ifrno}
+	</update>
+	
+	<update id="review_ac_mod">
+		UPDATE
+		    review
+		SET
+		    rtt = #{ifrtt},
+		    rbd = #{ifrbd}
 		WHERE
 		    rno = #{ifrno}
 	</update>
