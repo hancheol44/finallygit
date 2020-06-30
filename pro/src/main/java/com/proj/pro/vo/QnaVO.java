@@ -114,6 +114,13 @@ public class QnaVO {
 	public void setAsTime(Time asTime) {
 		this.asTime = asTime;
 	}
+	@Override
+	public String toString() {
+		return "QnaVO [qno=" + qno + ", qorno=" + qorno + ", qmemno=" + qmemno + ", qtt=" + qtt + ", qip=" + qip
+				+ ", name=" + name + ", today=" + today + ", anstt=" + anstt + ", ansip=" + ansip + ", ansDate="
+				+ ansDate + ", memid=" + memid + ", ok=" + ok + ", qqDate=" + qqDate + ", asDate=" + asDate
+				+ ", qqTime=" + qqTime + ", asTime=" + asTime + "]";
+	}
 	
 	
 }

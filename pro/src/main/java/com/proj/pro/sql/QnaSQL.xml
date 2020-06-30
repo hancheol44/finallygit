@@ -51,7 +51,7 @@
 	<!-- 작성글 상세보기 sql -->
 	<select id="qnaDetail" resultType="qVO">
 		SELECT
-			qtt, qip, TO_CHAR(today, 'yyyy/MM/dd') qDate, name, memid
+			qtt, qip, TO_CHAR(today, 'yyyy/MM/dd') today, name, memid
 		FROM
 			qna q, member m
 		WHERE
@@ -77,5 +77,15 @@
 		WHERE 
 			qno = #{qno}
 	</update>
+	
 
+	<update id="mobtn" parameterType="qVO">
+		UPDATE
+			qna
+		SET
+			qtt = #{qtt},
+            qip = #{qip}
+		WHERE 
+            qno = #{qno}
+	</update>
 </mapper>

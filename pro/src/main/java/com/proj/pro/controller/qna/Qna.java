@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -25,16 +26,14 @@ public class Qna {
 	// qna리스트 뷰 요청 처리
 	@RequestMapping("/qnaList.pro")
 	public ModelAndView qnalist(ModelAndView mv, PageUtil page, HttpSession session) {
-		int sid = (int) session.getAttribute("userId");
-			System.out.println(sid);
-			if(sid == 0) {
-				RedirectView rv = new RedirectView("/pro/login/loginList.pro");
-				mv.setView(rv);
-			} else {
-				if(page.getNowPage() == 0) {
-					page.setNowPage(1);
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null || sid.length() == 0) {
+			RedirectView rv = new RedirectView("/pro/login/loginList.pro");
+			mv.setView(rv);
+		} else {
+			if(page.getNowPage() == 0) {
+				page.setNowPage(1);
 			}
-			page.setNowPage(1);
 			int totalCount = qDAO.getCnt();
 			page.setPage(totalCount);
 			ArrayList<QnaVO> list = (ArrayList<QnaVO>)qDAO.getList(page);
@@ -96,6 +95,13 @@ public class Qna {
 		mv.setView(rv);
 		return mv;
 	}
-	
-	
+	@RequestMapping(value="/mobtnProc.pro", method=RequestMethod.POST, params= {"qtt","qip"})
+	public ModelAndView mobtnProc(ModelAndView mv, QnaVO qVO) {
+		RedirectView rv = new RedirectView("/pro/qna/qnaList.pro");
+	System.out.println(qVO);
+		int cnt = qDAO.mobData(qVO);
+		System.out.println(cnt);
+		mv.setView(rv);
+		return mv;
+	}
 }

@@ -18,12 +18,16 @@ $(document).ready(function(){
 	$('#delbtn').click(function(){
 	 
 	  $('#delfrm').attr('action','/pro/qna/qnaDelProc.pro');
-	  $('#delfrm').submit();
+	  $('#delfrm').submit()
 	});
 
 	// qnaWrite.jsp 기능처리
 	// qnaWrite -> qnalist 버튼 기능처리
 	$('#wcbtn').click(function(){
+		$(location).attr('href', '/pro/qna/qnaList.pro');
+	});
+	//관리자 글 취소 버튼 처리
+	$('#wdbtn').click(function(){
 		$(location).attr('href', '/pro/qna/qnaList.pro');
 	});
 	
@@ -58,7 +62,28 @@ $(document).ready(function(){
 	});
 	// 글 수정 버튼 기능처리
 		$('#modibtn').click(function(){
-			$('#qttin').attr('readonly', false);
-			$('#qip4').attr('readonly', false);
+		var updown = $('#modibtn').text();
+			if(updown === '글수정'){
+				$('#qttin').attr('readonly', false);
+				$('#qip4').attr('readonly', false);
+				$('#modibtn').text('수정완료');
+			}else{
+				var aa = $('#qttin').val();
+				var dd = $('#qip4').val();
+		
+				$('#qttinn').val(aa);
+				$('#qip7').val(dd);
+				
+				$('#modifrm').attr('action', '/pro/qna/mobtnProc.pro');
+				$('#modifrm').submit();
+				$('#modibtn').text('글수정');
+			}
+		
 		});
+	// 관리자 답변 등록버튼 기능처리
+		$("#ansbtn").click(function(){
+			alert('3333');
+			alert($('#myModal').attr('class'));
+			$('#myModal').modal("toggle");
+	});
 });

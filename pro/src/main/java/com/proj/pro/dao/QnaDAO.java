@@ -41,4 +41,7 @@ public class QnaDAO {
 		System.out.println(qno);
 		return sqlSession.update("qSQL.qnaDel", qno);
 	}
+	public int mobData(QnaVO qVO) {
+		return sqlSession.update("qSQL.mobtn", qVO);
+	}
 }

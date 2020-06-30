@@ -9,8 +9,11 @@
 <link rel="stylesheet" href="/pro/css/w3.css" />
 <link rel="stylesheet" href="/pro/css/qna.css" />
 <link rel="stylesheet" href="/pro/css/side.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
-<script type="text/javascript" src="/pro/js/qna.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 
 </style>
@@ -27,6 +30,11 @@
       <h2>물어봥</h2>
 		<form method="post" action="" id="delfrm">
 			<input type="hidden" name="qno" id="qno" value="${qno}"/>
+		</form>
+		<form method="post" action="" id="modifrm">
+			<input type="hidden" name="qno" id="qno" value="${qno}"/>
+			<input type="hidden" name="qtt" id="qttinn" value=""/>
+			<input type="hidden" name="qip" id="qip7" value=""/>
 		</form>
 		<table class="qnadetail">
 							<tr>
@@ -58,9 +66,9 @@
 									<input type="reset" value="취소" id="wcbtn">
 								</c:if>
 								<c:if test="${SID ne DETAIL.memid}">
-									<input type="submit" value="답변등록" id="ansbtn"> 
-									<input type="submit" value="글삭제" id="delbtn"> 
-									<input type="reset" value="취소" id="wcbtn">
+									<button type="button" class="btn btn-info btn-md" id="ansbtn">답변등록</button>								
+									<button class="bbtn" id="delbtn">글삭제</button>
+									<button class="cbtn" id="wdbtn">취소</button>
 								</c:if>
 							</td>
 						</c:if>
@@ -72,11 +80,31 @@
 								</td>
 							</c:if>
 						</c:if>
-						</tr>
+					</tr>
+
 			</table>
-		</div>
-			
+				
+		 <div class="modal fade" id="myModal" role="dialog" style="margin-top : 600px;">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Methods</h4>
+        </div>
+        <div class="modal-body">
+          <p>The toggle method toggles the modal manually.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
     </div>
+  </div>
+</div>
+	
  
  <!-- 오른쪽 공간 태그 -->
 <jsp:include page="/right.pro" flush="true" />
@@ -85,5 +113,7 @@
 	
 </div>
 
+<script type="text/javascript" src="/pro/js/qna.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
