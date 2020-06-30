@@ -5,7 +5,7 @@ $(document).ready(function(){
 		var ifn = $('#c_ifno').val();
 		
 		$.ajax({
-			url: '/pro/info/infoAC_Detail.pro',
+			url: '/pro/info/infoCT_Detail.pro',
 			type: 'post',
 			dataType: 'json',
 			data:{
@@ -27,7 +27,7 @@ function reList(){
 		var ifn = $('#c_ifno').val();
 			alert('여기는 삭제 후 리스트 :'+ifn);
 			$.ajax({
-				url: '/pro/info/infoAC_ReviewList.pro',
+				url: '/pro/info/infoCT_ReviewList.pro',
 				type: 'post',
 				dataType: 'json',
 				data:{
@@ -50,8 +50,6 @@ function reList(){
 									'</div>'+
 									'<a class="modbtn" value="'+obj[i].ifrno+'" id="modbtn">수정</a>'+
 									'<a class="delbtn" value="'+obj[i].ifrno+'" id="delbtn" onclick="remove()">삭제</a>'+
-									//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
-									//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
 									'</div>' +
 							'</div>' +
 							'<br>')
@@ -66,8 +64,6 @@ function reList(){
 									'<div>'+
 									'<span id="rrbd">'+ obj[i].ifrbd + '</span>'+
 									'</div>'+
-									//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
-									//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
 									'</div>'+
 							'</div>'+
 							'<br>')
@@ -92,7 +88,7 @@ $(document).on('click','.delbtn', function remove(){
 	cifno = $('#c_ifno').val();
 	alert('글삭제 cifno : ' + cifno);
 	$.ajax({
-		url:'/pro/info/infoAC_ReviewDel.pro',
+		url:'/pro/info/infoCT_ReviewDel.pro',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -135,7 +131,7 @@ $(document).on('click','.modbtn', function modi(){
 		$(this).text('수정');
 		
 		$.ajax({
-			url:'/pro/info/infoAC_ReviewMod.pro',
+			url:'/pro/info/infoCT_ReviewMod.pro',
 			type:'post',
 			dataType:'json',
 			data:{
@@ -169,7 +165,7 @@ $(document).on('click','.modbtn', function modi(){
 		var ifno = $(this).attr('id');
 		var cifno = $('#c_ifno').val(ifno);
 		$.ajax({
-			url: '/pro/info/infoAC_Detail.pro',
+			url: '/pro/info/infoCT_Detail.pro',
 			type: 'post',
 			dataType: 'json',
 			data:{
@@ -227,7 +223,7 @@ $(document).on('click','.modbtn', function modi(){
 			alert('리뷰뽑기 ajax');
 			
 			$.ajax({
-				url: '/pro/info/infoAC_ReviewList.pro',
+				url: '/pro/info/infoCT_ReviewList.pro',
 				type: 'post',
 				dataType: 'json',
 				data:{
@@ -251,8 +247,6 @@ $(document).on('click','.modbtn', function modi(){
 									'</div>'+
 									'<a class="modbtn" value="'+obj[i].ifrno+'" id="modbtn">수정</a>'+
 									'<a class="delbtn" value="'+obj[i].ifrno+'" id="delbtn" onclick="remove()">삭제</a>'+
-									//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
-									//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
 									'</div>' +
 							'</div>' +
 							'<br>')
@@ -267,8 +261,6 @@ $(document).on('click','.modbtn', function modi(){
 									'<div>'+
 									'<span><b>내용 : </b></span><span id="rbd'+obj[i].ifrno+'">'+ obj[i].ifrbd + '</span>'+
 									'</div>'+
-									//'<a href="/pro/sales/reviewDelete.pro?rno='+obj[i].rno+'&pno='+obj[i].pno+'">삭제</a>'+
-									//'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>'+
 									'</div>'+
 							'</div>'+
 							'<br>')
@@ -304,7 +296,7 @@ $(document).on('click','.modbtn', function modi(){
 		alert(rbd);
 		
 			$.ajax({
-				url: '/pro/info/infoAC_ReviewWrite.pro',
+				url: '/pro/info/infoCT_ReviewWrite.pro',
 				type: 'post',
 				dataType: 'json',
 				data:{
@@ -326,8 +318,6 @@ $(document).on('click','.modbtn', function modi(){
 							'<div>'+
 							'<span id="rrbd">내용 : '+ obj.ifrbd + '</span>'+
 							'</div>'+
-							//'<a class="modbtn" id="modbtn">수정</a>'+
-							//'<a class="delbtn" id="delbtn" onclick="remove()">삭제</a>'+
 							'</div>'+
 					'</div>'+
 					'<br>')

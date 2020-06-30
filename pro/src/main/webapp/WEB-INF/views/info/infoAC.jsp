@@ -109,9 +109,9 @@
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 	  
-	  $('td').click(function(){
-		 alert('맵동기'); 
-		 var ifno = $(this).attr('id');
+	  	 $('td').click(function(){
+			 alert('맵동기'); 
+			 var ifno = $(this).attr('id');
 		 
 		 $.ajax({
 			 url: '/pro/info/infoAC_Detail.pro',
@@ -174,5 +174,5 @@
 </div>
 
 </body>
-<script type="text/javascript" src="/pro/js/info_ajax.js"></script>
+<script type="text/javascript" src="/pro/js/info_ajax_ac.js"></script>
 </html>

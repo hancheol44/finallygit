@@ -16,7 +16,7 @@
 	});
 </script>
 <script type="text/javascript">
-
+// 소스 출처 : http://magic.wickedmiso.com/188
     document.addEventListener("DOMContentLoaded", function() {
 
 
