@@ -1,10 +1,13 @@
 package com.proj.pro.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.proj.pro.util.PageUtil;
 import com.proj.pro.vo.BoardVO;
 
 public class BoardDAO {
@@ -13,9 +16,16 @@ public class BoardDAO {
 
 	public BoardDAO() {
 	}
+	public void cnt(BoardVO bVO) {
+		sqlSession.update("bSQL.cnt", bVO);
+	}
 
-	public List getList() {
-		return sqlSession.selectList("bSQL.boardList");
+	public List getList(BoardVO bVO) {
+		return sqlSession.selectList("bSQL.boardList", bVO);
+	}
+	public List sList(BoardVO bVO) {
+
+		return sqlSession.selectList("bSQL.search",bVO);
 	}
 	
 	public BoardVO bDetail(BoardVO bVO) {
@@ -46,4 +56,5 @@ public class BoardDAO {
 		System.out.println("DAO" + bdno);
 		return sqlSession.selectList("bSQL.rest",bdno);
 	}
+	
 }

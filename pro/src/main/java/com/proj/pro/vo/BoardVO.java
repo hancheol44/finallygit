@@ -6,9 +6,12 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 
+import com.proj.pro.util.PageUtil;
+
 public class BoardVO {
 	private int bdno, memno, borino, vcnt, imgno, rno;
-	private String bdct, bdtt, bdbd, bdshow, today, name, memid;
+	private String bdct, bdtt, bdbd, bdshow, today, name, memid, type, input;
+	PageUtil paging;
 	private Date bDate;
 	private Time bTime;
 	public int getBdno() {
@@ -106,6 +109,32 @@ public class BoardVO {
 	public void setbTime(Time bTime) {
 		this.bTime = bTime;
 	}
-
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getInput() {
+		return input;
+	}
+	public void setInput(String input) {
+		this.input = input;
+	}
+	public PageUtil getPaging() {
+		return paging;
+	}
+	public void setPaging(PageUtil paging) {
+		this.paging = paging;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [bdno=" + bdno + ", memno=" + memno + ", borino=" + borino + ", vcnt=" + vcnt + ", imgno="
+				+ imgno + ", rno=" + rno + ", bdct=" + bdct + ", bdtt=" + bdtt + ", bdbd=" + bdbd + ", bdshow=" + bdshow
+				+ ", today=" + today + ", name=" + name + ", memid=" + memid + ", type=" + type + ", input=" + input
+				+ ", paging=" + paging + ", bDate=" + bDate + ", bTime=" + bTime + "]";
+	}
+	
+	
 	
 }

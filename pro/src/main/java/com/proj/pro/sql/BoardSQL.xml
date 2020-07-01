@@ -6,8 +6,30 @@
 
 
 <mapper namespace="bSQL">
-
-	<select id="boardList" resultType="bVO">
+	
+	<update id="cnt" parameterType="bVO">
+	UPDATE
+    	board
+	SET
+  	 	vcnt = vcnt+1
+	where
+   		bdno =#{bdno}
+	</update>
+	<select id="total">
+			SELECT 
+			   count(*) cnt 
+			FROM 
+			   board 
+			<where>
+				b.bdshow = 'Y' AND
+				bdct != '댓글'
+				<if test="bdct != null">
+					bdct = #{bdct}
+				</if>
+			</where>
+	</select>
+	
+	<select id="boardList" resultType="bVO" parameterType="bVO">
 		SELECT
 		rno, bdno, bdct, bdtt, name, today, vcnt
 		FROM
@@ -20,16 +42,33 @@
 		today, vcnt
 		FROM
 		board b, member m
-		WHERE
-		b.memno = m.memno AND
-		b.bdshow =
-		'Y' AND
-		bdct != '댓글'
+		<where>
+			b.memno = m.memno AND
+			b.bdshow = 'Y' AND
+			bdct != '댓글'
+		 	 <trim prefix="AND">
+					<choose>
+						<when test="bdct != null">
+							 bdct = #{bdct}
+						</when>
+						<when test="type == 'bdtt'">
+							 bdtt Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'bdbd'">
+							bdbd Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'name'">
+							name Like '%'||#{input}||'%' 
+						</when>
+					</choose>
+				</trim>
+		</where>
 		ORDER BY
 		bdno DESC
 		)
 		)
-		<!-- WHERE rno BETWEEN ? AND ? -->
+		 WHERE
+        rno BETWEEN #{startCont} AND #{endCont}
 	</select>
 	
 	<select id="boardDetail" resultType="bVO">
@@ -56,9 +95,9 @@
 	
 	<insert id="comment" parameterType="bVO">
 		insert into
-	   		 board(bdno,bdct, bdtt, bdbd, memno)
+	   		 board(bdno,bdct, bdtt, bdbd, memno, borino)
 		VALUES((SELECT NVL(MAX(bdno) + 1, 1000) FROM board), '댓글','댓글', #{bdbd},
-					(SELECT memno FROM MEMBER WHERE memid = #{memid}) )
+					(SELECT memno FROM MEMBER WHERE memid = #{memid}),#{borino} )
 	</insert>
 	
 
@@ -101,6 +140,43 @@
 		b.borino = #{bdno}
 		ORDER BY
 		bdno DESC
+	</select>
+	<select id="search" parameterType="bVO" resultType="bVO">
+		SELECT 
+		   rno, bdno, bdct, bdtt, name, today, vcnt 
+		FROM 
+		   ( 
+		   SELECT 
+		      ROWNUM rno, bdno, bdct, bdtt, name, today, vcnt 
+		   FROM 
+		      ( 
+		 SELECT 
+		  bdno, bdct, bdtt, name, today, vcnt 
+		 FROM 
+		    member m, board b 
+		 WHERE 
+		    b.memno = m.memno AND 
+		    b.bdshow = 'Y' AND 
+		    bdct != '댓글' 
+		   <trim prefix="AND">
+					<choose>
+						<when test="type == 'bdtt'">
+							 bdtt Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'bdbd'">
+							bdbd Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'name'">
+							name Like '%'||#{input}||'%' 
+						</when>
+					</choose>
+				</trim>
+		  ORDER BY 
+		    bdno DESC 
+		   ) 
+		)
+
+		
 	</select>
 
 </mapper>

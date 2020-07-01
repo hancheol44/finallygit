@@ -22,8 +22,8 @@
 }
 
 #searchForm {
-	max-width: 200px;
-	margin-left: 40%;
+	max-width: 100%;
+	
 }
 
 .tagbtn {
@@ -182,3 +182,8 @@ button:hover:before, button:hover:after {
 	text-align: left;
 	border: 2px solid green; 
 }
+#write{
+	margin-left: 48%;
+	
+}
+

@@ -25,12 +25,12 @@
 <jsp:include page="/left.pro" flush="true" />
 
 	<div class="centercolumn">
-			<input type="hidden" id="bno" name="bno" value="${bdno} ">
 		<c:if test="${empty bdno}">
 		<br> <b><font size="6" color="gray">글쓰기</font></b> <br>
 		</c:if><c:if test="${not empty bdno}">
 		<br> <b><font size="6" color="gray">수정하기</font></b> <br></c:if>
-		<form id="wfrm" method="post" action="/pro/board/boardWriteProc.pro">
+		<form id="wfrm" method="post" >
+			<input type="hidden" id="bdno" name="bdno" value="${bdno} ">
 			<table width="80%" border="3" bordercolor="lightgray" align="center">
 				<tr>
 					<td>작성자 :</td>
@@ -54,7 +54,7 @@
 				<tr align="center" valign="middle">
 					<td colspan="5"><input type="reset" id="hbtn" value="작성취소">
 					<c:if test="${empty EDIT.bdtt}"><button id="wbtn">등록</button></c:if> 
-						<c:if test="${not empty EDIT.bdtt}"><button id="ebtn">수정</button></c:if>
+						<c:if test="${not empty EDIT.bdtt}"><button id="edbtn">수정</button></c:if>
 						 <button id="bdh">목록</button></td>
 				</tr>
 			</table>

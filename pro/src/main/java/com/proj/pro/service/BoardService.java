@@ -1,11 +1,13 @@
 package com.proj.pro.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proj.pro.dao.BoardDAO;
+import com.proj.pro.util.PageUtil;
 import com.proj.pro.vo.BoardVO;
 
 
@@ -18,10 +20,36 @@ public class BoardService {
 	public void setbDAO(BoardDAO bDAO) {
 		this.bDAO = bDAO;
 	}
+	
+	public void cnt(BoardVO bVO) throws Exception{
+		int bdno = bVO.getBdno();
+		
+		bVO.setBdno(bdno);
+		bDAO.cnt(bVO);
+	}
 
 	// Board List
-	public List<BoardVO> getList() throws Exception {
-		return bDAO.getList();
+	public List<BoardVO> getList(BoardVO bVO) throws Exception {
+		String ct = bVO.getBdct();
+		String tp = bVO.getType();
+		String ip = bVO.getInput();
+		System.out.println(ct);
+		
+		bVO.setBdct(ct);
+		bVO.setType(tp);
+		bVO.setInput(ip);
+	
+		return bDAO.getList(bVO);
+	}
+	public List<BoardVO> sList(BoardVO bVO) throws Exception {
+		String ct = bVO.getType();
+		String ip = bVO.getInput();
+		
+		System.out.println(ct+ " : " + ip);
+		bVO.setType(ct);
+		bVO.setInput(ip);
+		
+		return bDAO.sList(bVO);
 	}
 	
 	// Board Detail
@@ -45,12 +73,16 @@ public class BoardService {
 		bDAO.write(bVO);
 		
 	}
-	public void comment(BoardVO bVO, String memid) throws Exception{
+	public BoardVO comment(BoardVO bVO, String memid) throws Exception{
 		String bd = bVO.getBdbd();
+		Integer borino = bVO.getBorino();
+		System.out.println(bd);
+		System.out.println(borino);
 		
 		bVO.setBdbd(bd);
 		bVO.setMemid(memid);
-		bDAO.comment(bVO);
+		bVO.setBorino(borino);
+		return bDAO.comment(bVO);
 	}
 	
 	// BOard Edit View
@@ -60,14 +92,14 @@ public class BoardService {
 	}
 	
 	// Board Edit
-	public void BoardEdit(BoardVO bVO, int bno) throws Exception{
+	public void BoardEdit(BoardVO bVO) throws Exception{
 		String ct = bVO.getBdct();
 		String tt = bVO.getBdtt();
 		String bd = bVO.getBdbd();
+		int bno = bVO.getBdno();
 		System.out.println("ct : " + ct);
 		System.out.println("tt : " + tt);
 		System.out.println("bd : " + bd);
-		System.out.println("no : " + bno);
 		bVO.setBdct(ct);
 		bVO.setBdtt(tt);
 		bVO.setBdbd(bd);

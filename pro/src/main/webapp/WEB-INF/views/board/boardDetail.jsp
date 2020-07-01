@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/pro/css/w3.css" />
 <link rel="stylesheet" href="/pro/css/board.css" />
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
+<script type="text/javascript" src="/pro/js/board_ajax.js"></script>
 <script type="text/javascript" src="/pro/js/board.js"></script>
 <script type="text/javascript">
 	
@@ -69,20 +70,20 @@
 			</tr>
 			</table>
 	</form>
-	<form id="cfrm" method="POST">
 		<div class="rtt">
-			<input type="hidden" id="borino" name="borino" formaction=""
-				value="${DATA.bdno}">
-			<textarea id="bdbd" name="bdbd" style="width: 100%" rows="3"
-				cols="50"></textarea>
+	<form id="cfrm" name ="cfrm">
+			<input type="hidden" id="borino" name="borino" value="${DATA.bdno}">
+			<textarea id="cbd" name="bdbd" style="width: 100%" rows="3" cols="50"></textarea>
+	</form>
 			<button id="comment" name="comment" style="height: 3em">댓글</button>
 		</div>
-	</form>
-	<jsp:include page="/board/reBoard.pro" flush="true">
-		<jsp:param name="bdno" value="${DATA.bdno}" />
-	</jsp:include>
-
+	<div class="rtt">
+		<div class="w3-center w3-green ">댓글 영역</div>
+		<div id ="reviewList">
+		</div>
+		
 	</div>
+
 </body>
 
 

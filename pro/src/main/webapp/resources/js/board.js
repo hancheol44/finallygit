@@ -1,7 +1,19 @@
 $(document).ready(function() {
-	
-	
 	// 글쓰기 이동
+	$('.btct').click(function() {
+		var bct = $(this).html();
+		alert(bct);
+		$('#bdct').val(bct);
+		$('#ct').attr('action', '/pro/board/board.pro');
+		$('#ct').submit();
+		
+		
+	});
+	$('#search').click(function() {
+		$('#searchForm').attr('action','/pro/board/search.pro');
+		$('#searchForm').submit();
+		
+	});
 	$('#write').click(function() {
 		$(location).attr('href', '/pro/board/boardWrite.pro');
 	});
@@ -13,7 +25,7 @@ $(document).ready(function() {
 		alert(typeof sno);
 		$('#bdno').val(sno);
 //		$('#nowPage').val('${PAGE.nowPage}');
-		$('#bdno').attr('action', '/pro/board/reBoard.pro');
+		$('#cfrm').attr('action', '/pro/board/cnt.pro');
 		$('#dfrm').attr('action', '/pro/board/boardDetail.pro');
 		$('#dfrm').submit();
 	});
@@ -37,6 +49,10 @@ $(document).ready(function() {
 		$('#wfrm').attr('action', '/pro/board/boardWriteProc.pro');
 		$('#wfrm').submit();
 	});
+	$('#edbtn').click(function() {
+		$('#wfrm').attr('action', '/pro/board/boardEditProc.pro');
+		$('#wfrm').submit();
+	});
 
 	$('#ebtn').click(function() {
 		$('#bno').attr('action', '/pro/board/boardEditProc.pro');
@@ -47,10 +63,6 @@ $(document).ready(function() {
 		$('#wfrm').attr('action', '/pro/board/boardEditProc.pro');
 		$('#wfrm').submit();
 	});
-	$('#comment').click(function() {
-		$('#cfrm').attr('action','/pro/board/boardComment.pro');
-		$('#cfrm').submit();
-		
-	});
+
 	
 });

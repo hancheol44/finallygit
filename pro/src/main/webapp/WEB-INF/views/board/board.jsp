@@ -28,11 +28,17 @@
 </head>
 
 <jsp:include page="/head.pro" flush="true" />
-<body >
-<jsp:include page="/left.pro" flush="true" />
+<body>
+	<jsp:include page="/left.pro" flush="true" />
 
 	<form action="GET" id="dfrm">
-		<input type="hidden" name="bdno" id="bdno"> 
+		<input type="hidden" name="bdno" id="bdno">
+	</form>
+	<form action="GET" id="cfrm">
+		<input type="hidden" name="bdno" id="bdno">
+	</form>
+	<form action="POST" id="ct">
+		<input type="hidden" name="bdct" id="bdct">
 	</form>
 
 	<div class="hmt centercolumn">
@@ -46,10 +52,14 @@
 
 			</div>
 			<div id="frbd">
-				<button>전체</button>
-				<button>공지</button>
-				<button>팁</button>
-				<button>이벤트</button>
+				<button class="btct">전체</button>
+				<button class="btct">공지</button>
+				<button class="btct">팁</button>
+				<button class="btct">이벤트</button>
+				<c:if test="${SID != null}">
+					<button id="write">글쓰기</button>
+				</c:if>
+
 			</div>
 			<div>
 				<table id="customers">
@@ -65,14 +75,14 @@
 					</tr>
 					</thred>
 					<c:forEach var="data" items="${LIST}">
-					<tr class="w3-text-gray content" id="${data.bdno}">
-						<td>${data.bdno}</td>
-						<td>${data.bdct}</td>
-						<td>${data.bdtt}</td>
-						<td>${data.name}</td>
-						<td>${data.today}</td>
-						<td>${data.vcnt}</td>
-					</tr>
+						<tr class="w3-text-gray cnt content" id="${data.bdno}">
+							<td>${data.bdno}</td>
+							<td>${data.bdct}</td>
+							<td>${data.bdtt}</td>
+							<td>${data.name}</td>
+							<td>${data.today}</td>
+							<td>${data.vcnt}</td>
+						</tr>
 					</c:forEach>
 				</table>
 				<br>
@@ -100,24 +110,19 @@
 						<span class="w3-bar-item  w3-border-left w3-light-gray ">NEXT</span>
 					</c:if>
 				</div>
-
-				<div style="width: 80%;" class="w3-center" id="searchForm">
-
-					<form method="post" action="" id="search">
-						<select name="condition" style="margin: 10px;">
-							<option value="bdtt">제목</option>
-							<option value="bdbd">내용</option>
-							<option value="name">글쓴이</option>
-						</select> <input type="text" size="20" name="input" style="margin: 10px;" /><input
-							id="serbtn" type="submit" value="search" style="margin: 10px;" />
-					</form>
-					<c:if test="${sessionScope.sessionID!=null}">
-					</c:if>
-					<button id="write">글쓰기</button>
-				</div>
+				<form id="searchForm" method="POST" >
+					<select style="width:7em;" name="type">
+						<option value="bdtt">제목</option>
+						<option value="bdbd">내용</option>
+						<option value="name">글쓴이</option>
+					</select> 
+					<input style="width: 30%  type="text" size="20" name="input"/>
+					<button style="width: 7em;" id="search" name="search">검색</button>
+				</form>
 			</div>
-		</div>
+
+			</div>
 	</div>
-<jsp:include page="/right.pro" flush="true" />
+	<jsp:include page="/right.pro" flush="true" />
 </body>
 </html>
