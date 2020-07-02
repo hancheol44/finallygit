@@ -15,18 +15,32 @@
 	where
    		bdno =#{bdno}
 	</update>
-	<select id="total">
+	
+	<select id="getTotal" resultType="int" parameterType="bVO">
 			SELECT 
 			   count(*) cnt 
 			FROM 
 			   board 
 			<where>
-				b.bdshow = 'Y' AND
-				bdct != '댓글'
-				<if test="bdct != null">
-					bdct = #{bdct}
-				</if>
-			</where>
+			bdshow = 'Y' AND
+			bdct != '댓글'
+		 	 <trim prefix="AND">
+					<choose>
+						<when test="bdct != null">
+							 bdct = #{bdct}
+						</when>
+						<when test="type == 'bdtt'">
+							 bdtt Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'bdbd'">
+							bdbd Like '%'||#{input}||'%' 
+						</when>
+						<when test="type == 'name'">
+							name Like '%'||#{input}||'%' 
+						</when>
+					</choose>
+				</trim>
+		</where>
 	</select>
 	
 	<select id="boardList" resultType="bVO" parameterType="bVO">
@@ -67,8 +81,6 @@
 		bdno DESC
 		)
 		)
-		 WHERE
-        rno BETWEEN #{startCont} AND #{endCont}
 	</select>
 	
 	<select id="boardDetail" resultType="bVO">

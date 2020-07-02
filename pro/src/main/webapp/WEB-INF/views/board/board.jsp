@@ -52,7 +52,7 @@
 
 			</div>
 			<div id="frbd">
-				<button class="btct">전체</button>
+				<button onclick="location.href='/pro/board/board.pro'">전체</button>
 				<button class="btct">공지</button>
 				<button class="btct">팁</button>
 				<button class="btct">이벤트</button>

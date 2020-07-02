@@ -19,12 +19,13 @@ public class BoardDAO {
 	public void cnt(BoardVO bVO) {
 		sqlSession.update("bSQL.cnt", bVO);
 	}
-
+	public int getTotal(BoardVO bVO) {
+		return sqlSession.selectOne("bSQL.getTotal",bVO );
+	}
 	public List getList(BoardVO bVO) {
 		return sqlSession.selectList("bSQL.boardList", bVO);
 	}
 	public List sList(BoardVO bVO) {
-
 		return sqlSession.selectList("bSQL.search",bVO);
 	}
 	

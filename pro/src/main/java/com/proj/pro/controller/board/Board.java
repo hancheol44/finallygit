@@ -34,12 +34,11 @@ public class Board {
 	
 	@RequestMapping(value = "/board.pro", method =RequestMethod.GET)
 	public ModelAndView getList(ModelAndView mv, BoardVO bVO) throws Exception {
+
 		String view = "board/board";
-	
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
-		int totalCount = list.size();
 		mv.addObject("LIST", list);
-		System.out.println(totalCount);
+		System.out.println(list.size());
 		mv.setViewName(view);
 		return mv;
 	}
@@ -48,7 +47,6 @@ public class Board {
 		String view = "board/board";
 		System.out.println("서칭");
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
-
 		mv.addObject("LIST", list);
 		System.out.println(list.size());
 		mv.setViewName(view);
@@ -109,8 +107,8 @@ public class Board {
 	
 	@RequestMapping(value = "/boardEditProc.pro", method = RequestMethod.POST)
 	public String editProc(BoardVO bVO, HttpSession session) throws Exception{
-		return "redirect:board.pro";
 		service.BoardEdit(bVO);
+		return "redirect:board.pro";
 	}
 	@RequestMapping(value = "/boardDelete.pro", method = RequestMethod.GET, params = "bdno")
 	public String Delete(int bdno) throws Exception{

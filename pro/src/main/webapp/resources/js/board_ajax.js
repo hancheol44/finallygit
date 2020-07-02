@@ -9,14 +9,11 @@ $('#comment').click(function reOK() {
 			type: 'POST',
 			dataType: 'json',
 			data: param,
-			success: function(obj){
-				$('#reviewTitle').val('');
-				$('#reviewArea').val('');
-//						reList();
-						$('#reviewList').prepend('<div class="w3-left reBoard ">'+
-								'<div>'+obj.name+'</div>'+
-								'<div>'+obj.bdbd+'</div>'+
-								'<div>'+obj.today+'</div>'+
+			success: function(data){
+			prepend('<div class="w3-left reBoard ">'+
+								'<div>'+param.name+'</div>'+
+								'<div>'+param.bdbd+'</div>'+
+								'<div>'+param.today4+'</div>'+
 								'</div>')
 			},
 			error: function(request,status,erro){

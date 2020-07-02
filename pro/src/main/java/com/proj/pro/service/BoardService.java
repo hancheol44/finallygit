@@ -2,6 +2,7 @@ package com.proj.pro.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,20 @@ public class BoardService {
 	public void setbDAO(BoardDAO bDAO) {
 		this.bDAO = bDAO;
 	}
+	public int getTotal(BoardVO bVO) throws Exception{
+		
+		String ct = bVO.getBdct();
+		String tp = bVO.getType();
+		String ip = bVO.getInput();
+		System.out.println(ct);
+		
+		bVO.setBdct(ct);
+		bVO.setType(tp);
+		bVO.setInput(ip);
+	
+		
+		return bDAO.getTotal(bVO);
+	}
 	
 	public void cnt(BoardVO bVO) throws Exception{
 		int bdno = bVO.getBdno();
@@ -30,10 +45,13 @@ public class BoardService {
 
 	// Board List
 	public List<BoardVO> getList(BoardVO bVO) throws Exception {
+
+
 		String ct = bVO.getBdct();
 		String tp = bVO.getType();
 		String ip = bVO.getInput();
-		System.out.println(ct);
+		
+		System.out.println(ct+ " : " + ip);
 		
 		bVO.setBdct(ct);
 		bVO.setType(tp);

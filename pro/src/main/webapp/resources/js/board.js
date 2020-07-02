@@ -2,7 +2,6 @@ $(document).ready(function() {
 	// 글쓰기 이동
 	$('.btct').click(function() {
 		var bct = $(this).html();
-		alert(bct);
 		$('#bdct').val(bct);
 		$('#ct').attr('action', '/pro/board/board.pro');
 		$('#ct').submit();
