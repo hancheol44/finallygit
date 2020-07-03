@@ -77,4 +77,19 @@
 			WHERE
 				memno = #{memno}
 		</update>
+		
+		<select id="salList" resultType="sVO">
+			SELECT
+				pno, ptt, m.name, m.memno, today, lcnt, p.isshow
+			FROM
+				promotion p, member m 
+			WHERE
+				m.memno = #{memno}
+				AND m.memno = p.memno
+		    	AND p.isshow = 'Y'
+		    ORDER BY
+		    	today desc
+		</select>
+		
+		
 </mapper>

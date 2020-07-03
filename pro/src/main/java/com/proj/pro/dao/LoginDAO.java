@@ -1,12 +1,12 @@
 package com.proj.pro.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.proj.pro.vo.LoginVO;
+import com.proj.pro.vo.SalesVO;
 
 
 public class LoginDAO {
@@ -46,6 +46,10 @@ public class LoginDAO {
 	
 	public int busiInfo(LoginVO lVO) {
 		return sqlSession.update("lSQL.busiInfo", lVO);
+	}
+	
+	public List SalList(SalesVO sVO) {
+		return sqlSession.selectList("lSQL.salList", sVO);
 	}
 	
 }

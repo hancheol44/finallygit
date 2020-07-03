@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.proj.pro.dao.LoginDAO;
 import com.proj.pro.vo.LoginVO;
+import com.proj.pro.vo.SalesVO;
 
 @Controller
 @RequestMapping("/kakao")
@@ -111,15 +112,18 @@ public class kakaoController {
 	
 	// 마이페이지 폼 처리
 	@RequestMapping(value="/myPage.pro")
-	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
+	public ModelAndView myPage(HttpSession session, ModelAndView mv, SalesVO sVO) {
 		int memno = (int) session.getAttribute("userId");
 		ArrayList<LoginVO> list = (ArrayList<LoginVO>)lDAO.getList(memno);
-		
+		sVO.setMemno(memno);
+		ArrayList<SalesVO> list1 = (ArrayList<SalesVO>)lDAO.SalList(sVO);
+		mv.addObject("SAL", list1);
 		mv.addObject("LIST", list);
 		mv.setViewName("login/myPage");
 		return mv;
 	}
 	
+	// 회원 정보 수정 처리
 	@RequestMapping("/eidtInfoProc.pro")
 	public ModelAndView editInfo(HttpSession session, ModelAndView mv,LoginVO lVO) {
 		
@@ -134,6 +138,7 @@ public class kakaoController {
 		return mv;
 	}
 	
+	// 사업자 정보 수정 처리
 	@RequestMapping("/busiInfoProc.pro")
 	public ModelAndView busiInfo(HttpSession session, ModelAndView mv, LoginVO lVO) {
 		
@@ -143,7 +148,23 @@ public class kakaoController {
 		RedirectView rv = new RedirectView("/pro/main.pro");
 		mv.setView(rv);
 		return mv;
-		
 	}
+	
+	// 좋아요 리스트 보기
+	@RequestMapping("/salListProc.pro")
+	public ModelAndView salList(HttpSession session, ModelAndView mv, SalesVO sVO) {
+		int memno = (int) session.getAttribute("userId");
+		try {
+			String view = "/pro/main.pro";
+			sVO.setMemno(memno);
+			ArrayList<SalesVO> list = (ArrayList<SalesVO>)lDAO.SalList(sVO);
+			mv.addObject("SAL", list);
+			mv.setViewName(view);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
 	
 }

@@ -8,6 +8,7 @@
 <title></title>
 <link rel="stylesheet" href="/pro/css/w3.css" />
 <link rel="stylesheet" href="/pro/css/qna.css" />
+<link rel="stylesheet" href="/pro/css/sales.css" />
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
@@ -166,7 +167,7 @@
 			          <div class="w3-row" style="margin-top: 30px;">
 			      		<p style="display:inline; font-size: 20px;"> 닉네임  : &nbsp; </p><input type="text" style="width: 370px; height:40px;" name="name" id="name" value="${LIST[0].name}" />
 			          </div>
-			        <button type="submit" class="w3-button w3-right w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-right" id="btn1">완료</button>
+			        <button type="submit" class="w3-button w3-center w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-left: 218px;" id="btn1">완료</button>
 			      </div>
 			    </div>
 			  </div>
@@ -174,7 +175,94 @@
     		</div>
     		
     	<div class="sh_group">
-    	
+    		<div class="sh_header">
+    			<h2> 내 게시글 좋아요 </h2>
+    			<div class="sh-content">
+    				<h2> 팝니다,물어봥,놀러왕</h2>
+    			</div>
+    		</div>
+    		<div class="w3-container">
+			  <button onclick="document.getElementById('id03').style.display='inline'" type="button" class="w3-button w3-green"  style="width: 60px; height: 40px; margin-top: 30px;" id="btn5">보기</button>
+			  
+			
+			  <div id="id03" class="w3-modal">
+			    <div class="w3-modal-content" style="width:1000px; height:600px; margin-top: 50px;">
+			      <div class="w3-container">
+						  <div class="pro w3-center">
+							<h4>게시글 정보</h4>
+						</div>
+			        <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+						    <div class="" style="background-color: white; padding: 20px; margin-top: 20px; margin-left: -16px; width: 1000px;">
+						      <div>
+							  </div>
+									<table id="saList">
+									  <tr>
+									  	<th id="pno">no</th>
+									    <th id="ptt">제목</th>
+									    <th id="name">작성자</th>
+									    <th id="today">작성일</th>
+									    <th id="lcnt">좋아요</th>
+									  </tr>
+									  <c:forEach var="data" items="${SAL}">
+										  <tr class="salesList" id="${data.pno}" value="${data.memid}">
+										  	<td>${data.pno}</td>
+										  	<td>${data.ptt}</td>
+										  	<td>${data.name}</td>
+										  	<td>${data.today}</td>
+										  	<td>${data.lcnt}</td>
+										  </tr>
+									  <div id="sales_memid" value="${data.memid}"></div>
+									  </c:forEach>
+									</table>
+									
+									
+									<!-- 페이징 처리 부분 -->
+									<div class="w3-center" style="margin-top: 5px;">
+										<div class="w3-bar w3-border">
+											<c:if test="${PAGE.startPage lt (PAGE.pageGroup + 1) }">
+												<span class="w3-bar-item w3-light-gray">PRE</span>
+											</c:if>
+											<c:if test="${PAGE.startPage ge (PAGE.pageGroup + 1) }">
+												<span class="w3-bar-item pgbt w3-button w3-hover-blue pbtn"
+													id="${PAGE.preNo}">PRE</span>
+											</c:if>
+											<c:forEach var="pageNo" begin="${PAGE.startPage}"
+												end="${PAGE.endPage}">
+												<span
+													class="w3-bar-item pgbt w3-border-left w3-button w3-hover-blue pbtn">${pageNo}</span>
+											</c:forEach>
+											<c:if test="${PAGE.endPage ne PAGE.totalPage}">
+												<span
+													class="w3-bar-item pgbt w3-border-left w3-button w3-hover-blue pbtn"
+													id="${PAGE.nextNo}">NEXT</span>
+											</c:if>
+											<c:if test="${PAGE.endPage eq PAGE.totalPage}">
+												<span class="w3-bar-item  w3-border-left w3-light-gray ">NEXT</span>
+											</c:if>
+										</div>
+										<!-- 페이징 처리 부분 끝 -->
+										
+										<c:if test="${sessionScope.sessionID!=null}">
+										</c:if>
+						
+										<div style="width: 100%;" class="w3-center" id="searchForm">
+												<select name="condition" style="margin: 10px; height: 28px;">
+													<option value="bdtt">제목</option>
+													<option value="bdbd">내용</option>
+													<option value="name">글쓴이</option>
+												</select> 
+												<input type="text" size="20" name="input" style="margin: 10px;" />
+												<input id="serbtn" type="submit" value="search" style="margin: 10px;" />
+										</div>
+									</div>
+									
+						    </div>
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+    		
     	</div>
     	<div class="sh_group">
     	
@@ -208,7 +296,7 @@
 			          <div class="w3-row" style="margin-top: 30px;">
 			      		<p style="display:inline; font-size: 20px;"> 사업자 주소  : &nbsp; </p><input type="text" style="width: 323px; height:40px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
 			          </div>
-			        <button type="submit" class="w3-button w3-right w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-right" id="btn4">완료</button>
+			        <button type="submit" class="w3-button w3-center w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-left: 218px;" id="btn4">완료</button>
 			      </div>
 			    </div>
 			  </div>
