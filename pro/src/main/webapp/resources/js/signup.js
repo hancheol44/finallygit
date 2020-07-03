@@ -6,11 +6,11 @@ var animating; //flag to prevent quick multi-click glitches
 
 //이메일 체크 정규식
 
-function isEmail(id) {
+function isEmail(memid) {
 
 	var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-	return regExp.test(id); // 형식에 맞는 경우 true 리턴	
+	return regExp.test(memid); // 형식에 맞는 경우 true 리턴	
 
 }
 
@@ -22,7 +22,7 @@ return name.test(na);
 
 // 핸드폰번호 정규식
 	function isPhone(ph) {
-var phone = /(^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})$/;
+var phone = ( /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3" );;
 
 return phone.test(ph);
 }
@@ -33,12 +33,9 @@ var bir = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 return bir.test(bi);
 }
 
+	
 //회원가입 아이디 정규식 처리
 $('.submit').click(function() {
-  	  var name = $('#name').val();
-  	  var phone = $('#phone').val();
-  	  var birth = $('#birth').val();
-  	 
     $('.msform').submit();
     alert('회원가입을 축하합니다.');
 });

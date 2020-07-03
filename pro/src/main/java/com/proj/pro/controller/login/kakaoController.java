@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -96,5 +97,53 @@ public class kakaoController {
 		return mv;
 	}
 	
+	// 아이디 체크
+	@RequestMapping("id.ck")
+	@ResponseBody
+	public ModelAndView idcheck(HttpSession session, ModelAndView mv) {
+		
+		String sid = (String) session.getAttribute("SID");
+		
+		int cnt = lDAO.idCheck(sid);
+		
+		return mv;
+	}
+	
+	// 마이페이지 폼 처리
+	@RequestMapping(value="/myPage.pro")
+	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
+		int memno = (int) session.getAttribute("userId");
+		ArrayList<LoginVO> list = (ArrayList<LoginVO>)lDAO.getList(memno);
+		
+		mv.addObject("LIST", list);
+		mv.setViewName("login/myPage");
+		return mv;
+	}
+	
+	@RequestMapping("/eidtInfoProc.pro")
+	public ModelAndView editInfo(HttpSession session, ModelAndView mv,LoginVO lVO) {
+		
+		String sid = (String) session.getAttribute("SID");
+		System.out.println(sid);
+		int memno = (int) session.getAttribute("userId");
+		System.out.println(lVO);
+		lVO.setMemno(memno);
+		lDAO.eidtInfo(lVO);
+		RedirectView rv = new RedirectView("/pro/main.pro");
+		mv.setView(rv);
+		return mv;
+	}
+	
+	@RequestMapping("/busiInfoProc.pro")
+	public ModelAndView busiInfo(HttpSession session, ModelAndView mv, LoginVO lVO) {
+		
+		int memno = (int) session.getAttribute("userId");
+		lVO.setMemno(memno);
+		lDAO.busiInfo(lVO);
+		RedirectView rv = new RedirectView("/pro/main.pro");
+		mv.setView(rv);
+		return mv;
+		
+	}
 	
 }

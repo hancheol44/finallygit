@@ -44,7 +44,7 @@ function chk(){
   <fieldset>
     <h2 class="fs-title">Consent to membership</h2>
     <h3 class="fs-subtitle">Accept the terms</h3>
-    <textarea rows="20" cols="150" name="textarea1">가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
+    <textarea rows="20" cols="150" name="textarea" id="textarea">가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
 		회원가입
 		- 이름, 생년월일, 성별, 아이디, 비밀번호, 별명, 연락처(메일주소, 휴대폰 번호 중 선택), 가입인증정보
 		만14세 미만 아동 회원가입
@@ -71,16 +71,17 @@ function chk(){
 		   <input type="checkbox" name="req"> 개인정보 수집 및 이용에 동의합니다.
 		   <br>
 		   <hr>
-    <input type="button" name="next1" onclick="chk()" class="next action-button" value="Next1" />
+    <input type="button" name="next" onclick="chk()" class="next action-button" value="Next" />
   </fieldset>
   <fieldset>
     <h2 class="fs-title">Create your account</h2>
     <h3 class="fs-subtitle">This is step 1</h3>
-    <input type="hidden" name="memno" value="${userId}" />
-    <input type="email" name="memid" placeholder="Email" />
-    <input type="text" name="name" placeholder="UserName" />
-    <input type="text" name="phone" placeholder="Phone (010-xxxx-xxxx)" />
-    <input type="text" name="membir" placeholder="birth (19xx-xx-xx)" />
+    
+    <input type="hidden" name="memno" id="memno" value="${userId}" />
+    <input type="email" name="memid" id="memid" placeholder="* Email" />
+    <input type="text" name="name" id="name" placeholder="* UserName" />
+    <input type="text" name="phone" id="phone" placeholder="* Phone (010-xxxx-xxxx)" />
+    <input type="text" name="membir" id="membir" placeholder="* birth (19xx-xx-xx)" />
 			
             <select name="carno" style="width: 500px; height: 51px;">
                            <option value="1" id="ab1">소형</option>
@@ -98,10 +99,10 @@ function chk(){
   <fieldset>
     <h2 class="fs-title">Business registration</h2>
     <h3 class="fs-subtitle">Your Business InFomation</h3>
-    <input type="text" name="bno" placeholder="Business Number" />
-    <input type="text" name="bname" placeholder="Store Name" />
-    <input type="text" name="bloc" placeholder="Store address" />
-    <!-- <input type="button" name="previous" class="previous action-button" value="Previous" /> -->
+    <input type="text" name="bno" id="bno" placeholder="Business Number" />
+    <input type="text" name="bname" id="bname" placeholder="Store Name" />
+    <input type="text" name="bloc" id="bloc" placeholder="Store address" />
+    <input type="button" name="previous" class="previous action-button" value="Previous" />
     <input type="submit" name="submit" id="submit" class="submit action-button" value="Submit" />
   </fieldset>
   

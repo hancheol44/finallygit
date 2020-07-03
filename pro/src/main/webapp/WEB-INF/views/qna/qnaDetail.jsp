@@ -75,6 +75,7 @@
 						<c:if test="${SID ne 'sej0267@naver.com'}">
 							<c:if test="${SID eq DETAIL.memid}">
 								<td colspan="5">
+									<button type="button" id="ansbtn">답변등록</button>								
 									<button class="obtn" id="modibtn" >글수정</button>
 									<button class="pbtn" id="wcbtn">취소</button>
 								</td>

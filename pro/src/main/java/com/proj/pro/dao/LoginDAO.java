@@ -35,7 +35,17 @@ public class LoginDAO {
 	public String sid(int memno) {
 		return sqlSession.selectOne("lSQL.kakasid", memno);
 	}
-	 
+	
+	public int eidtInfo(LoginVO lVO) {
+		return sqlSession.update("lSQL.editInfo", lVO);
+	}
 
+	public List getList(int memno) {
+		return sqlSession.selectList("lSQL.selInfo", memno);
+	}
+	
+	public int busiInfo(LoginVO lVO) {
+		return sqlSession.update("lSQL.busiInfo", lVO);
+	}
 	
 }

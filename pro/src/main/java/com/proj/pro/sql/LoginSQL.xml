@@ -47,4 +47,34 @@
 		</select>
 		
 		
+		<update id="editInfo" parameterType="lVO">
+			UPDATE
+				member
+			SET
+				memid = #{memid},
+				phone = #{phone},
+				name = #{name}
+			WHERE
+				memno = #{memno}
+		</update>
+		
+		<select id = "selInfo" resultType ="lVO" parameterType="int">
+			SELECT
+				memid, phone, name, bno, bname , bloc
+			FROM
+				member
+			WHERE
+				memno = #{memno}
+		</select>
+		
+		<update id="busiInfo" parameterType="lVO">
+			UPDATE
+				member
+			SET
+				bno = #{bno},
+				bname = #{bname},
+				bloc = #{bloc}
+			WHERE
+				memno = #{memno}
+		</update>
 </mapper>

@@ -103,7 +103,7 @@
 	ul {
 		list-style-type: none;
 		max-width: 65em;
-		width: calc(100% - 8em);
+		width: calc(120% - 5em);
 		margin: 0 auto;
 		position: relative;
 		margin-left: 20em;
