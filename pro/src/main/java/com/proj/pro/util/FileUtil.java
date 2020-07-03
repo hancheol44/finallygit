@@ -38,26 +38,14 @@ public class FileUtil {
       }
       return oldName;
    }
- /*
-   public MultipartFile[] setArr(MultipartFile[] file) {
-      MultipartFile[] tmp = null;
-      List<MultipartFile> list = (List<MultipartFile>) Arrays.asList(file);
-      for(int i = 0; i < file.length; i++) {
-         if(list.get(i) == null) list.remove(i);
-      }
-      tmp = (MultipartFile[])list.toArray();
-      return tmp;
-   }
-  */
+ // savename 만들기
    public static String getSavename(HttpSession session, MultipartFile file, String folder) {
       String savename = null;
       String filePath = session.getServletContext().getRealPath("resources") + "/" + folder;
       
          String oriname = file.getOriginalFilename();
-         System.out.println("util.oriname : " + oriname);
          if(oriname != null) {
             savename = getUUID(oriname);
-            System.out.println("util.savename : " + savename);
          }
          try {
             File refile = new File(filePath, savename);
@@ -68,7 +56,7 @@ public class FileUtil {
          }
       return savename;
    }
-   
+   // 랜덤이름 만들기
    public static String getUUID(String oriname) {
 	   UUID uuid = UUID.randomUUID();
 	   String savename = uuid.toString()+"_"+oriname;

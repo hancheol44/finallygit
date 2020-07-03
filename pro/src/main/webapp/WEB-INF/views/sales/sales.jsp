@@ -22,55 +22,51 @@
 <body>
 <div class="row">
  <jsp:include page="/left.pro" flush="true" />
-  
   <!-- 가운데 영역 (주내용 담길 곳) -->
-	<form method="get" action="" id="frm">
-		<input type="hidden" name="pno" id="pno">
-		<!-- <input type="hidden" name="memid" id="memid"> -->
-	</form>
-	<form method="post" action="/pro/sales/sales_bcnt.pro" id="frm1">
-		<input type="hidden" name="bpno" id="bpno">
-	</form>
-	<form method="post" action="/pro/sales/sales_review.pro" id="frm2">
-		<input type="hidden" name="rpno" id="rpno">
-	</form>
+<!-- 디테일 뽑는 폼태그 -->
+<form method="get" action="" id="frm">
+	<input type="hidden" name="pno" id="pno">
+</form>
+<!-- 조회수 폼태그 -->
+<form method="post" action="/pro/sales/sales_bcnt.pro" id="frm1">
+	<input type="hidden" name="bpno" id="bpno">
+</form>
 	
-	<input type="hidden" id="sid" name="memid" value="${SID}">
+<input type="hidden" id="sid" name="memid" value="${SID}">
 	
   <div class="centercolumn w3-center">
     <div class="card">
       <h2>팝니당</h2>
       <div>
-      <c:if test="${not empty SID}">
-		<button id="write">글쓰기</button>
-      </c:if>
+	      <c:if test="${not empty SID}">
+			<button id="write">글쓰기</button>
+	      </c:if>
 	  </div>
 			<table id="saList">
-			  <tr>
-			    <th id="rno">NO</th>
-			    <th id="limg">썸네일</th>
-			    <th id="ptt">제목</th>
-			    <th id="bceo">작성자</th>
-			    <th id="today">작성일</th>
-			    <th id="bcnt">좋아요</th>
-			    <th id="bcnt">조회수</th>
-			  </tr>
-			  <c:forEach var="data" items="${LIST}">
-				  <tr class="salesList" id="${data.pno}" value="${data.memid}">
-				  	<td>${data.rno}</td>
-				  	<td><img id="rimg" src="/pro/upload/${data.savename}"></td>
-				  	<td>${data.ptt}</td>
-				  	<td>${data.bceo}</td>
-				  	<td>${data.today}</td>
-				  	<td>${data.lcnt}</td>
-				  	<td>${data.bcnt}</td>
+				<tr>
+					<th id="rno">NO</th>
+					<th id="limg">썸네일</th>
+					<th id="ptt">제목</th>
+					<th id="bceo">작성자</th>
+					<th id="today">작성일</th>
+					<th id="bcnt">좋아요</th>
+					<th id="bcnt">조회수</th>
+				</tr>
+				<c:forEach var="data" items="${LIST}">
+					<tr class="salesList" id="${data.pno}" value="${data.memid}">
+					  	<td>${data.rno}</td>
+					  	<td><img id="rimg" src="/pro/upload/${data.savename}"></td>
+					  	<td>${data.ptt}</td>
+					  	<td>${data.name}</td>
+					  	<td>${data.today}</td>
+					  	<td>${data.lcnt}</td>
+					  	<td>${data.bcnt}</td>
 				  </tr>
-			  <div id="sales_memid" value="${data.memid}"></div>
+				  <div id="sales_memid" value="${data.memid}"></div>
 			  </c:forEach>
-			</table>
-			
-			
+		  </table>
 			<!-- 페이징 처리 부분 -->
+		<!-- 
 			<div class="w3-center" style="margin-top: 5px;">
 				<div class="w3-bar w3-border">
 					<c:if test="${PAGE.startPage lt (PAGE.pageGroup + 1) }">
@@ -96,10 +92,8 @@
 				</div>
 				<!-- 페이징 처리 부분 끝 -->
 				
-				<c:if test="${sessionScope.sessionID!=null}">
-				</c:if>
-
 				<div style="width: 100%;" class="w3-center" id="searchForm">
+				<!-- 검색 데이터 보내기 폼태그 -->
 					<form method="post" action="" id="search">
 						<select name="condition" style="margin: 10px; height: 28px;">
 							<option value="bdtt">제목</option>
@@ -111,9 +105,8 @@
 					</form>
 				</div>
 			</div>
-			
     </div>
-  </div>
+</div>
   
 <jsp:include page="/right.pro" flush="true" />
 

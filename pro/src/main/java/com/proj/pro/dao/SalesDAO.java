@@ -54,6 +54,10 @@ public class SalesDAO {
 	public int reDelete(SalesVO sVO) {
 		return sqlSession.update("sSQL.reDelete", sVO);
 	}
+	// review edit
+	public int reEdit(SalesVO sVO) {
+		return sqlSession.update("sSQL.reEdit", sVO);
+	}
 	// sales add image
 	public int saImage(FileVO fVO) {
 		return sqlSession.insert("sSQL.saImage", fVO);
@@ -76,6 +80,7 @@ public class SalesDAO {
 	public void disLike(SalesVO sVO) {
 		sqlSession.update("sSQL.dislike", sVO);
 	}
+	// 좋아요 아이디 체크
 	public String likeCheck(SalesVO sVO) {
 		return sqlSession.selectOne("sSQL.likecheck", sVO);
 	}

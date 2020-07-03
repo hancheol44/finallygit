@@ -20,15 +20,12 @@
 </head>
 <jsp:include page="/head.pro" flush="true" />
 <body>
-
-	<form method="post" action="" id="frm" enctype="multipart/form-data">
-		<input type="hidden" id="memid" name="memid">
-		<input type="hidden" id="ptt" name="ptt">
-		<input type="hidden" id="cate" name="cate">
-		<input type="hidden" id="pbd" name="pbd">
-		<!-- <div style="dispaly:none>;">
-		<input type="file" id="file" name=file">
-		</div> -->
+<!-- 글쓰기 데이터 보낼 폼태그 -->
+<form method="post" action="" id="frm" enctype="multipart/form-data">
+	<input type="hidden" id="memid" name="memid">
+	<input type="hidden" id="ptt" name="ptt">
+	<input type="hidden" id="cate" name="cate">
+	<input type="hidden" id="pbd" name="pbd">
 <div>
 <jsp:include page="/left.pro" flush="true" />
   <!-- 가운데 영역 (주내용 담길 곳) -->
@@ -58,7 +55,8 @@
 				</tr>
 				<tr>
 					<td >내 용</td>
-					<td><textarea id="pbd_write"></textarea>
+					<td>
+						<textarea id="pbd_write"></textarea>
 					</td>
 				</tr>
 			</table>

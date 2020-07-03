@@ -3,6 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sSQL">
+	<!-- 팝니당 게시판 리스트 조회 -->
 	<select id="saList" resultType="sVO">
 		SELECT
 		    rno, pno, ptt, name, today, bcnt, memid, lcnt, savename
@@ -19,6 +20,7 @@
 				ORDER BY
 					today desc) e) ee
 	</select>
+	<!-- 팝니당 게시판 게시글 디테일 조회 -->
 	<select id="saDetail" resultType="sVO" >
 		SELECT
 		    p.pno, ptt, pbd, name, bno, TO_CHAR(p.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, bloc, cate, m.memid, bname,
@@ -31,6 +33,7 @@
 		    AND p.memno = m.memno(+) AND p.isshow = 'Y'
 		    AND p.pno = #{pno}
 	</select>
+	<!-- 팝니당 게시판 게시글 쓰기 -->
 	<insert id="saWrite" parameterType="sVO">
 		INSERT INTO
 			promotion(pno, ptt, memno, pbd, cate)
@@ -41,14 +44,16 @@
 			#{pbd}, #{cate}
 			)
 	</insert>
+	<!-- 팝니당 게시판 게시글 삭제 -->
 	<update id="saDelete" parameterType="int">
 		UPDATE
 			promotion
 		SET
-			pshow = 'N'
+			isshow = 'N'
 		WHERE
 			pno = #{pno}
 	</update>
+	<!-- 팝니당 게시판 게시글 수정 -->
 	<update id="saEdit" parameterType="sVO">
 		UPDATE
 			promotion
@@ -59,6 +64,7 @@
 		WHERE
 			pno = #{pno}
 	</update>
+	<!-- 팝니당 게시판 게시글 조회수 -->
 	<update id="saBcnt" parameterType="int">
 		UPDATE
 			promotion
@@ -67,6 +73,7 @@
 		WHERE
 			pno = #{pno}
 	</update>
+	<!-- 리뷰 작성 -->
 	<insert id="reWrite" parameterType="sVO">
 			INSERT INTO
 			    review(rno, pno, rtt, rbd, memno, rst)
@@ -77,6 +84,7 @@
 			    #{rst}
 			)
 	</insert>
+	<!-- 리뷰 리스트 조회 -->
 	<select id="reList" parameterType="int" resultType="sVO">
 		SELECT
 			ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename
@@ -105,6 +113,18 @@
 			 		today
 			 	) ee
 	</select>
+	<!-- 리뷰 글 수정 -->
+	<update id="reEdit">
+		UPDATE
+			review
+		SET
+			rtt = #{rtt},
+			rbd = #{rbd},
+			rst = #{rst}
+		WHERE
+			rno = #{rno}
+	</update>
+	<!-- 리뷰 글 삭제 -->
 	<update id="reDelete" parameterType="sVO">
 		UPDATE
 	        review	
@@ -113,7 +133,7 @@
 	    WHERE
 	        rno = #{rno}
 	</update>
-	
+	<!-- 게시글 이미지  파일 첨부 -->
 	<insert id="saImage">
 		INSERT INTO
 			image(imgno, oriname, savename, pno)
@@ -122,6 +142,7 @@
 			#{oriname}, #{savename}, (SELECT NVL(MAX(pno), 10000000) FROM promotion)
 		)
 	</insert>
+	<!-- 리뷰 이미지 파일 첨부 -->
 	<insert id="reImage">
 		INSERT INTO
 			image(imgno, oriname, savename, rno)		
@@ -131,6 +152,7 @@
 			(SELECT NVL(MAX(rno), 100000) FROM review)
 		)
 	</insert>
+	<!-- 좋아요 아이디 중복 체크 -->
 	<select id="likecheck" resultType="string" parameterType="sVO">
 		SELECT
 		    m.memid
@@ -144,6 +166,7 @@
 		    m.memno = p.memno
 			
 	</select>
+	<!-- 좋아요 테이블에 데이터 추가 -->
 	<insert id="like">
 		INSERT INTO
 		    plike(lno, pno, memno)
@@ -152,6 +175,7 @@
 		    #{pno}, (SELECT memno FROM member WHERE memid=#{memid})
 		    )
 	</insert>
+	<!-- 팝니당 글 테이블 좋아요 컬럼 수 증가 -->
 	<update id="likeup">
 		UPDATE
 		    promotion
@@ -160,6 +184,7 @@
 		WHERE
 		    pno = #{pno}
 	</update>
+	<!-- 팝니당 글 테이블 좋아요 컬럼 수 감소 -->
 	<update id="likedown">
 		UPDATE
 		    promotion
@@ -168,14 +193,7 @@
 		WHERE
 		    pno = #{pno}
 	</update>
-	<!-- <update id="dislike">
-		UPDATE
-		    plike
-		SET
-		    isshow = 'N'
-		WHERE
-		    pno = #{pno}
-	</update> -->
+	<!-- 좋아요 테이블 데이터 삭제(좋아요 취소) -->
 	<delete id="dislike">
 		DELETE FROM 
 		    plike
@@ -184,5 +202,4 @@
 		    AND
 		    memno = (SELECT memno FROM member WHERE memid=#{memid})
 	</delete>
-	
 </mapper>

@@ -52,9 +52,13 @@ public class SalesService {
 	public List reList(int pno) throws Exception {
 		return sDAO.reList(pno);
 	}
-	// Review Delete
-	public int reDelete(SalesVO sVO) throws Exception{
+	// Review Delete(ajax)
+	public int reDelete(SalesVO sVO) throws Exception {
 		return sDAO.reDelete(sVO);
+	}
+	// Review Edit(ajax)
+	public int reEdit(SalesVO sVO) throws Exception {
+		return sDAO.reEdit(sVO);
 	}
 	// Sales Image Add
 	public int saImage(FileVO fVO, HttpSession session) {
@@ -72,7 +76,7 @@ public class SalesService {
 		}
 		return sDAO.saImage(fVO);
 	}
-	// Review Image Add
+	// Review Image Add(ajax)
 	public int reImage(SalesVO sVO, HttpSession session) {
 		try {
 			MultipartFile file = sVO.getFile();
@@ -87,6 +91,7 @@ public class SalesService {
 		}
 		return sDAO.reImage(sVO);
 	}
+	// 좋아요 아이디 체크(ajax)
 	public SalesVO likeCheck(SalesVO sVO) {
 		String vo = sDAO.likeCheck(sVO);
 		System.out.println("vo : " + vo);
@@ -101,6 +106,7 @@ public class SalesService {
 		}
 		return sVO;
 	}
+	/*
 	public String likeck(SalesVO sVO) {
 		String svo = sDAO.likeCheck(sVO);
 		System.out.println("ser.svo : " + svo);
@@ -113,4 +119,5 @@ public class SalesService {
 		System.out.println("result : " + result);
 		return result;
 	}
+	*/
 }

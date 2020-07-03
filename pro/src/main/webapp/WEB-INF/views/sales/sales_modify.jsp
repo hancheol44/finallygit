@@ -24,12 +24,14 @@
 <div>
 <jsp:include page="/left.pro" flush="true" />
   <!-- 가운데 영역 (주내용 담길 곳) -->
+  <!-- 글 수정 데이터를 보낼 폼태그 -->
 	<form method="post" action="" id="frm">
 		<input type="hidden" id="epno" name="pno">
 		<input type="hidden" id="eptt" name="ptt">
 		<input type="hidden" id="epbd" name="pbd">
 		<input type="hidden" id="ecate" name="cate">
 	</form>
+	
 		<input type="hidden" id="pno" value="${DATA.pno}">
 		<input type="hidden" id="ptt" value="${DATA.ptt}">
 		<input type="hidden" id="pbd" value="${DATA.pbd}">
@@ -45,23 +47,26 @@
 				<tr>
 					<td>분 류</td>
 					<td>
-					<div>
-						<select id="cate_saWrite">
-							<option value="eat">음식점
-							<option value="cth">자동차극장
-							<option value="atc">캠핑장
-							<option value="etc">기타
-						</select>
-					</div>
+						<div>
+							<select id="cate_saWrite">
+								<option value="eat">음식점
+								<option value="cth">자동차극장
+								<option value="atc">캠핑장
+								<option value="etc">기타
+							</select>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>제 목</td>
-					<td><input id="ptt_saWrite" type="text" value="${DATA.ptt}"/></td>
+					<td>
+						<input id="ptt_saWrite" type="text" value="${DATA.ptt}"/>
+					</td>
 				</tr>
 				<tr>
 					<td >내 용</td>
-					<td><textarea id="pbd_write">${DATA.pbd}</textarea>
+					<td>
+						<textarea id="pbd_write">${DATA.pbd}</textarea>
 					</td>
 				</tr>
 			</table>

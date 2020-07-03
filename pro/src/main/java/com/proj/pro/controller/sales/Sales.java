@@ -30,7 +30,7 @@ public class Sales {
 	@Inject
 	private SalesService service;
 	
-	// sales list page
+	// Sales List Page
 	@RequestMapping("/sales.pro")
 	public ModelAndView getList(ModelAndView mv) {
 		try {
@@ -43,15 +43,8 @@ public class Sales {
 		}
 		return mv;
 	}
-//	
-//	@RequestMapping("/sales.pro")
-//	public ModelAndView getList(ModelAndView mv) {
-//			String view = "sales/sales";
-//				ArrayList<SalesVO> list = (ArrayList<SalesVO>) sDAO.getSaList();
-//		return mv;
-//	}
 	
-	// sales detail page
+	// Sales Detail Page
 	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.GET)
 	public ModelAndView saDetail(ModelAndView mv, SalesVO sVO) {
 		try {
@@ -59,7 +52,6 @@ public class Sales {
 			service.saBcnt(sVO.getPno());
 			SalesVO vo = service.saDetail(sVO);
 //			String vv = service.likeck(sVO);
-//			System.out.println("detail.sVO : " + sVO.toString());
 			mv.addObject("DATA", vo);
 			mv.addObject("PNO", sVO.getPno());
 		} catch (Exception e) {
@@ -68,14 +60,14 @@ public class Sales {
 		return mv;
 	}
 	
-	// sales write page
+	// Sales Write View Page
 	@RequestMapping("/sales_write.pro")
 	public String saWrite() {
 		String view ="sales/sales_write";
 		return view;
 	}
 	
-	// sales write action
+	// Sales Write Action
 	@RequestMapping(value="/sales_write.pro", method=RequestMethod.POST)
 //	@ResponseBody
 	public ModelAndView saWriteProc(SalesVO sVO, ModelAndView mv, FileVO fVO,  HttpSession session) {
@@ -90,7 +82,6 @@ public class Sales {
 				service.saWrite(sVO);
 				RedirectView rv = new RedirectView("/pro/sales/sales.pro");
 				mv.setView(rv);
-//					return mv;
 				}
 				service.saImage(fVO, session);
 		} catch (Exception e) {
@@ -98,7 +89,7 @@ public class Sales {
 		}
 		return mv;
 	}
-	// sales delete
+	// Sales Delete
 	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.POST, params= {"spno"})
 	public ModelAndView saDelete(int spno, ModelAndView mv, SalesVO sVO) {
 		try {
@@ -113,7 +104,7 @@ public class Sales {
 		}
 		return mv;
 	}
-	// sales edit page
+	// Sales Edit Page
 	@RequestMapping(value="/sales_modify.pro", method=RequestMethod.POST, params= {"pno", "ptt", "pbd", "cate"})
 	public ModelAndView saEdit(int pno, String ptt, String pbd, String cate, SalesVO sVO, ModelAndView mv) {
 		try {
@@ -125,7 +116,7 @@ public class Sales {
 		}
 		return mv;
 	}
-	// sales edit redirectview
+	// Sales Edit RedirectView
 	@RequestMapping(value="/sales_modifyProc.pro", method=RequestMethod.POST, params= {"pno", "ptt", "pbd", "cate"})
 	public ModelAndView saEditProc(int pno, String ptt, String pbd, String cate, SalesVO sVO, ModelAndView mv) {
 		try {
@@ -138,12 +129,12 @@ public class Sales {
 		}
 		return mv;
 	}
-	// review add(ajax)
+	// Review Add(ajax)
 	@RequestMapping(value="/sales_review.pro", method=RequestMethod.POST)
 	@ResponseBody
 	public SalesVO reWrite(SalesVO sVO, @RequestParam("file")MultipartFile file, HttpSession session, ModelAndView mv) {
 		try {
-			String view = "sales/sales_inside";
+//			String view = "sales/sales_inside";
 			service.reWrite(sVO);
 			if(sVO.getRbd() != null) {
 				String ii = file.getOriginalFilename();
@@ -156,22 +147,21 @@ public class Sales {
 		}
 		return sVO;
 	}
-	// review List(ajax)
+	// Review List(ajax)
 	@RequestMapping("/reviewList.pro")
 	@ResponseBody
 	public ArrayList<SalesVO>  reList(ModelAndView mv,SalesVO sVO, int pno) throws Exception {
 		ArrayList<SalesVO> list = (ArrayList<SalesVO>)service.reList(pno);
-			mv.addObject("LIST", list);
+		mv.addObject("LIST", list);
 		return list;
 	}
-	// review delete
+	// Review Delete(ajax)
 	@RequestMapping(value="/reviewDelete.pro", method=RequestMethod.POST, params= {"rno"})
 	@ResponseBody
 	public Map reDelete(ModelAndView mv, int rno, SalesVO sVO) {
 			String view = null;
 			int cnt = 0;
 			Map<String, Object> map = new HashMap<String, Object>();
-//			ArrayList<SalesVO> list = null;
 		try {
 			view="sales/sales_inside";
 			cnt =  service.reDelete(sVO);
@@ -182,7 +172,25 @@ public class Sales {
 		}
 		return map;
 	}
-	
+	// Review Edit(ajax)
+	@RequestMapping(value="/reviewEdit.pro", method=RequestMethod.POST)
+	@ResponseBody
+	public Map reEdit(ModelAndView mv, SalesVO sVO, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int cnt = 0;
+		try {
+			cnt = service.reEdit(sVO);
+			if(cnt == 1) {
+				service.reImage(sVO, session);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		map.put("result", cnt);
+		return map;
+	}
+	// Like Check(ajax)
 	@RequestMapping(value="/likeCheck.pro", method=RequestMethod.POST)
 	@ResponseBody
 	public SalesVO like(SalesVO sVO) {

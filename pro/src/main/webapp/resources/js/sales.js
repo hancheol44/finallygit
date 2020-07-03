@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 //	$('#burger1').click(function(){
 //		var memid = $('#burger').attr('value');
 //		var sid = $('#asid').attr('value');
@@ -107,36 +108,7 @@ $(document).ready(function(){
 		$('#frm').submit();
 	});*/
 	$('#file_saWrite').change(function(e){
-//	profileView.addEventListener('change', function(e){
-		
 		var profile = e.target.files;
-		
 		console.log(profile);
-//	});
-		
 	}); 
-	
 });
-
-
-/*
-$(document).on('click','#save', function imgadd(){
-	var file = $('#file_saWrite').val();
-	var profile = e.target.files;
-	alert("file : " + file + " / type : " + typeof file);
-	$.ajax({
-		url: '/pro/sales/sales_write.pro',
-		type: 'post',
-		dataType: 'json',
-		data:{
-			'file' : profile
-		},
-		success: function(obj){
-			alert("업로드 성공");
-		},
-		error: function(){
-			alert("실패");
-		}
-	});
-});
-*/
