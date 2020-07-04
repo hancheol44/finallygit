@@ -1,15 +1,67 @@
 $(document).ready(function(){
-	// 리뷰 작성 후 카운트
-	function reviewCount(){
-		alert('리뷰 카운트 왔니?');
+	// 좋아요 처리 후 카운트
+	function likeCount(){
 		var ifn = $('#c_ifno').val();
-		
+		var memid = $('#sid').val();
+		var clike = (this).val();
+		// 카테고리 주소값 가져오기
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		alert('좋아요 후처리 왔니??');
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_Detail.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_Detail.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_Detail.pro';
+		}
+		alert('좋아요 후 처리');
 		$.ajax({
-			url: '/pro/info/infoCT_Detail.pro',
+			url: infourl,
 			type: 'post',
 			dataType: 'json',
 			data:{
-				'ifno':ifn
+				'ifno':ifn,
+				'memid':memid
+			},
+			success: function(obj){
+				$('#like').val(clike);
+				alert('좋아요 후처리 : '+clike);
+				if(clike == 0){
+					$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
+				} else {
+					$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
+				}
+			},
+			error: function(){
+				alert('리뷰카운트 전송실패');
+			}
+		});
+		
+	}	
+	
+	// 리뷰 작성 후 카운트
+	function reviewCount(){
+		var ifn = $('#c_ifno').val();
+		var memid = $('#sid').val();
+		// 카테고리 주소값 가져오기
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_Detail.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_Detail.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_Detail.pro';
+		}
+		
+		$.ajax({
+			url: infourl,
+			type: 'post',
+			dataType: 'json',
+			data:{
+				'ifno':ifn,
+				'memid':memid
 			},
 			success: function(obj){
 				alert(obj.ifrcnt);
@@ -25,22 +77,30 @@ $(document).ready(function(){
 // 글 삭제후 리스트 다시 호출	
 function reList(){
 		var ifn = $('#c_ifno').val();
-			alert('여기는 삭제 후 리스트 :'+ifn);
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_ReviewList.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_ReviewList.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_ReviewList.pro';
+		}
 			$.ajax({
-				url: '/pro/info/infoCT_ReviewList.pro',
+				url: infourl,
 				type: 'post',
 				dataType: 'json',
 				data:{
 					'ifno':ifn
 				},
 				success: function(obj){
-					alert('리뷰뽑기 성공!!!');
 					var len = obj.length;
 					for(var i = 0 ; i < len ; i++){
 						if(id === obj[i].memid){
 							$('#reviewList').prepend('<div id="remove_point">'+
 									'<div value="gdgdgd" id="rlist'+obj[i].ifno+'" class="line">'+
 									'<div>'+
+									'<span><b>작성일 : <span id="rdate">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
 									'<span id="rname">작성자 : '+ obj[i].memid + '</span><br>'+
 									'<span id="rrtt">'+ obj[i].ifrtt + '</span>'+
@@ -57,6 +117,7 @@ function reList(){
 							$('#reviewList').prepend('<div id="remove_point">'+
 									'<div id="rlist'+obj[i].ifno+'" class="line">'+
 									'<div>'+
+									'<span><b>작성일 : <span id="rrst">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
 									'<span id="rname">작성자 : '+ obj[i].ifname + '</span><br>'+
 									'<span id="rrtt">'+ obj[i].ifrtt + '</span>'+
@@ -84,11 +145,22 @@ function reList(){
 	// 글 삭제 ajax 클릭시
 $(document).on('click','.delbtn', function remove(){
 	var ifrno = $(this).attr('value');
-	alert('여기??'+ifrno);
 	cifno = $('#c_ifno').val();
-	alert('글삭제 cifno : ' + cifno);
+	
+	// 카테고리 주소값 가져오기
+	var url = window.location.href;
+	var urlArray = url.split("/");
+	// CT, AC, DT 구별 위한 인덱스 가져오기
+	if(urlArray[5] === 'infoCT.pro'){
+		var infourl ='/pro/info/infoCT_ReviewDel.pro';
+	} else if(urlArray[5] === 'infoAC.pro'){
+		infourl ='/pro/info/infoAC_ReviewDel.pro';
+	} else if(urlArray[5] === 'infoDT.pro'){
+		infourl ='/pro/info/infoDT_ReviewDel.pro';
+	}
+	
 	$.ajax({
-		url:'/pro/info/infoCT_ReviewDel.pro',
+		url: infourl,
 		type:'post',
 		dataType:'json',
 		data:{
@@ -112,7 +184,6 @@ $(document).on('click','.delbtn', function remove(){
 });
 
 
-
 // 글 수정
 $(document).on('click','.modbtn', function modi(){
 	var ifrno = $(this).attr('value');
@@ -130,8 +201,19 @@ $(document).on('click','.modbtn', function modi(){
 		
 		$(this).text('수정');
 		
+		// 카테고리 주소값 가져오기
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_ReviewMod.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_ReviewMod.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_ReviewMod.pro';
+		}
+		
 		$.ajax({
-			url:'/pro/info/infoCT_ReviewMod.pro',
+			url: infourl,
 			type:'post',
 			dataType:'json',
 			data:{
@@ -155,21 +237,31 @@ $(document).on('click','.modbtn', function modi(){
 		});
 	}
 	
-	
 });
 
-	
-	// 자동차캠핑 상세보기 ajax
-	$('td').click(function(){
-		alert('비동기');
+	// 리스트목록 상세보기 ajax
+	$('td').click(function (){
 		var ifno = $(this).attr('id');
+		var memid = $('#sid').val();
 		var cifno = $('#c_ifno').val(ifno);
+		// 카테고리 주소값 가져오기
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_Detail.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_Detail.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_Detail.pro';
+		}
+		alert(infourl);
 		$.ajax({
-			url: '/pro/info/infoCT_Detail.pro',
+			url: infourl,
 			type: 'post',
 			dataType: 'json',
 			data:{
-				'ifno':ifno
+				'ifno':ifno,
+				'memid':memid
 			},
 			success: function(obj){
 				var name = obj.ifname;
@@ -178,7 +270,9 @@ $(document).on('click','.modbtn', function modi(){
 				var price = obj.ifpri;
 				var link = obj.iflink;
 				var strp = obj.ifrst;
-				
+				var like = obj.iflike;
+				var clike = obj.clike;
+				alert(clike);
 				if(strp == 5){
 					$('#strpoint').html('★★★★★');
 				} else if(strp == 4){
@@ -193,11 +287,18 @@ $(document).on('click','.modbtn', function modi(){
 					$('#strpoint').html(' ');
 				}
 				
+				$('#like').val(clike);
+				if(clike == 0){
+					$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
+				} else {
+					$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
+				}
 				$('#ifrcnt').text('('+obj.ifrcnt+')');
 				$('#acname').html(name);
 				$('#actel').html(tel);
 				$('#acaddr').html(addr);
 				$('#acpri').html(price);
+				$('#likecnt').html(like);
 				$('#hplink').attr('href', link);
 				$('#search').attr('href','https://map.kakao.com/link/search/' + addr);
 				$('.detail_card').css('display', '');
@@ -205,10 +306,10 @@ $(document).on('click','.modbtn', function modi(){
 				$('#addReview').text('리뷰작성');
 				$('#reviewList *').remove();
 				$('#rWrite').css('display','none');
-				
+				$('#infoct').val(obj.ifct);
 			},
 			error: function(request, error){
-				alert('### 통신에러 ###');
+				alert('### Detail 통신에러 ###');
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
@@ -220,17 +321,26 @@ $(document).on('click','.modbtn', function modi(){
 		var ifn = $('#c_ifno').val();
 		var id = $('#sid').val();
 		if(btnname === '닫기'){
-			alert('리뷰뽑기 ajax');
+			
+			// 카테고리 주소값 가져오기
+			var url = window.location.href;
+			var urlArray = url.split("/");
+			if(urlArray[5] === 'infoCT.pro'){
+				var infourl ='/pro/info/infoCT_ReviewList.pro';
+			} else if(urlArray[5] === 'infoAC.pro'){
+				infourl ='/pro/info/infoAC_ReviewList.pro';
+			} else if(urlArray[5] === 'infoDT.pro'){
+				infourl ='/pro/info/infoDT_ReviewList.pro';
+			}
 			
 			$.ajax({
-				url: '/pro/info/infoCT_ReviewList.pro',
+				url: infourl,
 				type: 'post',
 				dataType: 'json',
 				data:{
 					'ifno':ifn
 				},
 				success: function(obj){
-					alert('리뷰뽑기 성공!!!');
 					var len = obj.length;
 					
 					for(var i = 0 ; i < len ; i++){
@@ -238,8 +348,9 @@ $(document).on('click','.modbtn', function modi(){
 							$('#reviewList').prepend('<div id="remove_point">'+
 									'<div id="rlist'+obj[i].ifrno+'" class="line">'+
 									'<div>'+
+									'<span><b>작성일 : <span id="rdate">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
-									'<span id="rname">작성자 : '+ obj[i].memid + '</span><br>'+
+									'<span id="rname">작성자 : '+ obj[i].name + '</span><br>'+
 									'<span><b>제목 : </b></span><span id="rtt'+obj[i].ifrno+'">'+ obj[i].ifrtt + '</span>'+
 									'</div>'+
 									'<div>'+
@@ -254,6 +365,7 @@ $(document).on('click','.modbtn', function modi(){
 							$('#reviewList').prepend('<div id="remove_point">'+
 									'<div id="rlist'+obj[i].ifrno+'" class="line">'+
 									'<div>'+
+									'<span><b>작성일 : <span id="rrst">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
 									'<span id="rname">작성자 : '+ obj[i].memid + '</span><br>'+
 									'<span><b>제목 : </b></span><span id="rtt'+obj[i].ifrno+'">'+ obj[i].ifrtt + '</span>'+
@@ -265,38 +377,39 @@ $(document).on('click','.modbtn', function modi(){
 							'</div>'+
 							'<br>')
 						}
-							
 					}
-					
 				},
 				error: function(){
 					alert('리뷰뽑기 통신실패');
 				}
 			});
 		} else {
-			alert('리뷰닫아!!');
 			$('#reviewList *').remove();
 		}
-		
 	
 	});
 	
 	// 리뷰 작성 ajax 처리
 	$('#inputreview').click(function(){
-		alert('리뷰씁니다');
 		var ifno = $('#c_ifno').val();
 		var strp = $('#rstSelect').val();
 		var rtt = $('#rett').val();
 		var rbd = $('#rebd').val();
 		var sid = $('#sid').val();
-		alert(ifno);
-		alert(sid);
-		alert(strp);
-		alert(rtt);
-		alert(rbd);
+		
+		// 카테고리 주소값 가져오기
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			var infourl ='/pro/info/infoCT_ReviewWrite.pro';
+		} else if(urlArray[5] === 'infoAC.pro'){
+			infourl ='/pro/info/infoAC_ReviewWrite.pro';
+		} else if(urlArray[5] === 'infoDT.pro'){
+			infourl ='/pro/info/infoDT_ReviewWrite.pro';
+		}
 		
 			$.ajax({
-				url: '/pro/info/infoCT_ReviewWrite.pro',
+				url: infourl,
 				type: 'post',
 				dataType: 'json',
 				data:{
@@ -307,10 +420,10 @@ $(document).on('click','.modbtn', function modi(){
 					'memid': sid
 				},
 				success: function(obj){
-					alert(obj.memid);
 					$('#reviewList').prepend('<div id="remove_point">'+
 							'<div id="rlist'+obj.ifno+'" class="line">'+
 							'<div>'+
+							'<span><b>작성일 : <span id="rrst">'+ obj.rdate + '</span></b></span><br>'+
 							'<span><b>평점 : <span id="rrst">'+ obj.ifrst + '</span></b></span><br>'+
 							'<span id="rname">작성자 : '+ obj.memid + '</span><br>'+
 							'<span id="rrtt">제목 : '+ obj.ifrtt + '</span>'+
@@ -330,6 +443,41 @@ $(document).on('click','.modbtn', function modi(){
 			});
 			reList(); // 리뷰 목록 다시 불러오는 함수
 			reviewCount(); //리뷰 카운트 다시 불러오는 함수
+	});
+	
+	// 좋아요 관련 처리 ajax
+	$('img').click(function(){
+		alert('좋아요 ajax 처리');
+		var clike = $(this).val();
+		var ifno = $('#c_ifno').val();
+		var sid = $('#sid').val();
+		var ifct = $('#infoct').val();
+		alert('ifct : '+ifct);
+		alert('clike : ' +clike + '   ifno : '+ifno +'    sid : ' + sid);
+		
+			$.ajax({
+				url:'/pro/info/infoLike.pro',
+				type:'post',
+				dataType:'json',
+				data:{
+					'ifno':ifno,
+					'memid':sid,
+					'ifct':ifct
+				},
+				success: function(obj){
+					$('#like').val(obj.clike);
+					if(clike == 1){
+						$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
+					} else {
+						$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
+					}
+					$('#likecnt').html(obj.iflike);
+					alert('좋아요!');
+				},
+				error: function(){
+					alert('좋아요 통신실패ㅜ')
+				}
+			});
 	});
 	
 });

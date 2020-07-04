@@ -4,13 +4,27 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 
 public class InfoVO {
-	private String memid ,ifct, ifname, ifshow, iftel, ifpri, ifaddr, iflink, ifrtt, ifrbd, rdate, name;
-	private int ifno, ifmno, ifrno, ifrst, ifrcnt;	
+	private String memid, ifct, ifname, ifshow, iftel, ifpri, ifaddr, iflink, ifrtt, ifrbd, rdate, name;
+	private int ifno, ifmno, ifrno, ifrst, ifrcnt, iflike, clike;	
 	private Date redate;
 	private Time retime;
 	
 	
 	
+	
+	
+	public int getClike() {
+		return clike;
+	}
+	public void setClike(int clike) {
+		this.clike = clike;
+	}
+	public int getIflike() {
+		return iflike;
+	}
+	public void setIflike(int iflike) {
+		this.iflike = iflike;
+	}
 	public String getMemid() {
 		return memid;
 	}
@@ -136,15 +150,12 @@ public class InfoVO {
 	// VO클래스의 데이터 유뮤 체크를 하기 위해 
 	@Override
 	public String toString() {
-		return "InfoVO [ifct=" + ifct + ", ifname=" + ifname + ", ifshow=" + ifshow + ", iftel=" + iftel + ", ifpri="
-				+ ifpri + ", ifaddr=" + ifaddr + ", iflink=" + iflink + ", ifrtt=" + ifrtt + ", ifrbd=" + ifrbd
-				+ ", rdate=" + rdate + ", ifno=" + ifno + ", ifmno=" + ifmno + ", ifrno=" + ifrno + ", ifrst=" + ifrst
-				+ ", ifrcnt=" + ifrcnt + ", redate=" + redate + "]";
+		return "InfoVO [memid=" + memid + ", ifct=" + ifct + ", ifname=" + ifname + ", ifshow=" + ifshow + ", iftel="
+				+ iftel + ", ifpri=" + ifpri + ", ifaddr=" + ifaddr + ", iflink=" + iflink + ", ifrtt=" + ifrtt
+				+ ", ifrbd=" + ifrbd + ", rdate=" + rdate + ", name=" + name + ", ifno=" + ifno + ", ifmno=" + ifmno
+				+ ", ifrno=" + ifrno + ", ifrst=" + ifrst + ", ifrcnt=" + ifrcnt + ", iflike=" + iflike + ", clike="
+				+ clike + "]";
 	}
-	
-	
-	
-	
 	
 	
 }

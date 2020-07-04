@@ -21,8 +21,8 @@ public class InfoService {
 	}
 	
 	// InfoAC Detail
-	public InfoVO getAC_Detail(int ifno) throws Exception {
-		return iDAO.getAC_Detail(ifno);
+	public InfoVO getAC_Detail(InfoVO iVO) throws Exception {
+		return iDAO.getAC_Detail(iVO);
 	}
 	
 	// infoAC Review List
@@ -45,35 +45,43 @@ public class InfoService {
 		return iDAO.modAC_Review(iVO);
 	}
 	
+	public List<InfoVO> getAC_Addr(InfoVO iVO) throws Exception{
+		return iDAO.getACAddr(iVO);
+	}
+	
 	// 자동차 극장
-	// InfoAC List
+	// InfoCT List
 		public List<InfoVO> getCT_List() throws Exception {
 			return iDAO.getCTList();
 		}
 		
-		// InfoAC Detail
-		public InfoVO getCT_Detail(int ifno) throws Exception {
-			return iDAO.getCT_Detail(ifno);
+		// InfoCT Detail
+		public InfoVO getCT_Detail(InfoVO iVO) throws Exception {
+			return iDAO.getCT_Detail(iVO);
 		}
 		
-		// infoAC Review List
+		// infoCT Review List
 		public List<InfoVO> getCT_Review_List(int ifno) throws Exception {
 			return iDAO.getCT_Review_List(ifno);
 		}
 		
-		// InfoAC Review Write
+		// InfoCT Review Write
 		public int addCT_Review_Write(InfoVO iVO) throws Exception {
 			return iDAO.addCT_Review(iVO);
 		}
 		
-		// InfoAC Review Del
+		// InfoCT Review Del
 		public int delCT_Review(int ifrno) throws Exception {
 			return iDAO.delCT_Review(ifrno);
 		}
 		
-		// InfoAC Review Modi
+		// InfoCT Review Modi
 		public int modCT_Review(InfoVO iVO) throws Exception{
 			return iDAO.modCT_Review(iVO);
+		}
+		
+		public List<InfoVO> getCT_Addr(InfoVO iVO) throws Exception{
+			return iDAO.getCTAddr(iVO);
 		}
 		
 		
@@ -86,8 +94,8 @@ public class InfoService {
 			}
 			
 			// InfoDT Detail
-			public InfoVO getDT_Detail(int ifno) throws Exception {
-				return iDAO.getDT_Detail(ifno);
+			public InfoVO getDT_Detail(InfoVO iVO) throws Exception {
+				return iDAO.getDT_Detail(iVO);
 			}
 			
 			// infoDT Review List
@@ -108,5 +116,54 @@ public class InfoService {
 			// InfoDT Review Modi
 			public int modDT_Review(InfoVO iVO) throws Exception{
 				return iDAO.modDT_Review(iVO);
+			}
+			
+
+			public List<InfoVO> getDT_Addr(InfoVO iVO) throws Exception{
+				return iDAO.getDTAddr(iVO);
+			}
+			
+			
+			// Info Like 처리 서비스
+			public InfoVO likeproc(InfoVO iVO) throws Exception {
+				System.out.println("service vo : "+iVO);
+		
+				if(iVO.getIfct().equals("ctt")) {
+					System.out.println("자동차 극장");
+					iVO = iDAO.getCT_Detail(iVO);
+				} else if(iVO.getIfct().equals("acp")) {
+					System.out.println("자동차 캠핑장");
+					iVO = iDAO.getAC_Detail(iVO);
+				} else if(iVO.getIfct().equals("dtc")) {
+					System.out.println("승차검진소");
+					iVO = iDAO.getDT_Detail(iVO);
+				}
+				
+				if(iVO.getClike() == 0) {
+					int addlike = iDAO.addlike(iVO);
+					int likeplus = iDAO.pluslike(iVO);
+					System.out.println(addlike +" 여긴 플 "+likeplus);
+				} else {
+					int likeminus = iDAO.minuslike(iVO);
+					int dellike = iDAO.dellike(iVO);
+					System.out.println(likeminus +" 여긴 마 "+dellike);
+				}
+				System.out.println("좋아요 : "+iVO);
+
+				System.out.println(iVO.getIfct());
+				
+				if(iVO.getIfct().equals("ctt")) {
+					System.out.println("자동차 극장");
+					iVO = iDAO.getCT_Detail(iVO);
+				} else if(iVO.getIfct().equals("acp")) {
+					System.out.println("자동차 캠핑장");
+					iVO = iDAO.getAC_Detail(iVO);
+				} else if(iVO.getIfct().equals("dtc")) {
+					System.out.println("승차검진소");
+					iVO = iDAO.getDT_Detail(iVO);
+				}
+				
+				System.out.println("최종 반환 vo : "+iVO);
+				return iVO;
 			}
 }

@@ -1,5 +1,12 @@
 package com.proj.pro.controller.info;
 
+/**
+ * @author 이한철
+ * @since  2020.07.01
+ * 
+ * 	이 클래스는 info 요청에 대한 컨트롤러이다.
+ */
+
 import java.util.*;
 import java.util.List;
 
@@ -15,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.proj.pro.dao.InfoDAO;
 import com.proj.pro.service.InfoService;
 import com.proj.pro.vo.InfoVO;
+
 
 @Controller
 @RequestMapping("/info")
@@ -42,11 +50,11 @@ public class InfoController {
 	}
 		
 	// infoAC 디테일 ajax 처리
-	@RequestMapping(value="/infoAC_Detail", method=RequestMethod.POST , params= {"ifno"})
+	@RequestMapping(value="/infoAC_Detail", method=RequestMethod.POST , params= {"ifno", "memid"})
 	@ResponseBody
-	public InfoVO infoDetail(int ifno, ModelAndView mv, InfoVO iVO) {
+	public InfoVO infoDetail(InfoVO iVO) {
 		try {
-		  	iVO = service.getAC_Detail(ifno);
+		  	iVO = service.getAC_Detail(iVO);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -99,6 +107,15 @@ public class InfoController {
 		}
 		return cnt;
 	}
+	
+	
+	// ajax addr 주소 테스트
+	@RequestMapping("/infoAC_Addr")
+	@ResponseBody
+	public ArrayList<InfoVO> AC_Addr(InfoVO iVO) throws Exception{
+			ArrayList<InfoVO> list = (ArrayList<InfoVO>) service.getAC_Addr(iVO);
+			return list;
+	}
 		
 		
 	// infoCT 뷰 처리
@@ -116,16 +133,16 @@ public class InfoController {
 	}
 	
 	// infoCT 디테일 ajax 처리
-		@RequestMapping(value="/infoCT_Detail", method=RequestMethod.POST , params= {"ifno"})
-		@ResponseBody
-		public InfoVO infoCTDetail(int ifno, ModelAndView mv, InfoVO iVO) {
-			try {
-			  	iVO = service.getCT_Detail(ifno);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			return iVO;
+	@RequestMapping(value="/infoCT_Detail", method=RequestMethod.POST , params= {"ifno", "memid"})
+	@ResponseBody
+	public InfoVO infoCTDetail(InfoVO iVO) {
+		try {
+		  	iVO = service.getCT_Detail(iVO);
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+		return iVO;
+	}
 		
 		// infoCT_Review List ajax 처리
 		@RequestMapping(value="/infoCT_ReviewList", method=RequestMethod.POST, params={"ifno"})
@@ -175,7 +192,13 @@ public class InfoController {
 		}
 	
 	
-	
+		// ajax addr 주소 테스트
+		@RequestMapping("/infoCT_Addr")
+		@ResponseBody
+		public ArrayList<InfoVO> CT_Addr(InfoVO iVO) throws Exception{
+				ArrayList<InfoVO> list = (ArrayList<InfoVO>) service.getCT_Addr(iVO);
+				return list;
+		}
 	
 	
 		
@@ -194,16 +217,16 @@ public class InfoController {
 		}
 		
 		// infoDT 디테일 ajax 처리
-			@RequestMapping(value="/infoDT_Detail", method=RequestMethod.POST , params= {"ifno"})
-			@ResponseBody
-			public InfoVO infoDTDetail(int ifno, ModelAndView mv, InfoVO iVO) {
-				try {
-				  	iVO = service.getDT_Detail(ifno);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				return iVO;
+		@RequestMapping(value="/infoDT_Detail", method=RequestMethod.POST , params= {"ifno", "memid"})
+		@ResponseBody
+		public InfoVO infoDTDetail(InfoVO iVO) {
+			try {
+			  	iVO = service.getDT_Detail(iVO);
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+			return iVO;
+		}
 			
 			// infoDT_Review List ajax 처리
 			@RequestMapping(value="/infoDT_ReviewList", method=RequestMethod.POST, params={"ifno"})
@@ -250,6 +273,23 @@ public class InfoController {
 					e.printStackTrace();
 				}
 				return cnt;
+			}
+			
+			// ajax addr 주소 테스트
+			@RequestMapping("/infoDT_Addr")
+			@ResponseBody
+			public ArrayList<InfoVO> DT_Addr(InfoVO iVO) throws Exception{
+					ArrayList<InfoVO> list = (ArrayList<InfoVO>) service.getDT_Addr(iVO);
+					return list;
+			}
+			
+			
+			// 좋아요 기능 ajax 처리
+			@RequestMapping("/infoLike")
+			@ResponseBody
+			public InfoVO infolike(InfoVO iVO) throws Exception {
+				iVO = service.likeproc(iVO);
+				return iVO;
 			}
 
 }

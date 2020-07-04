@@ -17,23 +17,53 @@
 			AND ifshow = 'Y'
 	</select>
 	
+	<!-- 맵API 마커 여러개 찍기 테스트 -->
+	<select id="Addr_ac" resultType="iVO">
+		SELECT
+			ifaddr, ifname
+		FROM
+			info
+		WHERE
+			ifct= 'acp'
+			AND ifshow = 'Y'
+	</select>
 	
+	<!-- 클릭시 상세보기 -->
 	<select id="Detail_ac" resultType="iVO">
 		SELECT
-		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink,
-		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, (SELECT COUNT(*) FROM review WHERE ifno =#{ifno} AND isshow ='Y') ifrcnt
+		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink, iflike,
+		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, 
+		    (SELECT COUNT(*) FROM review WHERE ifno = #{ifno} AND isshow ='Y') ifrcnt,
+		    le.clike, m.memid memid, ifct
 		FROM
-		    info i, review r
+		    info i, review r, member m,(
+                SELECT
+                    COUNT(*) clike
+                FROM
+                    plike p, info inf
+                WHERE
+                 inf.ifno = #{ifno}
+                AND p.ifno = inf.ifno
+                AND p.memno = (
+                    SELECT
+                        memno
+                    FROM
+                        member
+                    WHERE
+                        memid = #{memid}
+                )
+            ) le
 		WHERE
 		    ifct = 'acp'
 		    AND i.ifno = r.ifno(+)
 		    AND i.ifno = #{ifno}
+		    AND m.memid = #{memid}
 	</select>
 	
 	
 	<select id="review_ac" resultType="iVO">
 		SELECT
-		    rtt ifrtt, rbd ifrbd, name ifname, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
+		    rtt ifrtt, rbd ifrbd, name, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
 		FROM
 		    member m , info i , review r
 		WHERE
@@ -75,8 +105,6 @@
 	<!-- 자동차 캠핑 -->
 	
 	
-	
-	
 	<!-- 자동차 극장 -->
 	<select id="sel_ct" resultType="iVO">
 		SELECT
@@ -88,17 +116,49 @@
 			AND ifshow = 'Y'
 	</select>
 	
+	<!-- 맵API 마커 여러개 찍기 테스트 -->
+	<select id="Addr_ct" resultType="iVO">
+		SELECT
+			ifaddr, ifname
+		FROM
+			info
+		WHERE
+			ifct= 'ctt'
+			AND ifshow = 'Y'
+	</select>
+	<!-- 맵API 마커 여러개 찍기 테스트 -->
+	
+	
 	
 	<select id="Detail_ct" resultType="iVO">
 		SELECT
-		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink,
-		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, (SELECT COUNT(*) FROM review WHERE ifno =#{ifno} AND isshow ='Y') ifrcnt
+		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink, iflike,
+		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, 
+		    (SELECT COUNT(*) FROM review WHERE ifno = #{ifno} AND isshow ='Y') ifrcnt,
+		    le.clike, m.memid memid, ifct
 		FROM
-		    info i, review r
+		    info i, review r, member m,(
+                SELECT
+                    COUNT(*) clike
+                FROM
+                    plike p, info inf
+                WHERE
+                 inf.ifno = #{ifno}
+                AND p.ifno = inf.ifno
+                AND p.memno = (
+                    SELECT
+                        memno
+                    FROM
+                        member
+                    WHERE
+                        memid = #{memid}
+                )
+            ) le
 		WHERE
 		    ifct = 'ctt'
 		    AND i.ifno = r.ifno(+)
 		    AND i.ifno = #{ifno}
+		    AND m.memid = #{memid}
 	</select>
 	
 	
@@ -158,17 +218,49 @@
 			AND ifshow = 'Y'
 	</select>
 	
+	<!-- 맵API 마커 여러개 찍기 테스트 -->
+	<select id="Addr_dt" resultType="iVO">
+		SELECT
+			ifaddr, ifname
+		FROM
+			info
+		WHERE
+			ifct= 'dtc'
+			AND ifshow = 'Y'
+	</select>
+	<!-- 맵API 마커 여러개 찍기 테스트 -->
+	
+	
 	
 	<select id="Detail_dt" resultType="iVO">
 		SELECT
-		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink,
-		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, (SELECT COUNT(*) FROM review WHERE ifno =#{ifno} AND isshow ='Y') ifrcnt
+		    DISTINCT(i.ifno) ifno , ifname, iftel, ifaddr , NVL(ifpri, '정보없음') ifpri , NVL(iflink, '정보없음') iflink, iflike,
+		    (SELECT FLOOR(AVG(rst)) FROM review WHERE r.ifno = #{ifno}) ifrst, 
+		    (SELECT COUNT(*) FROM review WHERE ifno = #{ifno} AND isshow ='Y') ifrcnt,
+		    le.clike, m.memid memid, ifct
 		FROM
-		    info i, review r
+		    info i, review r, member m,(
+                SELECT
+                    COUNT(*) clike
+                FROM
+                    plike p, info inf
+                WHERE
+                 inf.ifno = #{ifno}
+                AND p.ifno = inf.ifno
+                AND p.memno = (
+                    SELECT
+                        memno
+                    FROM
+                        member
+                    WHERE
+                        memid = #{memid}
+                )
+            ) le
 		WHERE
 		    ifct = 'dtc'
 		    AND i.ifno = r.ifno(+)
 		    AND i.ifno = #{ifno}
+		    AND m.memid = #{memid}
 	</select>
 	
 	
@@ -214,5 +306,45 @@
 		    rno = #{ifrno}
 	</update>
 	<!-- 승차 검진소 -->
+	
+	<insert id="addlike">
+		INSERT INTO
+			plike(lno, ifno, memno)
+		VALUES
+			(
+			  (SELECT NVL(MAX(lno)+1, 1) FROM plike),
+			  #{ifno}, (SELECT memno FROM member WHERE memid=#{memid})			
+			)
+	</insert>
+	
+	
+	<!-- info 좋아요 칼럼 값 +1 -->
+	<update id="pluslike">
+		UPDATE
+			info
+		SET
+			iflike = iflike + 1
+		WHERE
+			ifno = #{ifno}
+	</update>
+	
+	<!-- info 좋아요 칼럼 값 -1 -->
+	<update id="minuslike">
+		UPDATE
+			info
+		SET
+			iflike = iflike - 1
+		WHERE
+			ifno = #{ifno}
+	</update>
+	
+	<!-- info 좋아요 delete -->
+	<delete id="dellike">
+		DELETE FROM
+			plike
+		WHERE
+			ifno = #{ifno}
+			AND memno = (SELECT memno FROM member WHERE memid=#{memid})
+	</delete>
 	
 </mapper>

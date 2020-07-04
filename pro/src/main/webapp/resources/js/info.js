@@ -3,7 +3,6 @@ $(document).ready(function(){
 	$('#reviewWrite').css('display', 'none');
 	$('#rWrite').css('display', 'none');
 	
-	
 	// 리뷰 보기 
 	$('#reviewbt').click(function(){
 		var updown = $('#reviewbt').text();
@@ -33,7 +32,22 @@ $(document).ready(function(){
 	});
 	
 	// 자동차캠핑 상세보기 ifno 담기
-	$('td').click(function(){
-		
-	})
+	$('th').click(function(){
+		var url = window.location.href;
+		var urlArray = url.split("/");
+		if(urlArray[5] === 'infoCT.pro'){
+			location.href="http://localhost/pro/info/infoCT.pro";
+		} else if(urlArray[5] === 'infoAC.pro'){
+			location.href="http://localhost/pro/info/infoAC.pro";
+		} else if(urlArray[5] === 'infoDT.pro'){
+			location.href="http://localhost/pro/info/infoDT.pro";
+		}
+	});
+	
+	
+	$('img').click(function(){
+		alert('좋아요');
+		var clike = $(this).val();
+		alert(clike);
+	});
 });

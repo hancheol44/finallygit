@@ -25,7 +25,7 @@
   <input type="hidden" id="sid" name="SID" value="${SID}" />
   <!-- 클릭된 캠핑장 ifno -->
   <input type="hidden" id="c_ifno" name="ifno"/>
-  
+  <input type="hidden" id="infoct" name="ifct"/>
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <div class="centercolumn w3-center">
     <div class="card">
@@ -47,7 +47,8 @@
 	  <div class='w3-row'><p></p></div>
 	  <div class="detail_card">
 	  	<div class="detail">
-			<span> 승차검진소 이름 : </span> <span id="acname"></span><br><br>
+			<span> 승차검진소 이름 : </span> 
+			<span id="acname"></span><img width="30" height="30" src="/pro/img/icons8-good-quality-64 default.png" alt="Noimg" id="like" value="0"/><span id="likecnt"></span><br><br>
 			<span> 연락처 : </span> <span id="actel"></span><br><br>
 			<span> 주소 : </span> <span id="acaddr"></span><br><br>
 			<span> 길찾기 바로가기 : </span> <a id="search" href="" target="_blank"><span>링크</span></a><br><br>
@@ -98,25 +99,108 @@
       <!-- 자동차 캠핑 리스트 위치 끝 -->
 	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd8f721c7ccf9b1ba7c336d64d77a8aa&libraries=services"></script>
 	  <script type="text/javascript">
-	 	var mapContainer = document.getElementById('map');
+		var mapContainer = document.getElementById('map');
 		var mapOption = {
-		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		    level: 3 // 지도의 확대 레벨
+		    center: new kakao.maps.LatLng(37.503672, 126.999805), // 지도의 중심좌표
+		    level: 12 // 지도의 확대 레벨
 		}// 지도를 표시할 div 
 		
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
-	  
-	  	 $('td').click(function(){
-			 alert('맵동기'); 
+		 $.ajax({
+			 url: '/pro/info/infoDT_Addr.pro',
+				type: 'post',
+				dataType: 'json',
+				success: function(obj){
+				console.log(obj);
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				var imageSrc = "/pro/img/icons8-old-car-48.png";
+				// 주소로 좌표를 검색합니다
+				for(var i = 0 ; i < obj.length ; i++){
+					//setCti(obj[i].ifname);
+					let tmp = obj[i].ifname;
+					let str = '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>';
+					
+					var imageSize = new kakao.maps.Size(40, 40); 	
+					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+					geocoder.addressSearch(obj[i].ifaddr , function(result, status) {
+					    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+					    	 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					        
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: coords,
+					            image : markerImage
+					        });
+					        // var ifcontent = '<div style="width:150px;text-align:center;padding:6px 0;">'+ obj[i].ifname +'</div>';
+					        // alert('ifcontent : '+ifcontent)
+					        // 인포윈도우를 생성합니다
+					        var infowindow = new kakao.maps.InfoWindow({
+					            content : str
+/* 					            content : '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>', */
+					        });
+							
+					        
+					        kakao.maps.event.addListener(marker,'click', function(){
+					        	alert('ggg');
+								// 마커 위에 인포 윈도우를 표시합니다.
+								infowindow.open(map, marker);
+							}); 
+							
+							 kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+						     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+							function makeOverListener(map, marker, infowindow) {
+							    return function() {
+							        infowindow.open(map, marker);
+							    };
+							}
+			
+							// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+							function makeOutListener(infowindow) {
+							    return function() {
+							        infowindow.close();
+							    };
+							} 
+					       
+					     }
+				       
+					});
+				}
+				
+				
+			},
+			error: function(request, error){
+				alert('### 에러 ###');
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		 });
+		
+		
+		 
+		 
+		 $('td').click(function(){
 			 var ifno = $(this).attr('id');
+			 var memid = $('#sid').val();
+			 var mapContainer = document.getElementById('map');
+				var mapOption = {
+				    center: new kakao.maps.LatLng(37.503672, 126.999805), // 지도의 중심좌표
+				    level: 3 // 지도의 확대 레벨
+				}// 지도를 표시할 div 
+				
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
 		 
 		 $.ajax({
 			 url: '/pro/info/infoDT_Detail.pro',
 				type: 'post',
 				dataType: 'json',
 				data:{
-					'ifno':ifno
+					'ifno':ifno,
+					'memid':memid
 				},
 				success: function(obj){
 				var ifaddr = obj.ifaddr;
@@ -159,7 +243,6 @@
 			}
 		 });
 	  });
-		
 	  </script>
     </div>
   </div>
@@ -172,5 +255,5 @@
 </div>
 
 </body>
-<script type="text/javascript" src="/pro/js/info_ajax_dt.js"></script>
+<script type="text/javascript" src="/pro/js/info_ajax.js"></script>
 </html>
