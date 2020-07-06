@@ -48,7 +48,7 @@
 	  <div class="detail_card">
 	  	<div class="detail">
 			<span> 자동차극장 이름 : </span> <span id="acname"></span>&nbsp&nbsp
-				<img width="30" height="30" src="/pro/img/icons8-good-quality-64 dafault.png" alt="Noimg" id="like"/><span id="likecnt"></span><br><br>
+				<img width="30" height="30" src="/pro/img/icons8-good-quality-64 default.png" alt="Noimg" id="like"/><span id="likecnt"></span><br><br>
 			<span> 연락처 : </span> <span id="actel"></span><br><br>
 			<span> 주소 : </span> <span id="acaddr"></span><br><br>
 			<span> 이용가격 : </span> <span id="acpri"></span><br><br>

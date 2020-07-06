@@ -84,7 +84,7 @@
 							</div>
 	                            <textarea id="rett" placeholder="리뷰제목을 입력해주세요."></textarea>
 	                            <textarea id="rebd" placeholder="리뷰내용을 입력해주세요."></textarea>
-                            <br>
+                            	<br>
                                 <button id="inputreview">등록</button>
 					            
                                </div>
@@ -181,8 +181,6 @@
 			}
 		 });
 		
-		
-		 
 		 
 		 $('td').click(function(){
 			 var ifno = $(this).attr('id');

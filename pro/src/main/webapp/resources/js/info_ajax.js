@@ -1,44 +1,4 @@
 $(document).ready(function(){
-	// 좋아요 처리 후 카운트
-	function likeCount(){
-		var ifn = $('#c_ifno').val();
-		var memid = $('#sid').val();
-		var clike = (this).val();
-		// 카테고리 주소값 가져오기
-		var url = window.location.href;
-		var urlArray = url.split("/");
-		alert('좋아요 후처리 왔니??');
-		if(urlArray[5] === 'infoCT.pro'){
-			var infourl ='/pro/info/infoCT_Detail.pro';
-		} else if(urlArray[5] === 'infoAC.pro'){
-			infourl ='/pro/info/infoAC_Detail.pro';
-		} else if(urlArray[5] === 'infoDT.pro'){
-			infourl ='/pro/info/infoDT_Detail.pro';
-		}
-		alert('좋아요 후 처리');
-		$.ajax({
-			url: infourl,
-			type: 'post',
-			dataType: 'json',
-			data:{
-				'ifno':ifn,
-				'memid':memid
-			},
-			success: function(obj){
-				$('#like').val(clike);
-				alert('좋아요 후처리 : '+clike);
-				if(clike == 0){
-					$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
-				} else {
-					$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
-				}
-			},
-			error: function(){
-				alert('리뷰카운트 전송실패');
-			}
-		});
-		
-	}	
 	
 	// 리뷰 작성 후 카운트
 	function reviewCount(){
@@ -293,7 +253,7 @@ $(document).on('click','.modbtn', function modi(){
 				} else {
 					$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
 				}
-				$('#ifrcnt').text('('+obj.ifrcnt+')');
+				$('#ifrcnt').text('('+obj.ifrcnt+')');  // 리뷰 갯수 반환
 				$('#acname').html(name);
 				$('#actel').html(tel);
 				$('#acaddr').html(addr);
@@ -304,9 +264,9 @@ $(document).on('click','.modbtn', function modi(){
 				$('.detail_card').css('display', '');
 				$('#reviewbt').text('리뷰');
 				$('#addReview').text('리뷰작성');
-				$('#reviewList *').remove();
+				$('#reviewList *').remove();          
 				$('#rWrite').css('display','none');
-				$('#infoct').val(obj.ifct);
+				$('#infoct').val(obj.ifct);   
 			},
 			error: function(request, error){
 				alert('### Detail 통신에러 ###');
@@ -468,14 +428,15 @@ $(document).on('click','.modbtn', function modi(){
 					$('#like').val(obj.clike);
 					if(clike == 1){
 						$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
+						alert('좋아요 취소되었습니다');
 					} else {
 						$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
+						alert('좋아요 등록되었습니다');
 					}
 					$('#likecnt').html(obj.iflike);
-					alert('좋아요!');
 				},
 				error: function(){
-					alert('좋아요 통신실패ㅜ')
+					alert('좋아요 통신실패');
 				}
 			});
 	});
