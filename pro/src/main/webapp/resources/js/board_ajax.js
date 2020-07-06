@@ -2,18 +2,17 @@ $(document).ready(function(){
 	reList();
 
 $('#comment').click(function reOK() {
-
-	var param = $("form[name=cfrm]").serialize();
+	var form = $("#cfrm");
+	var formData = new FormData(form[0]);
 		$.ajax({
 			url: '/pro/board/boardComment.pro',
 			type: 'POST',
-			dataType: 'json',
-			data: param,
-			success: function(data){
-			prepend('<div class="w3-left reBoard ">'+
-								'<div>'+param.name+'</div>'+
-								'<div>'+param.bdbd+'</div>'+
-								'<div>'+param.today4+'</div>'+
+			data: formData,
+			success: function(obj){
+				$('#reviewList').append('<div class="w3-left reBoard ">'+
+								'<div>'+obj.name+'</div>'+
+								'<div>'+obj.bdbd+'</div>'+
+								'<div>'+obj.today+'</div>'+
 								'</div>')
 			},
 			error: function(request,status,erro){
@@ -35,7 +34,7 @@ function reList(){
 			success: function(obj){
 				var len = obj.length;
 				for(var i = 0; i < len; i++){
-					$('#reviewList').prepend('	<div class="w3-left reBoard ">'+
+					$('#reviewList').append('	<div class="w3-left reBoard ">'+
 							'<div>'+obj[i].name+'</div>'+
 							'<div>'+obj[i].bdbd+'</div>'+
 							'<div>'+obj[i].today+'</div>'+

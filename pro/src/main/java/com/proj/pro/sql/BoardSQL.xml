@@ -81,6 +81,7 @@
 		bdno DESC
 		)
 		)
+		
 	</select>
 	
 	<select id="boardDetail" resultType="bVO">

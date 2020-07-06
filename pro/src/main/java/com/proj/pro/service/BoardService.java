@@ -46,16 +46,16 @@ public class BoardService {
 	// Board List
 	public List<BoardVO> getList(BoardVO bVO) throws Exception {
 
-
-		String ct = bVO.getBdct();
-		String tp = bVO.getType();
-		String ip = bVO.getInput();
-		
-		System.out.println(ct+ " : " + ip);
-		
-		bVO.setBdct(ct);
-		bVO.setType(tp);
-		bVO.setInput(ip);
+//
+//		String ct = bVO.getBdct();
+//		String tp = bVO.getType();
+//		String ip = bVO.getInput();
+//		
+//		System.out.println(ct+ " : " + ip);
+//		
+//		bVO.setBdct(ct);
+//		bVO.setType(tp);
+//		bVO.setInput(ip);
 	
 		return bDAO.getList(bVO);
 	}
@@ -92,14 +92,8 @@ public class BoardService {
 		
 	}
 	public BoardVO comment(BoardVO bVO, String memid) throws Exception{
-		String bd = bVO.getBdbd();
-		Integer borino = bVO.getBorino();
-		System.out.println(bd);
-		System.out.println(borino);
 		
-		bVO.setBdbd(bd);
 		bVO.setMemid(memid);
-		bVO.setBorino(borino);
 		return bDAO.comment(bVO);
 	}
 	

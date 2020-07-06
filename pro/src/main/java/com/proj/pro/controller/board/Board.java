@@ -45,7 +45,7 @@ public class Board {
 	@RequestMapping(value = "/search.pro", method = RequestMethod.POST)
 	public ModelAndView search(ModelAndView mv, BoardVO bVO) throws Exception {
 		String view = "board/board";
-		System.out.println("서칭");
+		System.out.println("�꽌移�");
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
 		mv.addObject("LIST", list);
 		System.out.println(list.size());
@@ -81,8 +81,14 @@ public class Board {
 	@RequestMapping(value="boardComment.pro", method = RequestMethod.POST)
 	@ResponseBody
 	public BoardVO comment( BoardVO bVO, HttpSession session) throws Exception{
-		String memid = (String) session.getAttribute("SID");
-		service.comment(bVO, memid);
+		try {
+			String memid = (String) session.getAttribute("SID");
+			System.out.println(bVO);
+			service.comment(bVO, memid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 			
 		return bVO;
 	}
