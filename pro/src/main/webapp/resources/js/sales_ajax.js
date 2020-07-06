@@ -5,29 +5,33 @@ $(document).ready(function(){
 $('#reviewOK').click(function reOK() {
 		var form =  $('#ajax');
 		var formData = new FormData(form[0]);
+		for(var i of formData.entries()){
+			console.log(i);
+		}
 		$.ajax({
 			url: '/pro/sales/sales_review.pro',
 			type: 'post',
 			enctype: 'multipart/form-data',
 			data: formData,
+			processData: false,
+			contentType: false,
 			success: function(obj){
 						$('#reviewTitle').val('');
 						$('#reviewArea').val('');
-//						reList();
-						$('#reviewList').prepend('<div>'+
-								'<div id="rlist'+obj.rno+'" class="line">'+
-								'<div id="rCenter"><div><img src="/pro/upload/'+obj.savename+'" id="rimg"></div>'+
-								'<div>'+
-								'<span><b>평점 : <span id="rrst">'+ obj.rst + '</span></b></span><br>'+
-								'<span id="rname">ID : '+ obj.memid + '</span><br>'+
-								'<span id="rrtt">'+ obj.rtt + '</span><br>'+
-								'<span id="rrbd">'+ obj.rbd + '</span><br>'+
-								'</div>'+
-								'</div>'+
-								'<div id="reDelete" class="reDelete" value="'+obj.pno+'">'+
-								'<a class="delete" value="'+obj.rno+'"onclick="remove()">삭제</a></div>'+
-								'</div>'+
-						'</div>')
+						$('#reviewWrite').css('display','none');
+						$('.line').remove();
+						reList();
+//						$('#reviewList').prepend('<div>'+
+//								'<div id="rlist'+obj.rno+'" class="line">'+
+//								'<div id="rCenter"><div><img src="/pro/upload/'+obj.savename+'" id="rimg"></div>'+
+//								'<div>'+
+//								'<span><b>평점 : <span id="rrst">'+ obj.rst + '</span></b></span><br>'+
+//								'<span id="rname">ID : '+ obj.memid + '</span><br>'+
+//								'<span id="rrtt" class="rrtt">'+ obj.rtt + '</span><br>'+
+//								'<span id="rrbd">'+ obj.rbd + '</span><br>'+
+//								'</div>'+
+//								'</div>'+
+//						'</div>')
 			},
 			error: function(){
 				alert("### 리뷰 달기 통신에러 ###");
@@ -49,37 +53,33 @@ function reList(){
 				var len = obj.length;
 				for(var i = 0; i < len; i++){
 					if(sid == obj[i].memid){
-						$('#reviewList').prepend('<div>'+
+						$('#reviewList').prepend('<div id="list">'+
 								'<div id="rlist'+obj[i].rno+'" class="line">'+
 									'<div id="rCenter"><div><img src="/pro/upload/'+obj[i].savename+'" id="rimg"></div>'+
-									'<div id="rredit">'+
-										'<span><b>평점 : <span id="rrst">'+ obj[i].rst + '</span></b></span><br>'+
+									'<div id="rredit'+obj[i].rno+'">'+
+										'<span><b>평점 : <span id="rrst'+obj[i].rno+'">'+ obj[i].rst + '</span></b>&nbsp&nbsp&nbsp'+obj[i].edit+'</span><br>'+
 										'<span id="rname">ID : '+ obj[i].memid + '</span><br>'+
-										'<span id="rrtt" value="'+obj[i].rtt+'">'+ obj[i].rtt + '</span><br>'+
-										'<span id="rrbd">'+ obj[i].rbd + '</span><br>'+
+										'<span id="rrtt'+obj[i].rno+'" value="'+obj[i].rtt+'">'+ obj[i].rtt + '</span><br>'+
+										'<span id="rrbd'+obj[i].rno+'">'+ obj[i].rbd + '</span><br>'+
 									'</div>'+
-									'<form id="inajax" method="post" action="">'+
-									'<div id="review2"><h6><b>평점</b></h6>'+
-										'<select id="rstSelect2" name="rst">'+
-											'<option value="5">★★★★★'+
-											'<option value="4">★★★★'+
-											'<option value="3">★★★'+
-											'<option value="2">★★'+
-											'<option value="1">★'+
-										'</select>'+
-										'<br>'+
-										'<h6><b>이미지첨부</b></h6>'+
-										'<input type="file" name="file" id="file_saWrite"><br>'+
-										'<textarea id="reviewTitle2" name="rtt" placeholder="리뷰제목을 입력해주세요."></textarea><br>'+
-										'<textarea id="reviewArea2" name="rbd" placeholder="리뷰내용을 입력해주세요."></textarea>'+
-										'<form>'+
-										'<br>'+
-										'<button class="editOK">등록</button>'+
-									'</div>'+
+										'<div id="review2'+obj[i].rno+'" style="display:none;"><h6><b>평점</b></h6>'+
+											'<select id="rstSelect2'+obj[i].rno+'" name="rst">'+
+												'<option value="5">★★★★★'+
+												'<option value="4">★★★★'+
+												'<option value="3">★★★'+
+												'<option value="2">★★'+
+												'<option value="1">★'+
+											'</select>'+
+											'<br>'+
+											'<textarea id="reviewTitle2'+obj[i].rno+'"  style="resize:none; width: 100%; height: 30px;" name="rtt" placeholder="리뷰제목을 입력해주세요."></textarea><br>'+
+											'<textarea id="reviewArea2'+obj[i].rno+'" style="resize:none; width: 100%; height: 100px;" name="rbd" placeholder="리뷰내용을 입력해주세요."></textarea>'+
+											'<br>'+
+											'<button class="editOK" value="'+obj[i].rno+'" onclick="edit()">등록</button>'+
+										'</div>'+
 								'</div>'+
 								'<div id="reDelete" class="reDelete" value="'+obj[i].pno+'">'+
-									'<a class="delete" value="'+obj[i].rno+'"onclick="remove()">삭제</a>&nbsp'+
-									'<a class="edit" value="'+obj[i].rno+'"onclick="edit()">수정</a>'+
+									'<a class="delete" value="'+obj[i].rno+'" onclick="remove()">삭제</a>&nbsp'+
+									'<a class="edit" value="'+obj[i].rno+'">수정</a>'+
 								'</div>'+
 						'</div>')					
 					} else {
@@ -87,7 +87,7 @@ function reList(){
 								'<div id="rlist'+obj[i].rno+'" class="line">'+
 									'<div id="rCenter"><div><img src="/pro/upload/'+obj[i].savename+'" id="rimg"></div>'+
 									'<div>'+
-										'<span><b>평점 : <span id="rrst">'+ obj[i].rst + '</span></b></span><br>'+
+										'<span><b>평점 : <span id="rrst">'+ obj[i].rst + '</span></b>&nbsp&nbsp&nbsp'+obj[i].edit+'</span><br>'+
 										'<span id="rname">ID : '+ obj[i].memid + '</span><br>'+
 										'<span id="rrtt">'+ obj[i].rtt + '</span><br>'+
 										'<span id="rrbd">'+ obj[i].rbd + '</span><br>'+
@@ -104,7 +104,6 @@ function reList(){
 	};
 // 좋아요 클릭 이벤트 ajax
 $(document).on('click','#burger', function like(){
-	alert("클릭!");
 	form = $('#likefrm');
 	formData = new FormData(form[0]);
 	$.ajax({
@@ -144,40 +143,41 @@ $(document).on('click','.delete', function remove(){
 
 // 리뷰 수정 css변경
 $(document).on('click', '.edit', function(){
-	$('#rredit').css('display','none');
-	$('#review2').css('display', 'block');
+	var rno = $(this).attr('value');
+	$('#'+'rredit'+rno).css('display','none');
+	$('#'+'review2'+rno).css('display', 'block');
 	$('#reviewList').css('margin-top','3em');
-	$('#reviewTitle2').focus();
-//	$('#reviewTitle2').val(rrtt);
-//	$('#reviewArea2').val(rrbd);
+	var rrtt = $(this).parent().parent().find('#'+'rrtt'+rno).html();
+	var rrbd = $(this).parent().parent().find('#'+'rrbd'+rno).html();
+	$('#'+'reviewTitle2'+rno).focus();	
+	$('#'+'reviewTitle2'+rno).val(rrtt);
+	$('#'+'reviewArea2'+rno).val(rrbd);
 });
 
 // 리뷰 수정 동작 ajax
 $(document).on('click','.editOK', function edit(){
 	var rno = $(this).attr('value');
-	var rrtt = find('#rrtt');
-	var rrbd = $(this).find('#rrbd');
+	var pno = $('#'+'rlist'+rno).attr('value');
+	var rst = $('#'+'rstSelect2'+rno).val();
+	var rtt = $('#'+'reviewTitle2'+rno).val();
+	var rbd = $('#'+'reviewArea2'+rno).val();
+	alert('pno : ' + pno);
 	alert('rno : ' + rno);
-	alert('rtt : ' + rrtt);
-	alert('rbd : ' + rrbd);
-	var rst = $('#rstSelect2').val();
-	var rtt = $('#reviewTitle2').val();
-	var rbd = $('#reviewArea2').val();
-	
-});
-/*
-// 리뷰 수정 동작 ajax
-$(document).on('click','.editOK', function edit(){
-	form= $('#inajax');
-	formData = new FormData(form[0]);
+	alert('rst : ' + rst);
+	alert('rtt : ' + rtt);
+	alert('rbd : ' + rbd);
 	$.ajax({
 		url: '/pro/sales/reviewEdit.pro',
 		type: 'post',
-		data: formData,
-		processData: false,
-		contentType: false,
+		dataType: 'json',
+		data:{
+			'rno' : rno,
+			'rst' : rst,
+			'rtt' : rtt,
+			'rbd' : rbd
+		},
 		success: function(obj){
-			('#reviewList').remove();
+			$('.line').remove();
 			reList();
 		},
 		error: function(){
@@ -185,5 +185,5 @@ $(document).on('click','.editOK', function edit(){
 		}
 	});
 });
-*/
+
 });

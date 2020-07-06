@@ -70,10 +70,10 @@
 					</td>
 				</tr>
 			</table>
-			<div id="fileAdd">
+			<<!-- div id="fileAdd">
 				<h6>파일첨부</h6>
 				<input type="file" id="file_saWrite"><br>
-			</div>
+			</div> -->
 			<div>
 				<button id="edsave">등록</button>
 				<button id="list">목록</button>

@@ -55,8 +55,9 @@ public class SalesDAO {
 		return sqlSession.update("sSQL.reDelete", sVO);
 	}
 	// review edit
-	public int reEdit(SalesVO sVO) {
-		return sqlSession.update("sSQL.reEdit", sVO);
+	public SalesVO reEdit(SalesVO sVO) {
+		sqlSession.update("sSQL.reEdit", sVO);
+		return sVO;
 	}
 	// sales add image
 	public int saImage(FileVO fVO) {

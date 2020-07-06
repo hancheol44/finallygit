@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,7 +51,6 @@ public class Sales {
 			String view = "sales/sales_inside";
 			service.saBcnt(sVO.getPno());
 			SalesVO vo = service.saDetail(sVO);
-//			String vv = service.likeck(sVO);
 			mv.addObject("DATA", vo);
 			mv.addObject("PNO", sVO.getPno());
 		} catch (Exception e) {
@@ -90,10 +89,12 @@ public class Sales {
 		return mv;
 	}
 	// Sales Delete
-	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.POST, params= {"spno"})
-	public ModelAndView saDelete(int spno, ModelAndView mv, SalesVO sVO) {
+	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.POST)
+	public ModelAndView saDelete(ModelAndView mv, SalesVO sVO) {
 		try {
 			String view = "sales/sales_inside.pro";
+			System.out.println(sVO.toString());
+			int spno = sVO.getPno();
 			int cnt = service.saDelete(spno);
 			if(cnt == 1) {
 				RedirectView rv = new RedirectView("/pro/sales/sales.pro");
@@ -132,19 +133,18 @@ public class Sales {
 	// Review Add(ajax)
 	@RequestMapping(value="/sales_review.pro", method=RequestMethod.POST)
 	@ResponseBody
-	public SalesVO reWrite(SalesVO sVO, @RequestParam("file")MultipartFile file, HttpSession session, ModelAndView mv) {
+	public SalesVO reWrite(MultipartFile file, SalesVO sVO, HttpSession session, ModelAndView mv) {
 		try {
-//			String view = "sales/sales_inside";
+			System.out.println("컨트롤러");
+			sVO.setFile(file);
+			System.out.println("file :" + file);
+			System.out.println("sVO.file : " + sVO.getFile());
 			service.reWrite(sVO);
-			if(sVO.getRbd() != null) {
-				String ii = file.getOriginalFilename();
-				System.out.println("oriname : " + ii);
-				sVO.setFile(file);
-				service.reImage(sVO, session);
-			}
+			service.reImage(sVO, session);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("컨트롤러 나감");
 		return sVO;
 	}
 	// Review List(ajax)
@@ -156,9 +156,9 @@ public class Sales {
 		return list;
 	}
 	// Review Delete(ajax)
-	@RequestMapping(value="/reviewDelete.pro", method=RequestMethod.POST, params= {"rno"})
+	@RequestMapping(value="/reviewDelete.pro", method=RequestMethod.POST)
 	@ResponseBody
-	public Map reDelete(ModelAndView mv, int rno, SalesVO sVO) {
+	public Map reDelete(ModelAndView mv, SalesVO sVO) {
 			String view = null;
 			int cnt = 0;
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -175,20 +175,13 @@ public class Sales {
 	// Review Edit(ajax)
 	@RequestMapping(value="/reviewEdit.pro", method=RequestMethod.POST)
 	@ResponseBody
-	public Map reEdit(ModelAndView mv, SalesVO sVO, HttpSession session) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		int cnt = 0;
-		try {
-			cnt = service.reEdit(sVO);
-			if(cnt == 1) {
-				service.reImage(sVO, session);
+	public SalesVO reEdit(ModelAndView mv, SalesVO sVO) {
+			try {
+				SalesVO vo = service.reEdit(sVO);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		map.put("result", cnt);
-		return map;
+		return sVO;
 	}
 	// Like Check(ajax)
 	@RequestMapping(value="/likeCheck.pro", method=RequestMethod.POST)

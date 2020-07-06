@@ -6,12 +6,15 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class SalesVO {
 	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno;
-	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut;
+	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut, edit;
 	private Date pDate;
 	private Time pTime;
 	private MultipartFile file;
+	
 	
 	
 	@Override
@@ -21,7 +24,13 @@ public class SalesVO {
 				+ ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name + ", today=" + today + ", cate=" + cate
 				+ ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname + ", bloc=" + bloc + ", oriname=" + oriname
 				+ ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd + ", isshow=" + isshow + ", imgrut="
-				+ imgrut + ", pDate=" + pDate + ", pTime=" + pTime + ", file=" + file + "]";
+				+ imgrut + ", edit=" + edit + ", pDate=" + pDate + ", pTime=" + pTime + ", file=" + file + "]";
+	}
+	public String getEdit() {
+		return edit;
+	}
+	public void setEdit(String edit) {
+		this.edit = edit;
 	}
 	public String getImgrut() {
 		return imgrut;
@@ -29,7 +38,8 @@ public class SalesVO {
 	public void setImgrut(String imgrut) {
 		this.imgrut = imgrut;
 	}
-	public MultipartFile getFile() {
+	@JsonIgnore
+	public MultipartFile getFile() {	
 		return file;
 	}
 	public void setFile(MultipartFile file) {

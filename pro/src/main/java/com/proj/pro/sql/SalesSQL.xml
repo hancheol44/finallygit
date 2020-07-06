@@ -87,31 +87,30 @@
 	<!-- 리뷰 리스트 조회 -->
 	<select id="reList" parameterType="int" resultType="sVO">
 		SELECT
-			ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename
-			FROM
-				(SELECT
-					rownum rrno,rno, name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno, savename
-				FROM
-					(SELECT
-						p.pno, ptt, m.bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, p.isshow, cate, r.rno, rtt, rbd, p.memno, rst, r.isshow, savename
-					FROM 
-						PROMOTION p, REVIEW r, image i, member m
-					WHERE
-						r.isshow = 'Y'
-                        AND
-                        i.pno = p.pno
-                        AND
-                        m.memno = p.memno
-                        AND
-						p.pno = null OR r.rno = i.rno
-						AND
-						p.pno = #{pno}
-						) e, member m
-				WHERE
-					m.memno = e.memno
-				ORDER BY
-			 		today
-			 	) ee
+		    ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename, edit
+		FROM
+		    (SELECT
+		        rownum rrno,rno, name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno, savename, isshow, edit
+		    FROM
+		        (SELECT
+		            p.pno, ptt, m.bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, cate, r.rno, rtt, rbd, p.memno, rst, r.isshow, savename, edit
+		        FROM 
+		            PROMOTION p, REVIEW r, image i, member m
+		        WHERE
+		            r.pno = #{pno}
+		            AND
+		            r.pno = p.pno
+		            AND
+		            r.rno = i.rno
+		            
+		            ) e, member m
+		    WHERE
+		        m.memno = e.memno
+		    ORDER BY
+		        today
+		    ) ee
+		WHERE
+		    isshow = 'Y'
 	</select>
 	<!-- 리뷰 글 수정 -->
 	<update id="reEdit">
@@ -120,7 +119,8 @@
 		SET
 			rtt = #{rtt},
 			rbd = #{rbd},
-			rst = #{rst}
+			rst = #{rst},
+			edit = '(수정됨)'
 		WHERE
 			rno = #{rno}
 	</update>

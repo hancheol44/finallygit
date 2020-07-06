@@ -42,7 +42,6 @@ $(document).ready(function(){
 	$('.salesList').click(function(){
 		var no = $(this).attr('id');
 		var id = $('#sid').attr('value');
-		alert(no);
 		$('#pno').val(no);
 		$('#memid').val(id);
 		$('#frm').attr('action', '/pro/sales/sales_inside.pro');
@@ -56,7 +55,7 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var pno = $(this).attr('value');
 		$('#spno').val(pno);
-		$('#frm3').attr('action', '/pro/sales/sales_inside.pro');
+//		$('#frm3').attr('action', '/pro/sales/sales_inside.pro');
 		$('#frm3').submit();
 	});
 	// 수정페이지
@@ -91,22 +90,7 @@ $(document).ready(function(){
 		$('#reviewList').css('margin-top','2em');
 		$('#reviewTitle').focus();
 	});
-		
-	// 리뷰등록
-/*	$('#reviewOK').click(function(){
-		var pno = $('#apno').attr('value');
-		var rtt = $('#reviewTitle').val();
-		var rbd = $('#reviewArea').val();
-		var memid = $('#asid').attr('value');
-		var rst = $('#rstSelect').val();
-		$('#rpno').val(pno);
-		$('#rtt').val(rtt);
-		$('#rbd').val(rbd);
-		$('#memid').val(memid);
-		$('#rst').val(rst);
-		$('#frm').attr('action', '/pro/sales/sales_review.pro');
-		$('#frm').submit();
-	});*/
+
 	$('#file_saWrite').change(function(e){
 		var profile = e.target.files;
 		console.log(profile);

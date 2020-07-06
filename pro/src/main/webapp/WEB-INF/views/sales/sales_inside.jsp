@@ -28,8 +28,8 @@
 	 	<input type="hidden" name="rno" id="rno">
 	 	<input type="hidden" name="pno" id="repno">
 	 </form>
-	 <form method="post" action="" id="frm3">
-	 	<input type="hidden" name="spno" id="spno">
+	 <form method="post" action="/pro/sales/sales_inside.pro" id="frm3">
+	 	<input type="hidden" name="pno" id="spno">
 	 </form>
 	 <!-- 수정 데이터 전송용 폼태그 -->
 	 <form method="post" action="/pro/sales/sales_modify.pro" id="frm4">
@@ -134,6 +134,43 @@
     	<button>카카오페이로 결제하기</button>
 	</form> -->
 	<!-- <img alt="" src="/pro/img/payment_icon_yellow_medium.png" action=""> -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "값", { role: "style" } ],
+        ["소형", 8.94, "#9370db"],
+        ["경형", 10.49, "#ff7f50"],
+        ["준중형", 19.30, "gold"],
+        ["중형", 21.45, "color: #db7093"],
+        ["준대형", 21.45, "color: #dc143c"],
+        ["대형", 21.45, "color: #6495ed"],
+        ["스포츠카", 21.45, "color: #bdb76b"],
+        ["기타", 21.45, "color: #e5e4e2"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "이용자 차량 통계",
+        width: 1000,
+        height: 300,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+</script>
+<div id="barchart_values" style="width: 900px; height: 300px;"></div>
 	<div id="btn_detail">
 	<c:if test="${SID eq DATA.memid}">
 	<button id="delete" class="delete" value="${DATA.pno}" >삭제</button>
@@ -174,14 +211,10 @@
 											<h6>
 												<b>이미지첨부</b>
 											</h6>
-											<!-- 	<form id="imgfrm" method="post" enctype="multipart/fom"> -->
 											<input type="file" name="file" id="file_saWrite"><br>
-											<!-- 	</form> -->
 										</div>
-										<textarea id="reviewTitle" name="rtt"
-											placeholder="리뷰제목을 입력해주세요."></textarea>
-										<textarea id="reviewArea" name="rbd"
-											placeholder="리뷰내용을 입력해주세요."></textarea>
+										<textarea id="reviewTitle" name="rtt" placeholder="리뷰제목을 입력해주세요."></textarea>
+										<textarea id="reviewArea" name="rbd" placeholder="리뷰내용을 입력해주세요."></textarea>
 										<br>
 										<button id="reviewOK">등록</button>
 									</form>

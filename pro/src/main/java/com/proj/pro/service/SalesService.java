@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proj.pro.dao.SalesDAO;
@@ -57,7 +58,7 @@ public class SalesService {
 		return sDAO.reDelete(sVO);
 	}
 	// Review Edit(ajax)
-	public int reEdit(SalesVO sVO) throws Exception {
+	public SalesVO reEdit(SalesVO sVO) throws Exception {
 		return sDAO.reEdit(sVO);
 	}
 	// Sales Image Add
@@ -77,8 +78,9 @@ public class SalesService {
 		return sDAO.saImage(fVO);
 	}
 	// Review Image Add(ajax)
-	public int reImage(SalesVO sVO, HttpSession session) {
+		public int reImage(SalesVO sVO, HttpSession session) {
 		try {
+			System.out.println("서비스 들어옴");
 			MultipartFile file = sVO.getFile();
 			System.out.println("ser.file : " + file);
 			String filePath = session.getServletContext().getRealPath("resources/upload");
@@ -89,6 +91,7 @@ public class SalesService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("서비스 나감");
 		return sDAO.reImage(sVO);
 	}
 	// 좋아요 아이디 체크(ajax)
@@ -99,25 +102,11 @@ public class SalesService {
 			sDAO.like(sVO);
 			sDAO.likeUp(sVO);
 			System.out.println("sVO.toString : " + sVO.toString());
-//			likeck(sVO);
 		} else if(vo.equals(sVO.getMemid())) {
 			sDAO.disLike(sVO);
 			sDAO.likeDown(sVO);
 		}
 		return sVO;
 	}
-	/*
-	public String likeck(SalesVO sVO) {
-		String svo = sDAO.likeCheck(sVO);
-		System.out.println("ser.svo : " + svo);
-		String result;
-		if(svo == null) {
-			result = " ";
-		} else {
-			result = svo;
-		}
-		System.out.println("result : " + result);
-		return result;
-	}
-	*/
+	
 }
