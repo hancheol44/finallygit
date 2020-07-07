@@ -1,10 +1,15 @@
 package com.proj.pro.controller.login;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.proj.pro.dao.LoginDAO;
-import com.proj.pro.service.kakaoService;
+import com.proj.pro.home.HomeController;
 import com.proj.pro.service.kakaoService.KaKaoLogin;
 import com.proj.pro.vo.LoginVO;
 import com.proj.pro.vo.SalesVO;
@@ -23,6 +28,7 @@ import com.proj.pro.vo.SalesVO;
 @RequestMapping("/kakao")
 public class kakaoController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
 	private KaKaoLogin kakaos;
@@ -49,7 +55,7 @@ public class kakaoController {
 	
 	// 카카오 로그인 맵핑처리
 	@RequestMapping(value="/kakaoLogin.pro")
-    public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv, LoginVO lVO) {
+    public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv, LoginVO lVO, Locale locale) {
         String access_Token = kakaos.getAccessToken(code);
         RedirectView rv = null; 
         HashMap<String, Object> userInfo = kakaos.getUserInfo(access_Token);
@@ -59,12 +65,17 @@ public class kakaoController {
         String abc = lDAO.sid(cad);
         System.out.println(abc);
         
+        Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+        
         
         if(cnt == 1) {
         	session.setAttribute("userId", userInfo.get("id"));
         	session.setAttribute("access_Token", access_Token);
         	System.out.println(userInfo.get("id"));
         	session.setAttribute("SID", abc);
+        	logger.info("Login ID : {} - {}", abc,formattedDate);
         	System.out.println(abc);
         	rv = new RedirectView("/pro/main.pro");
         } else {

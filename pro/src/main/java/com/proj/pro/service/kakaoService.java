@@ -2,6 +2,9 @@ package com.proj.pro.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -9,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JFileChooser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -194,8 +199,8 @@ public class kakaoService {
 		        e.printStackTrace();
 		    }
 		}
-		
-	}
 	
+		}
+		
 	
 }

@@ -4,8 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proj.pro.dao.*;
-import com.proj.pro.service.*;
-import com.proj.pro.vo.*;
+import com.proj.pro.vo.InfoVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
@@ -44,34 +40,5 @@ public class HomeController {
 		return "home";
 	}
 	
-	
-	
-	@RequestMapping("/main.pro")
-	public ModelAndView getMain(ModelAndView mv, InfoVO iVO) {
-		mv.addObject("CNT", iVO);
-		mv.setViewName("main");
-		return mv;
-	}
-
-	@RequestMapping("/head.pro")
-	public String test02() {
-		return "/side/head";
-	}
-
-	@RequestMapping("/left.pro")
-	public String test03() {
-		return "/side/left";
-	}
-
-	@RequestMapping("/right.pro")
-	public String test04() {
-		return "/side/right";
-	}
-
-	@RequestMapping("/welcome.pro")
-	public String test05() {
-		return "/welcome";
-	}
-
 	
 }

@@ -281,7 +281,7 @@
 			  
 			
 			  <div id="id02" class="w3-modal">
-			    <div class="w3-modal-content" style="width:500px; height:400px; margin-top: 200px;">
+			    <div class="w3-modal-content" style="width:500px; height:800px; margin-top: 100px;">
 			      <div class="w3-container">
 						  <div class="pro w3-center">
 							<h4>사업자 정보</h4>
@@ -295,6 +295,24 @@
 			          </div>
 			          <div class="w3-row" style="margin-top: 30px;">
 			      		<p style="display:inline; font-size: 20px;"> 사업자 주소  : &nbsp; </p><input type="text" style="width: 323px; height:40px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴1 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴1 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴2 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴2 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴3 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴3 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
 			          </div>
 			        <button type="submit" class="w3-button w3-center w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-left: 218px;" id="btn4">완료</button>
 			      </div>

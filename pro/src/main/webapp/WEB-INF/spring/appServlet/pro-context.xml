@@ -45,6 +45,26 @@
 	
 	<!-- dao bean 처리 -->
 	<beans:import resource="daoContext.xml" /> 
+	
+	
+	<!-- 인터셉터 선언 -->
+		<beans:bean id="homeInterceptor" class="com.proj.pro.interceptor.HomeInterceptor" />
+		<!-- 인터셉터와 url 맵핑 -->
+		<interceptors>
+			<interceptor>
+				<mapping path="/**/**/sales_inside.pro"/>
+				<mapping path="/**/**/boardDetail.pro"/>
+				<beans:ref bean="homeInterceptor" />
+			</interceptor>
+		</interceptors>
+		
+		<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+			<beans:property name="order" value="0" />
+		</beans:bean>
+	
+	
+	
+	
 <!-- 	
 <beans:import resource="commons-Context.xml" /> 
  -->	

@@ -40,7 +40,4 @@
 	
 	<context:component-scan base-package="com.proj.pro.home" />
 	
-	
-	
-	
 </beans:beans>
