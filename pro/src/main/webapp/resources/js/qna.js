@@ -8,6 +8,7 @@ $(document).ready(function(){
 	// qnaList -> qnaDetail 버튼 기능처리
 	$('.qlist').siblings().click(function(){
 		var qno = $(this).parent().attr('id');
+		/*alert(qno);*/
 		$('#qno').val(qno);
 		$('#DetailFrm').attr('action','/pro/qna/qnaDetail.pro');
 		$('#DetailFrm').submit();
@@ -82,8 +83,27 @@ $(document).ready(function(){
 		});
 	// 관리자 답변 등록버튼 기능처리
 		$("#ansbtn").click(function(){
-			alert('3333');
-			alert($('#myModal').attr('class'));
+			alert('답변 쓰시오');
 			$('#myModal').modal("toggle");
 	});
+	// 관리자 답변 디테일 기능처리?
+		$('#Enrollment').click(function(){
+			var dd = $('#qttin').val();
+			alert(dd);
+			var cc = $('#qorno4').val();
+			alert(cc);
+			var qq = $('#qno').val();
+			alert(qq);
+			var gg = $('#mem').val();
+			alert(gg);
+		$('#qtt').val(dd);
+		$('#qip').val(cc);
+		$('#qor').val(qq);
+		$('#mem').val(gg);
+		$('#menfrm').attr('action','/pro/qna/qnamnoProc.pro');
+		$('#menfrm').submit();		
+		});
+		
+		$('')
+		
 });

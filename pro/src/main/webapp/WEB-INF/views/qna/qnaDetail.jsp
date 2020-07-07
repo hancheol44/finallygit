@@ -30,12 +30,20 @@
       <h2>물어봥</h2>
 		<form method="post" action="" id="delfrm">
 			<input type="hidden" name="qno" id="qno" value="${qno}"/>
+
 		</form>
 		<form method="post" action="" id="modifrm">
 			<input type="hidden" name="qno" id="qno" value="${qno}"/>
 			<input type="hidden" name="qtt" id="qttinn" value=""/>
 			<input type="hidden" name="qip" id="qip7" value=""/>
 		</form>
+		   <form method="post" action="" id="menfrm">
+			<input type="hidden" name="qtt" id="qtt" value=""/>
+			<input type="hidden" name="qip" id="qip" value=""/>
+			<input type="hidden" name="qorno" id="qor" value=""/>
+			<input type="hidden" name="memid" id="mem" value="${SID}"/>
+		</form>  
+			
 		<table class="qnadetail">
 							<tr>
 								<td id="title">작성일</td>
@@ -54,55 +62,94 @@
 							<tr>
 								<td id="title">내 용</td>
 								<td>
-									<textarea name="qip" cols="80" rows="8" id="qip4" readonly>${DETAIL.qip}</textarea>
+									<textarea name="qip" cols="80" rows="8" style="height:10em;" id="qip4" readonly>${DETAIL.qip}</textarea>
 								</td>
 							</tr>
 						<tr align="center" valign="middle">
 						<!-- 버튼 조건 처리 -->
-						<c:if test="${SID eq 'sej0267@naver.com'}">
+						 <c:if test="${SID eq 'sej0267@naver.com'}">
 							<td colspan="5">
 								<c:if test="${SID eq DETAIL.memid}">
 									<input type="submit" value="삭제" id="delbtn"> 
 									<input type="reset" value="취소" id="wcbtn">
-								</c:if>
+								 </c:if>
 								<c:if test="${SID ne DETAIL.memid}">
-									<button type="button" class="btn btn-info btn-md" id="ansbtn">답변등록</button>								
+									<button type="button" class="btn btn-info btn-md" id="ansbtn">답변쓰기</button>								
 									<button class="bbtn" id="delbtn">글삭제</button>
 									<button class="cbtn" id="wdbtn">취소</button>
 								</c:if>
 							</td>
-						</c:if>
+						 </c:if>
 						<c:if test="${SID ne 'sej0267@naver.com'}">
 							<c:if test="${SID eq DETAIL.memid}">
 								<td colspan="5">
-									<button type="button" id="ansbtn">답변등록</button>								
+									<button type="button"  id="ansbtn">답변쓰기</button>
 									<button class="obtn" id="modibtn" >글수정</button>
 									<button class="pbtn" id="wcbtn">취소</button>
+									<button class="reset" id="delbtn">글삭제</button>
 								</td>
 							</c:if>
 						</c:if>
 					</tr>
-
-			</table>
 				
-		 <div class="modal fade" id="myModal" role="dialog" style="margin-top : 600px;">
+				 <c:forEach var="data" items="${LIST}">
+				 <tr>
+					<td id="title">작성일</td>
+					<td style="text-align: left;">&nbsp;${data.today}</td>
+				</tr>
+				<tr>
+					<td id="title">작성자</td>
+					<td style="text-align: left;">&nbsp;${data.name}</td>
+				</tr>
+				<tr>
+					<td id="title">제 목</td>
+					<td>
+						<input id="qttin" type="text" value="${data.qtt}" readonly/>
+					</td>
+				</tr>
+				<tr>
+					<td id="title">내 용</td>
+					<td>
+						<textarea name="qip" cols="80" rows="8" style="height:10em;" id="qorno3" readonly>${data.qip}</textarea>
+					</td>	
+				</tr>
+				
+				</c:forEach>
+			</table>
+			
+				
+		 <div class="modal fade" id="myModal" role="dialog" style="margin-top : 200px;">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Methods</h4>
+          <h4 class="modal-title">Reply</h4>
         </div>
         <div class="modal-body">
-          <p>The toggle method toggles the modal manually.</p>
+        <div id="title" style="margin-left : -520px;"><div class="btn btn-default">제 목</div></div>
+		  <form method="post" action="" id="frm2">
+			 <input type="hidden" name="memid" value="${SID}">
+			<input type="hidden" name="qorno" value="${DETAIL.qno}">
+			<td>
+				<input id="qttin" type="text" value="${DETAIL.qtt}" readonly/>
+			</td>
+	          <td> 
+			<textarea name="qip" cols="80" rows="8" style="height:10em;" id="qorno4">${DETAIL.qip}</textarea>
+		</form> 
+        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="Enrollment">Enrollment</button>
+          <div id="mentWrite">
+          	<br><br>
+          </div>
         </div>
       </div>
       </div>
-    </div>
+    </div>							
   </div>
 </div>
 	

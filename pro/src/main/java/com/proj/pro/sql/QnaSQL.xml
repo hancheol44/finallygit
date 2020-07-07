@@ -9,19 +9,20 @@
 	<!-- 작성글 리스트 가져오기 -->
 	<select id="qnaList" resultType="qVO" parameterType="page">
 		SELECT
-    qno, qtt, name, today
+    qno, qtt, name, today, ok
     FROM
     (
     SELECT
        ROWNUM rno, brd.*
     FROM
         (SELECT
-        qno, qtt, name, qna.today today
+        qno, qtt, name, qna.today today, ok
     FROM
         qna, member
     WHERE
         member.memno = qna.memno
         AND qna.qshow = 'Y'
+        AND qorno is null
     ORDER BY
         today desc) brd
     )
@@ -88,4 +89,39 @@
 		WHERE 
             qno = #{qno}
 	</update>
+	<insert id="qnamno" parameterType="qVO">
+		INSERT INTO
+    		qna(qno, qtt, qip, qorno, memno)
+		VALUES(
+    		(SELECT NVL (MAX(qno) + 1, 1000) FROM qna),
+     		#{qtt}, #{qip}, #{qorno}, (SELECT memno FROM member WHERE memid = #{memid})
+     		)
+		
+	</insert>
+	<select id="qornoList" resultType="qVO"  parameterType="int">
+	SELECT
+			qtt, qip, TO_CHAR(today, 'yyyy/MM/dd') today, name, memid
+		FROM
+			qna q, member m
+		WHERE
+			qorno = #{qorno}
+			AND q.memno = m.memno
+			
+	</select>
+	<update id="qnaok" parameterType="int">
+		UPDATE
+			qna
+		SET
+			ok = 'N'
+		WHERE
+			qno = #{qorno}
+	</update>
+	<!-- <select id="anscnt">
+		SELECT
+			count(*)
+		FROM
+			qna
+		WHERE
+			qorno = #{qorno} 
+	</select> -->
 </mapper>

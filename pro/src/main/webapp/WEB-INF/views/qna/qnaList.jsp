@@ -23,10 +23,10 @@
 <form method="POST" action="" id="frm">
 	<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage }">
 </form>
-
 <!-- 1. Detail 데이터 전담 Form -->
 <form method="GET" action="" id="DetailFrm">
 	<input type="hidden" name="qno"id="qno"/>
+	<!-- <input type="hidden" name="qorno"id="qorno"/> -->
 </form>
   
 <!-- Form태그 작성 -->
@@ -49,7 +49,12 @@
 			  	<td>${data.qtt}</td>
 			  	<td>${data.name}</td>
 			  	<td>${data.today}</td>
-			  	<td></td>
+			  	<c:if test="${not empty data.ok}">
+			  		<td><img src="/pro/img/qa_icon2.gif"></td>
+			  	</c:if>
+			  	<c:if test="${empty data.ok}">
+			  		<td><img src="/pro/img/qa_icon1.gif"></td>
+			  	</c:if>
 			  </tr>
 			  </c:forEach>
 			</table>

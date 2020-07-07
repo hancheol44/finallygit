@@ -36,12 +36,28 @@ public class QnaDAO {
 	public QnaVO getDetail(int qno) {
 		return sqlSession.selectOne("qSQL.qnaDetail", qno);
 	}
-	
+	// 글 삭제 처리
 	public int delData(int qno) {
 		System.out.println(qno);
 		return sqlSession.update("qSQL.qnaDel", qno);
 	}
+	// 글 수정 처리
 	public int mobData(QnaVO qVO) {
 		return sqlSession.update("qSQL.mobtn", qVO);
 	}
+	// 관리자 답변 처리
+	public int qnaData(QnaVO qVO) {
+		return sqlSession.insert("qSQL.qnamno", qVO);
+	}
+	// 관리자 답변 디테일 리스트
+	public List qornoData(int qorno) {
+		return sqlSession.selectList("qSQL.qornoList", qorno);
+	}
+	// 관리자 답변 확인
+	public int qnaokData(QnaVO qVO) {
+		return sqlSession.update("qSQL.qnaok", qVO);
+	}
+	 public int anscnt(QnaVO qVO) {
+		 return sqlSession.selectOne("qSQL.anscnt", qVO);
+	 }
 }
