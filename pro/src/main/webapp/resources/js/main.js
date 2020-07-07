@@ -1,6 +1,12 @@
 $(document).ready(function(){
 	
 
+
+	
+
+
+	
+
 function counterUp( settings ){
   var $settings = settings;
   var $target =$settings.ele;
@@ -62,8 +68,9 @@ function numberMotion( items ) {
     counterUp( {num:items[i].num, ele:items[i].ele });
   }
 }
+
 // 각 숫자 변수 선언
-var num1 = '122';
+var num1 ='122';
 var num2 ='1,222';
 var num3 ='100';
 numberMotion( [

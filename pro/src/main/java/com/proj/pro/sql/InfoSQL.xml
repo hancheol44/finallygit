@@ -347,4 +347,36 @@
 			AND memno = (SELECT memno FROM member WHERE memid=#{memid})
 	</delete>
 	
+	<!-- Main 팝니당 매장 주소리스트 -->
+	<select id="mainAddr" resultType="sVO">
+		SELECT
+		    bname, bloc 
+		FROM
+		    promotion p, member m
+		WHERE
+		    p.memno = m.memno
+	</select>
+	
+	<!-- Main 회원수 , 판매점 수  -->
+	<select id="mainCnt" resultType="iVO">
+		SELECT
+		    mcnt, pcnt
+		FROM
+		    (
+		        SELECT
+		            COUNT(*) mcnt
+		        FROM
+		            MEMBER
+		        WHERE
+		            mshow = 'Y'
+		    ), (
+		        SELECT
+		            COUNT(*) pcnt
+		        FROM
+		            promotion
+		        WHERE
+		            isshow = 'Y'
+		    )   
+	</select>
+	
 </mapper>

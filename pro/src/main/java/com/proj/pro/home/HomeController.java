@@ -1,19 +1,23 @@
 package com.proj.pro.home;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.MalformedInputException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.proj.pro.dao.*;
+import com.proj.pro.service.*;
+import com.proj.pro.vo.*;
 
 /**
  * Handles requests for the application home page.
@@ -39,10 +43,19 @@ public class HomeController {
 
 		return "home";
 	}
-
+	
+	
+	
 	@RequestMapping("/main.pro")
-	public String getMain(ModelAndView mv) {
-		return "/main";
+	public ModelAndView getMain(ModelAndView mv, InfoVO iVO) {
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("CNT", iVO);
+		mv.setViewName("/main.pro");
+		return mv;
 	}
 
 	@RequestMapping("/head.pro")

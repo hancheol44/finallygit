@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proj.pro.dao.InfoDAO;
-import com.proj.pro.service.InfoService;
-import com.proj.pro.vo.InfoVO;
+import com.proj.pro.dao.*;
+import com.proj.pro.service.*;
+import com.proj.pro.vo.*;
 
 
 @Controller
@@ -291,5 +291,14 @@ public class InfoController {
 				iVO = service.likeproc(iVO);
 				return iVO;
 			}
+			
+			
+			// 메인페이지 팝니당 위치정보 ajax 처리
+			//@RequestMapping("/main_Addr")
+			//@ResponseBody
+			//public ArrayList<SalesVO> main_Addr(SalesVO sVO) throws Exception{
+				//ArrayList<SalesVO> list = (ArrayList<SalesVO>) service.getMain_Addr(sVO);
+				//return list;
+			//}
 
 }

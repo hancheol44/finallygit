@@ -25,15 +25,15 @@
   <div class="centercolumn w3-center">
   <div class="card" style="height: 30em;">
 	      <h2>서비스현황</h2>
-		      <div style="float: left; margin-left: 200px;">
+		      <div style="float: left; margin-left: 20%;">
 					<div>등록판매점</div>
 					<div class="min">0</div>
 		      </div>
-		      <div style="float: left; margin-left: 250px;">
+		      <div style="float: left; margin-left: 20%;">
 					<div>누적판매량</div>
 					<div class="max">0</div>
 		      </div>
-		      <div style="float: left; margin-left: 250px;">
+		      <div style="float: left; margin-left: 20%;">
 					<div>가입자수</div>
 					<div class="member">0</div>
 		      </div>
@@ -80,7 +80,7 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
+	  
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Date', 'Sales', 'Member'],
@@ -113,7 +113,7 @@
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		$.ajax({
-			 url: '/pro/info/infoAC_Addr.pro',
+			 url: '/pro/info/main_Addr.pro',
 				type: 'post',
 				dataType: 'json',
 				success: function(obj){
@@ -124,12 +124,12 @@
 				// 주소로 좌표를 검색합니다
 				for(var i = 0 ; i < obj.length ; i++){
 					//setCti(obj[i].ifname);
-					let tmp = obj[i].ifname;
+					let tmp = obj[i].bname;
 					let str = '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>';
 					
 					var imageSize = new kakao.maps.Size(25, 25); 	
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-					geocoder.addressSearch(obj[i].ifaddr , function(result, status) {
+					geocoder.addressSearch(obj[i].bloc , function(result, status) {
 					    // 정상적으로 검색이 완료됐으면 
 					     if (status === kakao.maps.services.Status.OK) {
 					    	 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);

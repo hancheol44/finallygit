@@ -10,7 +10,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.proj.pro.vo.InfoVO;
+import com.proj.pro.vo.*;
 
 public class InfoDAO {
 	@Autowired
@@ -145,5 +145,14 @@ public class InfoDAO {
 			return sqlSession.update("iSQL.minuslike", iVO);
 		}
 		
+		// 메인 맵_ 판매점 마커 찍기
+		public List<SalesVO> getMainAddr(SalesVO sVO){
+			return sqlSession.selectList("iSQL.mainAddr", sVO);
+		}
+		
+		// 메인 회원수 / 등록매장수 뽑기
+		public InfoVO getCnt () {
+			return sqlSession.selectOne("iSQL.mainCnt");
+		}
 	
 }

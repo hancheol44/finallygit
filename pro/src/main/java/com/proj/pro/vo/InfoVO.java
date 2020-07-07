@@ -5,14 +5,23 @@ import java.text.SimpleDateFormat;
 
 public class InfoVO {
 	private String memid, ifct, ifname, ifshow, iftel, ifpri, ifaddr, iflink, ifrtt, ifrbd, rdate, name;
-	private int ifno, ifmno, ifrno, ifrst, ifrcnt, iflike, clike;	
+	private int ifno, ifmno, ifrno, ifrst, ifrcnt, iflike, clike, mcnt, pcnt;	
 	private Date redate;
 	private Time retime;
 	
 	
-	
-	
-	
+	public int getMcnt() {
+		return mcnt;
+	}
+	public void setMcnt(int mcnt) {
+		this.mcnt = mcnt;
+	}
+	public int getPcnt() {
+		return pcnt;
+	}
+	public void setPcnt(int pcnt) {
+		this.pcnt = pcnt;
+	}
 	public int getClike() {
 		return clike;
 	}
