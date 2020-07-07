@@ -48,7 +48,7 @@
 	
 	
 	<!-- 인터셉터 선언 -->
-		<beans:bean id="homeInterceptor" class="com.proj.pro.interceptor.HomeInterceptor" />
+		<beans:bean id="homeInterceptor" class="com.proj.pro.interceptor.HomeInterceptor2" />
 		<!-- 인터셉터와 url 맵핑 -->
 		<interceptors>
 			<interceptor>
