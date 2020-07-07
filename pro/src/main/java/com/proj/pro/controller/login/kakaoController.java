@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.proj.pro.dao.LoginDAO;
+import com.proj.pro.service.kakaoService;
+import com.proj.pro.service.kakaoService.KaKaoLogin;
 import com.proj.pro.vo.LoginVO;
 import com.proj.pro.vo.SalesVO;
 
@@ -21,8 +23,9 @@ import com.proj.pro.vo.SalesVO;
 @RequestMapping("/kakao")
 public class kakaoController {
 	
+	
 	@Autowired
-	private KaKaoLogin kakao;
+	private KaKaoLogin kakaos;
 	
 	@Autowired
 	private LoginDAO lDAO;
@@ -47,9 +50,9 @@ public class kakaoController {
 	// 카카오 로그인 맵핑처리
 	@RequestMapping(value="/kakaoLogin.pro")
     public ModelAndView login(@RequestParam("code") String code,HttpSession session, ModelAndView mv, LoginVO lVO) {
-        String access_Token = kakao.getAccessToken(code);
+        String access_Token = kakaos.getAccessToken(code);
         RedirectView rv = null; 
-        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        HashMap<String, Object> userInfo = kakaos.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
         int cad = (int) userInfo.get("id");
         int cnt = lDAO.kidCheck(cad);
@@ -75,7 +78,7 @@ public class kakaoController {
 	// 카카오 로그아웃 맵핑처리
 	@RequestMapping(value="/logout.pro")
 	public ModelAndView logout(HttpSession session, ModelAndView mv) {
-	    kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+	    kakaos.kakaoLogout((String)session.getAttribute("access_Token"));
 	    session.removeAttribute("access_Token");
 	    session.removeAttribute("userId");
 	    session.removeAttribute("SID");

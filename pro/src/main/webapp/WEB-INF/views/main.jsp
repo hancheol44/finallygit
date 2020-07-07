@@ -178,8 +178,6 @@
 				
 			},
 			error: function(request, error){
-				alert('### 맵 에러 ###');
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		 });
 		

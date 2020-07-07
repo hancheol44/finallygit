@@ -48,13 +48,8 @@ public class HomeController {
 	
 	@RequestMapping("/main.pro")
 	public ModelAndView getMain(ModelAndView mv, InfoVO iVO) {
-		try {
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 		mv.addObject("CNT", iVO);
-		mv.setViewName("/main.pro");
+		mv.setViewName("main");
 		return mv;
 	}
 

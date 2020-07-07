@@ -20,8 +20,9 @@
 		루트경로 하위의 모든 클래스를 스캔을 한 후
 		annotation이 붙어있는 태그를 빈처리하는 태그
 		
+	
 	-->
-
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" /> <!--  /** => 내부의 모든 파일을 의미 -->
 	<resources mapping="/css/**" location="/resources/css/" />
@@ -38,6 +39,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.proj.pro.home" />
+	
 	
 	
 	
