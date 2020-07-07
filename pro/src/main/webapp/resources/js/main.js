@@ -69,14 +69,20 @@ function numberMotion( items ) {
   }
 }
 
+var a1 = $('#pcnt').val();
+var a2 = $('#mcnt').val();
+var a4 = $('#visitor').val();
+
 // 각 숫자 변수 선언
-var num1 ='122';
-var num2 ='1,222';
-var num3 ='100';
+var num1 =a1;
+var num2 ='1222';
+var num3 =a2;
+var num4 =a4;
 numberMotion( [
   {num:num1, ele:$('.min') },
   {num:num2, ele:$('.max') },
-  {num:num3, ele:$('.member') }
+  {num:num3, ele:$('.member') },
+  {num:num4, ele:$('.visitor') }
 ]);
 
 });

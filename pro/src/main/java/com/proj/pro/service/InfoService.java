@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proj.pro.dao.InfoDAO;
-import com.proj.pro.vo.InfoVO;
+import com.proj.pro.vo.*;
 
 @Service
 public class InfoService {
@@ -80,8 +80,13 @@ public class InfoService {
 			return iDAO.modCT_Review(iVO);
 		}
 		
+		// InfoCT All Addr
 		public List<InfoVO> getCT_Addr(InfoVO iVO) throws Exception{
 			return iDAO.getCTAddr(iVO);
+		}
+		
+		public List<SalesVO> getMain_Addr(SalesVO sVO) throws Exception{
+			return iDAO.getMainAddr(sVO);
 		}
 		
 		
@@ -122,6 +127,12 @@ public class InfoService {
 			public List<InfoVO> getDT_Addr(InfoVO iVO) throws Exception{
 				return iDAO.getDTAddr(iVO);
 			}
+			// Main Cnt 
+			public InfoVO getCnt_Main() throws Exception{
+				return iDAO.getCnt();
+			}
+			
+			
 			
 			
 			// Info Like 처리 서비스
@@ -166,4 +177,10 @@ public class InfoService {
 				System.out.println("최종 반환 vo : "+iVO);
 				return iVO;
 			}
+			
+			
+			
+			
+			
+			
 }

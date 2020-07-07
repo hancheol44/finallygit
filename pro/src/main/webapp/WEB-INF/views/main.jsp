@@ -20,22 +20,29 @@
 <body>
 
   <jsp:include page="/left.pro" flush="true" />
-
+  
+  <input type="hidden" id="mcnt" name="mcnt" value="${CNT.mcnt}" />
+  <input type="hidden" id="pcnt" name="pcnt" value="${CNT.pcnt}" />
+  <input type="hidden" id="visitor" name="vcnt" value="${LCNT}" />
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <div class="centercolumn w3-center">
   <div class="card" style="height: 30em;">
 	      <h2>서비스현황</h2>
-		      <div style="float: left; margin-left: 20%;">
+		      <div style="float: left; margin-left: 15%;">
 					<div>등록판매점</div>
 					<div class="min">0</div>
 		      </div>
-		      <div style="float: left; margin-left: 20%;">
+		      <div style="float: left; margin-left: 15%;">
 					<div>누적판매량</div>
 					<div class="max">0</div>
 		      </div>
-		      <div style="float: left; margin-left: 20%;">
+		      <div style="float: left; margin-left: 15%;">
 					<div>가입자수</div>
 					<div class="member">0</div>
+		      </div>
+		      <div style="float: left; margin-left: 15%;">
+					<div>누적방문자수</div>
+					<div class="visitor">0</div>
 		      </div>
 		</div>
 		 <div class="cardm" style="width: 100%; height: 30em; background-color: #ffffff;">

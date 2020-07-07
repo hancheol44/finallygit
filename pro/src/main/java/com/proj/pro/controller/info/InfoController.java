@@ -294,11 +294,13 @@ public class InfoController {
 			
 			
 			// 메인페이지 팝니당 위치정보 ajax 처리
-			//@RequestMapping("/main_Addr")
-			//@ResponseBody
-			//public ArrayList<SalesVO> main_Addr(SalesVO sVO) throws Exception{
-				//ArrayList<SalesVO> list = (ArrayList<SalesVO>) service.getMain_Addr(sVO);
-				//return list;
-			//}
+			@RequestMapping("/main_Addr")
+			@ResponseBody
+			public ArrayList<SalesVO> main_Addr(SalesVO sVO) throws Exception{
+				ArrayList<SalesVO> list = (ArrayList<SalesVO>) service.getMain_Addr(sVO);
+				return list;
+			}
+			
+			
 
 }
