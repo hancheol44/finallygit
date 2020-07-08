@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/pro/css/common.css">
 <link rel="stylesheet" href="/pro/css/w3.css" />
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
+<script type="text/javascript" src="/pro/js/board_ajax.js"></script>
 <script type="text/javascript" src="/pro/js/board.js"></script>
 <script type="text/javascript">
 
@@ -22,17 +23,10 @@
 </head>
 
 <body>
-	<div class="rtt">
-		<div class="w3-center w3-green ">댓글 영역</div>
-			
-			<c:forEach var="data" items="${LIST}">
-			<div class="w3-left reBoard ">
-			<div>${data.name}</div>
-			<div>${data.bdbd}</div>
-			<div>${data.today}</div>
-			
-			</div>
-		</c:forEach>
-	</div>
+	<div class="w3-center w3-green ">댓글 영역</div>
+		<div id ="newList">
+		</div>
+		<div id ="reviewList">
+		</div>
 </body>
 </html>

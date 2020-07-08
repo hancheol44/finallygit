@@ -76,9 +76,9 @@
 					</thred>
 					<c:forEach var="data" items="${LIST}">
 						<tr class="w3-text-gray cnt content" id="${data.bdno}">
-							<td>${data.bdno}</td>
+							<td>${data.rno}</td>
 							<td>${data.bdct}</td>
-							<td>${data.bdtt}</td>
+							<td>${data.bdtt} <c:if test="${data.ccnt !=0}"><a style="color: purple; font-weight: bolder; text-shadow: black;">&nbsp(${data.ccnt})</a></c:if></td>
 							<td>${data.name}</td>
 							<td>${data.today}</td>
 							<td>${data.vcnt}</td>

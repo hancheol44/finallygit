@@ -7,7 +7,7 @@
 
 <mapper namespace="bSQL">
 	
-	<update id="cnt" parameterType="bVO">
+	<update id="cnt" parameterType="int">
 	UPDATE
     	board
 	SET
@@ -15,7 +15,18 @@
 	where
    		bdno =#{bdno}
 	</update>
-	
+	<select id="cocnt" resultType="bVO" >
+	SELECT
+	    borino, count(*) ccnt
+	FROM
+	    board
+	WHERE
+	    bdshow = 'Y' AND
+	    borino IS NOT NULL
+	GROUP BY
+		borino;
+
+    </select>
 	<select id="getTotal" resultType="int" parameterType="bVO">
 			SELECT 
 			   count(*) cnt 
@@ -45,7 +56,7 @@
 	
 	<select id="boardList" resultType="bVO" parameterType="bVO">
 		SELECT
-		rno, bdno, bdct, bdtt, name, today, vcnt
+		rno, bdno, bdct, bdtt, name, today, vcnt, ccnt
 		FROM
 		( SELECT
 		ROWNUM rno,
@@ -77,10 +88,21 @@
 					</choose>
 				</trim>
 		</where>
-		ORDER BY
+	
+		)d
+		),(SELECT
+            borino, count(*) ccnt
+        FROM
+            board
+        WHERE
+            bdshow = 'Y' AND
+            borino IS NOT NULL
+        GROUP BY
+        borino) c
+       	where
+       	c.borino(+) = bdno
+	ORDER BY
 		bdno DESC
-		)
-		)
 		
 	</select>
 	
@@ -106,7 +128,7 @@
 		memid = #{memid}) )
 	</insert>
 	
-	<insert id="comment" parameterType="bVO">
+	<insert id="comment" parameterType="bVO" >
 		insert into
 	   		 board(bdno,bdct, bdtt, bdbd, memno, borino)
 		VALUES((SELECT NVL(MAX(bdno) + 1, 1000) FROM board), '댓글','댓글', #{bdbd},
@@ -150,6 +172,7 @@
 		WHERE
 		m.memno= b.memno AND
 		BDCT = '댓글' AND
+		b.bdshow = 'Y' AND
 		b.borino = #{bdno}
 		ORDER BY
 		bdno DESC

@@ -3,6 +3,9 @@ package com.proj.pro.controller.board;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +30,10 @@ public class Board {
 	@Inject
 	private BoardService service;
 	
-	@RequestMapping("/cnt.pro")
-	public void cnt(BoardVO bVO) throws Exception{
-		service.cnt(bVO);
+	@RequestMapping("/cocnt.pro")
+	public void cocnt(BoardVO bVO) throws Exception{
 	}
-	
+
 	@RequestMapping(value = "/board.pro", method =RequestMethod.GET)
 	public ModelAndView getList(ModelAndView mv, BoardVO bVO) throws Exception {
 
@@ -45,7 +47,6 @@ public class Board {
 	@RequestMapping(value = "/search.pro", method = RequestMethod.POST)
 	public ModelAndView search(ModelAndView mv, BoardVO bVO) throws Exception {
 		String view = "board/board";
-		System.out.println("�꽌移�");
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
 		mv.addObject("LIST", list);
 		System.out.println(list.size());
@@ -57,18 +58,71 @@ public class Board {
 	@ResponseBody
 	public ArrayList<BoardVO> reBoard(ModelAndView mv,BoardVO bVO, int bdno) throws Exception{
 		ArrayList<BoardVO> rest =(ArrayList<BoardVO>) service.rest(bdno);
-		mv.addObject("LIST", rest);
 		System.out.println(rest.size());
 		return rest;
 	}
 	@RequestMapping(value = "/boardDetail.pro", method = RequestMethod.GET, params = "bdno")
-	public ModelAndView boardDetail(ModelAndView mv, BoardVO bVO, int bdno) throws Exception {
+	public ModelAndView boardDetail(ModelAndView mv, BoardVO bVO, int bdno,HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String view = "board/boardDetail";
 		BoardVO vo = service.bDetail(bVO);
-		mv.addObject("DATA", vo);
+		
+		Cookie[] cookies = request.getCookies();
+        
+        // 비교하기 위해 새로운 쿠키
+        Cookie viewCookie = null;
+ 
+        // 쿠키가 있을 경우 
+        if (cookies != null && cookies.length > 0) 
+        {
+            for (int i = 0; i < cookies.length; i++)
+            {
+                // Cookie의 name이 cookie + bdno와 일치하는 쿠키를 viewCookie에 넣어줌 
+                if (cookies[i].getName().equals("cookie"+bdno))
+                { 
+                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+                    viewCookie = cookies[i];
+                }
+            }
+        }
+        
+        if (vo != null) {
+            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+            
+            mv.addObject("DATA", vo);
+ 
+            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+            if (viewCookie == null) {    
+                System.out.println("cookie 없음");
+                
+                // 쿠키 생성(이름, 값)
+                Cookie newCookie = new Cookie("cookie"+bdno, "|" + bdno + "|");
+                                
+                // 쿠키 추가
+                response.addCookie(newCookie);
+ 
+                // 쿠키를 추가 시키고 조회수 증가시킴
+                int result = service.cnt(bdno);
+                
+                if(result>0) {
+                    System.out.println("조회수 증가");
+                }else {
+                    System.out.println("조회수 증가 에러");
+                }
+            }
+            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+            else {
+                System.out.println("cookie 있음");
+                
+                // 쿠키 값 받아옴.
+                String value = viewCookie.getValue();
+                
+                System.out.println("cookie 값 : " + value);
+        
+            }
 		
 		mv.setViewName(view);
-		return mv;
+        }
+        return mv;
 	}
 
 	@RequestMapping("/boardWrite.pro")
@@ -80,17 +134,13 @@ public class Board {
 	
 	@RequestMapping(value="boardComment.pro", method = RequestMethod.POST)
 	@ResponseBody
-	public BoardVO comment( BoardVO bVO, HttpSession session) throws Exception{
-		try {
-			String memid = (String) session.getAttribute("SID");
-			System.out.println(bVO);
-			service.comment(bVO, memid);
+	public void comment(BoardVO bVO, HttpSession session) throws Exception{
+		System.out.println("bVO " + bVO.getBorino());
+		String memid = (String) session.getAttribute("SID");
+		service.comment(bVO, memid);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-			
-		return bVO;
+		
+		System.out.println("컨트롤러 " + bVO);
 	}
 	
 	@RequestMapping(value = "/boardWriteProc.pro", method = RequestMethod.POST)
@@ -118,8 +168,19 @@ public class Board {
 	}
 	@RequestMapping(value = "/boardDelete.pro", method = RequestMethod.GET, params = "bdno")
 	public String Delete(int bdno) throws Exception{
+		System.out.println("컨트롤러 도착");
 		service.BoardDelete(bdno);
+		System.out.println("컨트롤러 끝");
 		return "redirect:board.pro";
+		
+	}
+	@RequestMapping(value = "/reDelete.pro", method = RequestMethod.POST)
+	@ResponseBody
+	public void reDelete(int bdno) throws Exception{
+		System.out.println("컨트롤러 도착");
+		System.out.println("re" + bdno);
+		service.BoardDelete(bdno);
+		System.out.println("컨트롤러 끝");
 		
 	}
 	

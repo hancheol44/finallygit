@@ -1,19 +1,18 @@
 $(document).ready(function(){
 	reList();
-
-$('#comment').click(function reOK() {
-	var form = $("#cfrm");
+	
+$('#comment').click(function() {
+	var form = $('#cfrm');
 	var formData = new FormData(form[0]);
 		$.ajax({
 			url: '/pro/board/boardComment.pro',
-			type: 'POST',
+			type: 'post',
 			data: formData,
+			processData: false,
+			contentType: false,
 			success: function(obj){
-				$('#reviewList').append('<div class="w3-left reBoard ">'+
-								'<div>'+obj.name+'</div>'+
-								'<div>'+obj.bdbd+'</div>'+
-								'<div>'+obj.today+'</div>'+
-								'</div>')
+				$('.reBoard').remove();
+				reList();
 			},
 			error: function(request,status,erro){
 				alert("code:"+request.status+"\n"+"\n"+"error:"+error);
@@ -22,57 +21,52 @@ $('#comment').click(function reOK() {
 		});
 	});
 	
-function reList(){
-		$.ajax({
-			url: '/pro/board/reBoard.pro',
-			type: 'post',
-			dataType: 'json',
-			data:{
-				'bdno' : $('#bno').html()
-				
-			},
-			success: function(obj){
-				var len = obj.length;
-				for(var i = 0; i < len; i++){
-					$('#reviewList').append('	<div class="w3-left reBoard ">'+
-							'<div>'+obj[i].name+'</div>'+
-							'<div>'+obj[i].bdbd+'</div>'+
-							'<div>'+obj[i].today+'</div>'+
-							'</div>')		
-				}
-			},
-			error: function(request,status,error){
-				alert("### 리스트 뽑기 통신에러 ###");
-				alert("code:"+request.status+"\n"+"\n"+"error:"+error);
 
-			}
-		});
-	};
 	
 });	
-$(document).on('click','.delete', function remove(){
-	var rno = $(this).attr('value');
+$(document).on('click','.del', function remove(){
 	$.ajax({
-		url: '/pro/sales/reviewDelete.pro',
+		url: '/pro/board/reDelete.pro',
+		type: 'POST',
+		data:{
+			'bdno' : $(this).attr('value')
+		},
+		success: function(obj){
+			$('.reBoard').remove();
+			reList();
+		},
+		error: function(request,status,error){
+			alert("### 리스트 뽑기 통신에러 ###");
+			alert("code:"+request.status+"\n"+"\n"+"error:"+error);
+		}
+	});
+
+});
+function reList(){
+	$.ajax({
+		url: '/pro/board/reBoard.pro',
 		type: 'post',
 		dataType: 'json',
 		data:{
-			'rno' : rno
-		},
-		success: function(obj){
-			if(obj.result == 1){
-				$('#'+'rlist'+rno).remove();
-			} else{
-				alert("실패");
-			}
+			'bdno' : $('#bno').html()
 			
 		},
-		error: function(){
-			alert("### 삭제 후 리스트 뽑기 통신에러 ###");
+		success: function(obj){
+			var len = obj.length;
+			for(var i = 0; i < len; i++){
+				$('#reviewList').append('<div class="w3-left reBoard " id="rlist'+obj[i].bdno+'">'+
+						'<div>'+obj[i].name+'</div>'+
+						'<div>'+obj[i].bdbd+'</div>'+
+						'<div>'+obj[i].today+'</div>'+
+						'<a class="del" value="'+obj[i].bdno+'">삭제</a>&nbsp'+
+						'<a class="edit" value="'+obj[i].bdno+'">수정</a>'+
+						'</div>')		
+			}
+		},
+		error: function(request,status,error){
+			alert("### 리스트 뽑기 통신에러 ###");
+			alert("code:"+request.status+"\n"+"\n"+"error:"+error);
+
 		}
 	});
-});
-
-//$(document).on('click','.delete',function(){
-//	alert($(this).attr('value'));
-//})
+};

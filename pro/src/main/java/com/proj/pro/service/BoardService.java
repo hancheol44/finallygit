@@ -36,26 +36,16 @@ public class BoardService {
 		return bDAO.getTotal(bVO);
 	}
 	
-	public void cnt(BoardVO bVO) throws Exception{
-		int bdno = bVO.getBdno();
+	public int cnt(int bdno) throws Exception{
 		
-		bVO.setBdno(bdno);
-		bDAO.cnt(bVO);
+		return bDAO.cnt(bdno);
 	}
 
 	// Board List
 	public List<BoardVO> getList(BoardVO bVO) throws Exception {
 
-//
-//		String ct = bVO.getBdct();
-//		String tp = bVO.getType();
-//		String ip = bVO.getInput();
-//		
-//		System.out.println(ct+ " : " + ip);
-//		
-//		bVO.setBdct(ct);
-//		bVO.setType(tp);
-//		bVO.setInput(ip);
+
+		
 	
 		return bDAO.getList(bVO);
 	}
@@ -92,7 +82,7 @@ public class BoardService {
 		
 	}
 	public BoardVO comment(BoardVO bVO, String memid) throws Exception{
-		
+		System.out.println("서비스 " + bVO);
 		bVO.setMemid(memid);
 		return bDAO.comment(bVO);
 	}
@@ -125,6 +115,7 @@ public class BoardService {
 		
 	}
 	public List<BoardVO> rest(int bdno) throws Exception{
+		
 		return bDAO.rest(bdno);
 	}
 	

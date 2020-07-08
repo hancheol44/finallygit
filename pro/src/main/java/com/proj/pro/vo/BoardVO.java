@@ -9,9 +9,10 @@ import java.text.SimpleDateFormat;
 import com.proj.pro.util.PageUtil;
 
 public class BoardVO {
-	private int bdno, memno, borino, vcnt, imgno, rno;
+	private int bdno, memno, borino, vcnt, imgno, rno, ccnt;
 	private String bdct, bdtt, bdbd, bdshow, today, name, memid, type, input;
-	PageUtil paging;
+	private PageUtil page;
+	
 	private Date bDate;
 	private Time bTime;
 	public int getBdno() {
@@ -121,20 +122,24 @@ public class BoardVO {
 	public void setInput(String input) {
 		this.input = input;
 	}
-	public PageUtil getPaging() {
-		return paging;
+	public PageUtil getPage() {
+		return page;
 	}
-	public void setPaging(PageUtil paging) {
-		this.paging = paging;
+	public void setPage(PageUtil page) {
+		this.page = page;
+	}
+	
+	public int getCcnt() {
+		return ccnt;
+	}
+	public void setCcnt(int ccnt) {
+		this.ccnt = ccnt;
 	}
 	@Override
 	public String toString() {
 		return "BoardVO [bdno=" + bdno + ", memno=" + memno + ", borino=" + borino + ", vcnt=" + vcnt + ", imgno="
 				+ imgno + ", rno=" + rno + ", bdct=" + bdct + ", bdtt=" + bdtt + ", bdbd=" + bdbd + ", bdshow=" + bdshow
 				+ ", today=" + today + ", name=" + name + ", memid=" + memid + ", type=" + type + ", input=" + input
-				+ ", paging=" + paging + ", bDate=" + bDate + ", bTime=" + bTime + "]";
+				+ ", page=" + page + ", bDate=" + bDate + ", bTime=" + bTime + "]";
 	}
-	
-	
-	
 }

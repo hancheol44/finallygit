@@ -16,9 +16,10 @@ public class BoardDAO {
 
 	public BoardDAO() {
 	}
-	public void cnt(BoardVO bVO) {
-		sqlSession.update("bSQL.cnt", bVO);
+	public int cnt(int bdno) {
+		return sqlSession.update("bSQL.cnt", bdno);
 	}
+	
 	public int getTotal(BoardVO bVO) {
 		return sqlSession.selectOne("bSQL.getTotal",bVO );
 	}

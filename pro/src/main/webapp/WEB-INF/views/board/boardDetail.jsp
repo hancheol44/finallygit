@@ -79,6 +79,8 @@
 		</div>
 	<div class="rtt">
 		<div class="w3-center w3-green ">댓글 영역</div>
+		<div id ="newList">
+		</div>
 		<div id ="reviewList">
 		</div>
 		
