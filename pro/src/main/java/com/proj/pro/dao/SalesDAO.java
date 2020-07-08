@@ -85,4 +85,8 @@ public class SalesDAO {
 	public String likeCheck(SalesVO sVO) {
 		return sqlSession.selectOne("sSQL.likecheck", sVO);
 	}
+	// 이용자 차량 통계
+	public List carchart(int cpno) {
+		return sqlSession.selectList("sSQL.carchart",cpno);
+	}
 }

@@ -28,7 +28,7 @@
 	 	<input type="hidden" name="rno" id="rno">
 	 	<input type="hidden" name="pno" id="repno">
 	 </form>
-	 <form method="post" action="/pro/sales/sales_inside.pro" id="frm3">
+	 <form method="post" action="/pro/sales/delete.pro" id="frm3">
 	 	<input type="hidden" name="pno" id="spno">
 	 </form>
 	 <!-- 수정 데이터 전송용 폼태그 -->
@@ -46,7 +46,19 @@
 		 <input type="hidden" id="apbd" name="pbd" value="${DATA.pbd}">
 		 <input type="hidden" id="acate" name="cate" value="${DATA.cate}">
 	</form>
-	 
+	<!-- 차량 통계 폼태그 -->
+	<form method="post" action="/pro/sales/sales_inside.pro" id="car">
+		<input type="hidden" name="pno" id="cpno">
+	</form>
+	<input type="hidden" id="isshow" value="${DATA.isshow}">
+	<input type="hidden" id="car1" value="${CAR1}">
+	<input type="hidden" id="car2" value="${CAR2}">
+	<input type="hidden" id="car3" value="${CAR3}">
+	<input type="hidden" id="car4" value="${CAR4}">
+	<input type="hidden" id="car5" value="${CAR5}">
+	<input type="hidden" id="car6" value="${CAR6}">
+	<input type="hidden" id="car7" value="${CAR7}">
+	<input type="hidden" id="car8" value="${CAR8}">
 	<div id="detail">
 		<br>
 		<div id="topForm"><h3><b>매장 정보</b>
@@ -63,12 +75,6 @@
 		<hr>
 		<br>
 		<div id="board">
-		<c:if test="${not empty CAR}">
-			<div id="car">
-				<h5 id="car_h5" name="car">매장진입 추천차량</h5>
-				<h4 id="car_h4"><b>${CAR}</b></h4>
-			</div>
-		</c:if>
 			<h2 id="pro_ptt" name="ptt"><b>${DATA.ptt}</b></h2>
 			<h4 id="pro_bceo" name="bceo">${DATA.name}</h4>
 			<h4 id="pro_bloc" name="bloc">${DATA.bloc}</h4>
@@ -136,19 +142,49 @@
 	<!-- <img alt="" src="/pro/img/payment_icon_yellow_medium.png" action=""> -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+
+	/* var car1, car2, car3, car4, car5, car6, car7, car8; */
+	
+	
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
+    	var x = new Array();
+    	x = ${CAR};
+    	alert(typeof x);
+    	 var car = '${CAR}';
+    	 alert(car[3]);
+    	
+    	/* 순서 맘대로 들어감 정렬 필요 */
+    	var a = parseInt(car[1]);
+    	console.log(a);
+    	var b = parseInt(car[4]);
+    	console.log(b);
+    	var c = parseInt(car[7]);
+    	console.log(c);
+    	var d = parseInt(car[10]);
+    	console.log(d);
+    	var e = parseInt(car[13]);
+    	console.log(e);
+    	var f = parseInt(car[16]);
+    	console.log(f);
+    	var g = parseInt(car[19]);
+    	console.log(g);
+    	var h = parseInt(car[22]);
+    	console.log(h);
+    	
+    	 
+    	
       var data = google.visualization.arrayToDataTable([
         ["Element", "값", { role: "style" } ],
-        ["소형", 8.94, "#9370db"],
-        ["경형", 10.49, "#ff7f50"],
-        ["준중형", 19.30, "gold"],
-        ["중형", 21.45, "color: #db7093"],
-        ["준대형", 21.45, "color: #dc143c"],
-        ["대형", 21.45, "color: #6495ed"],
-        ["스포츠카", 21.45, "color: #bdb76b"],
-        ["기타", 21.45, "color: #e5e4e2"]
+        ["소형", a, "#9370db"],
+        ["경형", b, "#ff7f50"],
+        ["준중형", c, "gold"],
+        ["중형", d, "color: #db7093"],
+        ["준대형", e, "color: #dc143c"],
+        ["대형", f, "color: #6495ed"],
+        ["스포츠카", g, "color: #bdb76b"],
+        ["기타", h, "color: #e5e4e2"]
       ]);
 
       var view = new google.visualization.DataView(data);

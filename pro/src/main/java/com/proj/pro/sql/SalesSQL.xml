@@ -24,7 +24,7 @@
 	<select id="saDetail" resultType="sVO" >
 		SELECT
 		    p.pno, ptt, pbd, name, bno, TO_CHAR(p.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, bloc, cate, m.memid, bname,
-		    NVL(imgno, 0) imgno, NVL(oriname, 'none') oriname, NVL(savename, 'none') savename, r.rcnt, lcnt
+		    NVL(imgno, 0) imgno, NVL(oriname, 'none') oriname, NVL(savename, 'none') savename, r.rcnt, lcnt, p.isshow
 		FROM
 		    promotion p, image i, member m,
 		    (SELECT COUNT(*) rcnt FROM (SELECT * FROM review) WHERE isshow = 'Y' AND pno = #{pno}) r
@@ -87,25 +87,21 @@
 	<!-- 리뷰 리스트 조회 -->
 	<select id="reList" parameterType="int" resultType="sVO">
 		SELECT
-		    ee.rrno, rno,name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename, edit
+		    ee.rrno, rno, name, memid, ptt, rtt, rbd, memno, rst, today, pno, savename, edit
 		FROM
 		    (SELECT
-		        rownum rrno,rno, name, m.memid, ptt, rtt, rbd, m.memno, e.today, rst, pno, savename, isshow, edit
+		        rownum rrno,rno, name, memid, ptt, rtt, rbd, memno, e.today, rst, pno, savename, isshow, edit
 		    FROM
 		        (SELECT
-		            p.pno, ptt, m.bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, cate, r.rno, rtt, rbd, p.memno, rst, r.isshow, savename, edit
+		            p.pno, ptt, m.bno, pbd, TO_CHAR(r.today, 'yyyy-mm-dd hh24:mi:ss') today, bcnt, cate, r.rno, rtt, rbd, p.memno, rst, r.isshow, savename, edit, memid, name
 		        FROM 
 		            PROMOTION p, REVIEW r, image i, member m
 		        WHERE
 		            r.pno = #{pno}
-		            AND
-		            r.pno = p.pno
-		            AND
-		            r.rno = i.rno
-		            
-		            ) e, member m
-		    WHERE
-		        m.memno = e.memno
+		            AND r.pno = p.pno
+		            AND r.rno = i.rno
+		            AND m.memno = r.memno
+		            ) e
 		    ORDER BY
 		        today
 		    ) ee
@@ -202,4 +198,31 @@
 		    AND
 		    memno = (SELECT memno FROM member WHERE memid=#{memid})
 	</delete>
+	<select id="carchart" resultType="sVO" parameterType="int">
+		SELECT
+		    e.carno, c.carct, carcount
+		FROM
+		    (SELECT
+		        carno, count(*) carcount
+		    FROM
+		        (SELECT
+		            c.carno, carct, m.memno, p.pno
+		        FROM
+		            promotion p, car c, member m, review r
+		        WHERE
+		            m.carno = c.carno
+		            AND r.memno = m.memno
+		            AND p.pno = r.pno
+		            AND p.pno = #{pno}
+                    AND r.isshow = 'Y'
+		        )
+		    GROUP BY
+		            carno) e, member m, car c
+		WHERE
+		    e.carno = m.carno
+		    AND c.carno = e.carno
+           
+		ORDER BY
+		    e.carno
+	</select>
 </mapper>

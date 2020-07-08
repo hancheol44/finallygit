@@ -1,6 +1,14 @@
+$(document).one(function(){
+	car();
+})
 $(document).ready(function(){
 	reList();
-
+//	var isshow = $('#isshow').attr('value');
+//	alert(isshow);
+//	if(isshow == 'Y'){
+//		.one();
+//	}
+	
 // 리뷰 등록, 이미지 포함 ajax
 $('#reviewOK').click(function reOK() {
 		var form =  $('#ajax');
@@ -185,5 +193,10 @@ $(document).on('click','.editOK', function edit(){
 		}
 	});
 });
-
+//차량 통계
+function car(){
+	var no = $('#apno').attr('value');
+	$('#cpno').val(no);
+	$('#car').submit();
+};
 });

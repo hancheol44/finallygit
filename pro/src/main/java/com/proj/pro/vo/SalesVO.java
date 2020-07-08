@@ -9,22 +9,39 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class SalesVO {
-	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno;
-	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut, edit;
+	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno, carno, carcount;
+	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut, edit, carct;
 	private Date pDate;
 	private Time pTime;
 	private MultipartFile file;
 	
-	
-	
 	@Override
 	public String toString() {
 		return "SalesVO [pno=" + pno + ", bcnt=" + bcnt + ", rno=" + rno + ", imgno=" + imgno + ", memno=" + memno
-				+ ", rst=" + rst + ", rpno=" + rpno + ", rcnt=" + rcnt + ", lcnt=" + lcnt + ", lno=" + lno + ", ptt="
-				+ ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name + ", today=" + today + ", cate=" + cate
-				+ ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname + ", bloc=" + bloc + ", oriname=" + oriname
-				+ ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd + ", isshow=" + isshow + ", imgrut="
-				+ imgrut + ", edit=" + edit + ", pDate=" + pDate + ", pTime=" + pTime + ", file=" + file + "]";
+				+ ", rst=" + rst + ", rpno=" + rpno + ", rcnt=" + rcnt + ", lcnt=" + lcnt + ", lno=" + lno + ", carno="
+				+ carno + ", carcount=" + carcount + ", ptt=" + ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name
+				+ ", today=" + today + ", cate=" + cate + ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname
+				+ ", bloc=" + bloc + ", oriname=" + oriname + ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd
+				+ ", isshow=" + isshow + ", imgrut=" + imgrut + ", edit=" + edit + ", carct=" + carct + ", pDate="
+				+ pDate + ", pTime=" + pTime + ", file=" + file + "]";
+	}
+	public int getCarno() {
+		return carno;
+	}
+	public void setCarno(int carno) {
+		this.carno = carno;
+	}
+	public int getCarcount() {
+		return carcount;
+	}
+	public void setCarcount(int carcount) {
+		this.carcount = carcount;
+	}
+	public String getCarct() {
+		return carct;
+	}
+	public void setCarct(String carct) {
+		this.carct = carct;
 	}
 	public String getEdit() {
 		return edit;

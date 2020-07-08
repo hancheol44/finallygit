@@ -1,7 +1,9 @@
 package com.proj.pro.controller.sales;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,17 +47,30 @@ public class Sales {
 	}
 	
 	// Sales Detail Page
-	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.GET)
-	public ModelAndView saDetail(ModelAndView mv, SalesVO sVO) {
-		try {
+	@RequestMapping("/sales_inside.pro")
+	public ModelAndView saDetail(ModelAndView mv, SalesVO sVO, @RequestParam("pno")int cpno) {
+			int car1 = 0;
+			int[] clist = new int [8];
+			String clist2 = null;
+			try {
 			String view = "sales/sales_inside";
 			service.saBcnt(sVO.getPno());
 			SalesVO vo = service.saDetail(sVO);
+			if(vo.getRcnt() != 0) {
+				List<SalesVO> list =(List<SalesVO>) service.car(cpno);
+				for(int i = 0; i < list.size(); i++) {
+					int car = list.get(i).getCarcount();
+					clist[i] = car;
+					clist2 = Arrays.toString(clist);
+					mv.addObject("CAR", clist2);
+					}
+				}
+			mv.setViewName(view);
 			mv.addObject("DATA", vo);
 			mv.addObject("PNO", sVO.getPno());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		return mv;
 	}
 	
@@ -89,7 +104,7 @@ public class Sales {
 		return mv;
 	}
 	// Sales Delete
-	@RequestMapping(value="/sales_inside.pro", method=RequestMethod.POST)
+	@RequestMapping(value="/delete.pro", method=RequestMethod.POST)
 	public ModelAndView saDelete(ModelAndView mv, SalesVO sVO) {
 		try {
 			String view = "sales/sales_inside.pro";

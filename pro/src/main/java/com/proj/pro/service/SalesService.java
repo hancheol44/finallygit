@@ -108,5 +108,9 @@ public class SalesService {
 		}
 		return sVO;
 	}
+	// 이용자 차량 통계
+	public List car(int cpno) {
+		return sDAO.carchart(cpno);
+	}
 	
 }
