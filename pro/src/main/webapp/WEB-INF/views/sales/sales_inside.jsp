@@ -51,14 +51,6 @@
 		<input type="hidden" name="pno" id="cpno">
 	</form>
 	<input type="hidden" id="isshow" value="${DATA.isshow}">
-	<input type="hidden" id="car1" value="${CAR1}">
-	<input type="hidden" id="car2" value="${CAR2}">
-	<input type="hidden" id="car3" value="${CAR3}">
-	<input type="hidden" id="car4" value="${CAR4}">
-	<input type="hidden" id="car5" value="${CAR5}">
-	<input type="hidden" id="car6" value="${CAR6}">
-	<input type="hidden" id="car7" value="${CAR7}">
-	<input type="hidden" id="car8" value="${CAR8}">
 	<div id="detail">
 		<br>
 		<div id="topForm"><h3><b>매장 정보</b>
@@ -70,6 +62,7 @@
 					<img id="burger2" alt="" src="/pro/upload/burger2.png">
 				</c:if>
 				&nbsp<span id="likecnt">${DATA.lcnt}</span>
+			<button id="menu" class="menu">주문하기</button>
 			</span></h3>
 		</div>
 		<hr>
@@ -143,35 +136,21 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
-	/* var car1, car2, car3, car4, car5, car6, car7, car8; */
-	
-	
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
     	var x = new Array();
     	x = ${CAR};
-    	alert(typeof x);
-    	 var car = '${CAR}';
-    	 alert(car[3]);
+    	 var car = x;
     	
-    	/* 순서 맘대로 들어감 정렬 필요 */
-    	var a = parseInt(car[1]);
-    	console.log(a);
-    	var b = parseInt(car[4]);
-    	console.log(b);
-    	var c = parseInt(car[7]);
-    	console.log(c);
-    	var d = parseInt(car[10]);
-    	console.log(d);
-    	var e = parseInt(car[13]);
-    	console.log(e);
-    	var f = parseInt(car[16]);
-    	console.log(f);
-    	var g = parseInt(car[19]);
-    	console.log(g);
-    	var h = parseInt(car[22]);
-    	console.log(h);
+    	var a = parseInt(car[0]);
+    	var b = parseInt(car[1]);
+    	var c = parseInt(car[2]);
+    	var d = parseInt(car[3]);
+    	var e = parseInt(car[4]);
+    	var f = parseInt(car[5]);
+    	var g = parseInt(car[6]);
+    	var h = parseInt(car[7]);
     	
     	 
     	
@@ -197,7 +176,7 @@
 
       var options = {
         title: "이용자 차량 통계",
-        width: 1000,
+        width: 1400,
         height: 300,
         bar: {groupWidth: "95%"},
         legend: { position: "none" },
@@ -206,7 +185,7 @@
       chart.draw(view, options);
   }
 </script>
-<div id="barchart_values" style="width: 900px; height: 300px;"></div>
+<div id="barchart_values" style="width: 1200px; height: 300px;"></div>
 	<div id="btn_detail">
 	<c:if test="${SID eq DATA.memid}">
 	<button id="delete" class="delete" value="${DATA.pno}" >삭제</button>
