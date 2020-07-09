@@ -31,10 +31,10 @@
 <body>
 	<jsp:include page="/left.pro" flush="true" />
 
-	<form action="GET" id="dfrm">
-		<input type="hidden" name="bdno" id="bdno">
+	<form action="POST" id="dfrm">
+		<input type="hidden" name="bdno" id="dbdno">
 	</form>
-	<form action="GET" id="cfrm">
+	<form action="POST" id="cfrm">
 		<input type="hidden" name="bdno" id="bdno">
 	</form>
 	<form action="POST" id="ct">
@@ -76,7 +76,7 @@
 					</thred>
 					<c:forEach var="data" items="${LIST}">
 						<tr class="w3-text-gray cnt content" id="${data.bdno}">
-							<td>${data.rno}</td>
+							<td>${data.bdno}</td>
 							<td>${data.bdct}</td>
 							<td>${data.bdtt} <c:if test="${data.ccnt !=0}"><a style="color: purple; font-weight: bolder; text-shadow: black;">&nbsp(${data.ccnt})</a></c:if></td>
 							<td>${data.name}</td>

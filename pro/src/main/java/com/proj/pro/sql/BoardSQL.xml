@@ -125,14 +125,14 @@
 		VALUES((SELECT NVL(MAX(bdno) + 1, 1000) FROM
 		board), #{bdct}, #{bdtt}, #{bdbd},
 		(SELECT memno FROM MEMBER WHERE
-		memid = #{memid}) )
+		memid = #{memid}))
 	</insert>
 	
 	<insert id="comment" parameterType="bVO" >
 		insert into
 	   		 board(bdno,bdct, bdtt, bdbd, memno, borino)
 		VALUES((SELECT NVL(MAX(bdno) + 1, 1000) FROM board), '댓글','댓글', #{bdbd},
-					(SELECT memno FROM MEMBER WHERE memid = #{memid}),#{borino} )
+					(SELECT memno FROM MEMBER WHERE memid = #{memid}),#{borino})
 	</insert>
 	
 

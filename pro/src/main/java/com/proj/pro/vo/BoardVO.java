@@ -1,7 +1,5 @@
 package com.proj.pro.vo;
 
-import java.sql.*;
-import java.text.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -12,7 +10,6 @@ public class BoardVO {
 	private int bdno, memno, borino, vcnt, imgno, rno, ccnt;
 	private String bdct, bdtt, bdbd, bdshow, today, name, memid, type, input;
 	private PageUtil page;
-	
 	private Date bDate;
 	private Time bTime;
 	public int getBdno() {

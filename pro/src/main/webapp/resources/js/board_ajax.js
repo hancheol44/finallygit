@@ -10,9 +10,11 @@ $('#comment').click(function() {
 			data: formData,
 			processData: false,
 			contentType: false,
-			success: function(obj){
+			success: function(){
+				
 				$('.reBoard').remove();
 				reList();
+				$('#cbd').val('');
 			},
 			error: function(request,status,erro){
 				alert("code:"+request.status+"\n"+"\n"+"error:"+error);
@@ -42,6 +44,7 @@ $(document).on('click','.del', function remove(){
 	});
 
 });
+
 function reList(){
 	$.ajax({
 		url: '/pro/board/reBoard.pro',
@@ -58,8 +61,7 @@ function reList(){
 						'<div>'+obj[i].name+'</div>'+
 						'<div>'+obj[i].bdbd+'</div>'+
 						'<div>'+obj[i].today+'</div>'+
-						'<a class="del" value="'+obj[i].bdno+'">삭제</a>&nbsp'+
-						'<a class="edit" value="'+obj[i].bdno+'">수정</a>'+
+						'<button type = "button" class="del" value="'+obj[i].bdno+'">삭제</button>&nbsp'+
 						'</div>')		
 			}
 		},

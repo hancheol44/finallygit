@@ -21,6 +21,7 @@ import com.proj.pro.dao.BoardDAO;
 import com.proj.pro.service.BoardService;
 import com.proj.pro.util.PageUtil;
 import com.proj.pro.vo.BoardVO;
+import com.proj.pro.vo.SalesVO;
 
 @Controller
 @RequestMapping("/board")
@@ -35,7 +36,8 @@ public class Board {
 	}
 
 	@RequestMapping(value = "/board.pro", method =RequestMethod.GET)
-	public ModelAndView getList(ModelAndView mv, BoardVO bVO) throws Exception {
+	public ModelAndView getList(ModelAndView mv, BoardVO bVO, PageUtil page) throws Exception {
+		
 
 		String view = "board/board";
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
@@ -61,11 +63,11 @@ public class Board {
 		System.out.println(rest.size());
 		return rest;
 	}
-	@RequestMapping(value = "/boardDetail.pro", method = RequestMethod.GET, params = "bdno")
-	public ModelAndView boardDetail(ModelAndView mv, BoardVO bVO, int bdno,HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value = "/boardDetail.pro", method = RequestMethod.GET)
+	public ModelAndView boardDetail(ModelAndView mv, BoardVO bVO,HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
 		String view = "board/boardDetail";
 		BoardVO vo = service.bDetail(bVO);
-		
+		System.out.println(bVO.getBdno());
 		Cookie[] cookies = request.getCookies();
         
         // 비교하기 위해 새로운 쿠키
@@ -77,7 +79,7 @@ public class Board {
             for (int i = 0; i < cookies.length; i++)
             {
                 // Cookie의 name이 cookie + bdno와 일치하는 쿠키를 viewCookie에 넣어줌 
-                if (cookies[i].getName().equals("cookie"+bdno))
+                if (cookies[i].getName().equals("cookie"+bVO.getBdno()))
                 { 
                     System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
                     viewCookie = cookies[i];
@@ -95,13 +97,13 @@ public class Board {
                 System.out.println("cookie 없음");
                 
                 // 쿠키 생성(이름, 값)
-                Cookie newCookie = new Cookie("cookie"+bdno, "|" + bdno + "|");
+                Cookie newCookie = new Cookie("cookie"+bVO.getBdno(), "|" + bVO.getBdno() + "|");
                                 
                 // 쿠키 추가
                 response.addCookie(newCookie);
  
                 // 쿠키를 추가 시키고 조회수 증가시킴
-                int result = service.cnt(bdno);
+                int result = service.cnt(bVO.getBdno());
                 
                 if(result>0) {
                     System.out.println("조회수 증가");
@@ -132,21 +134,13 @@ public class Board {
 		return mv;
 	}
 	
-	@RequestMapping(value="boardComment.pro", method = RequestMethod.POST)
-	@ResponseBody
-	public void comment(BoardVO bVO, HttpSession session) throws Exception{
-		System.out.println("bVO " + bVO.getBorino());
-		String memid = (String) session.getAttribute("SID");
-		service.comment(bVO, memid);
-			
-		
-		System.out.println("컨트롤러 " + bVO);
-	}
 	
 	@RequestMapping(value = "/boardWriteProc.pro", method = RequestMethod.POST)
 	public String writeProc( BoardVO bVO, HttpSession session) throws Exception {
 		String memid = (String) session.getAttribute("SID");
+		System.out.println("도착");
 		service.boardWrite(bVO, memid);
+		System.out.println(bVO);
 		return "redirect:board.pro";
 	}
 	
@@ -184,8 +178,23 @@ public class Board {
 		
 	}
 	
-	
+	@RequestMapping(value="/likeCheck.pro", method=RequestMethod.POST)
+	@ResponseBody
+	public BoardVO like(BoardVO bVO) {
+//		BoardVO vo = service.likeCheck(bVO);
+		return bVO;
+	}
 
- 
+	@RequestMapping(value="/boardComment.pro", method = RequestMethod.POST)
+	@ResponseBody
+	public BoardVO comment(BoardVO bVO, HttpSession session) throws Exception{
+		System.out.println("bVO " + bVO.getBorino());
+		String memid = (String)session.getAttribute("SID");
+		service.comment(bVO, memid);
+		
+		
+		System.out.println("컨트롤러 " + bVO);
+		return bVO;
+	}
 
 }

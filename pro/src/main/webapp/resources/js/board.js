@@ -22,9 +22,8 @@ $(document).ready(function() {
 		// 글 번호 알아낸다.
 		var sno = $(this).attr('id');
 		alert(typeof sno);
-		$('#bdno').val(sno);
+		$('#dbdno').val(sno);
 //		$('#nowPage').val('${PAGE.nowPage}');
-		$('#cfrm').attr('action', '/pro/board/cnt.pro');
 		$('#dfrm').attr('action', '/pro/board/boardDetail.pro');
 		$('#dfrm').submit();
 	});
@@ -49,8 +48,8 @@ $(document).ready(function() {
 		$('#wfrm').submit();
 	});
 	$('#edbtn').click(function() {
-		$('#wfrm').attr('action', '/pro/board/boardEditProc.pro');
-		$('#wfrm').submit();
+		$('#efrm').attr('action', '/pro/board/boardEditProc.pro');
+		$('#efrm').submit();
 	});
 
 	$('#ebtn').click(function() {
@@ -62,6 +61,6 @@ $(document).ready(function() {
 		$('#wfrm').attr('action', '/pro/board/boardEditProc.pro');
 		$('#wfrm').submit();
 	});
-
+	
 	
 });

@@ -82,8 +82,12 @@ public class BoardService {
 		
 	}
 	public BoardVO comment(BoardVO bVO, String memid) throws Exception{
-		System.out.println("서비스 " + bVO);
+		int bori = bVO.getBorino();
+		String bd = bVO.getBdbd();
+		
 		bVO.setMemid(memid);
+		bVO.setBorino(bori);
+		bVO.setBdbd(bd);
 		return bDAO.comment(bVO);
 	}
 	
@@ -119,6 +123,7 @@ public class BoardService {
 		return bDAO.rest(bdno);
 	}
 	
+
 
 	
 }

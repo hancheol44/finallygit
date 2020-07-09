@@ -64,18 +64,21 @@
 
 			<tr align="center" valign="middle">
 				<td colspan="5"><c:if test="${SID eq DATA.memid}">
-						<button class="editdetail">수정</button>
+						<button class="editdetail">수정</button></c:if>
+						<img id = "like" alt="" src="/pro/img/icons8-good-quality-64 default.png">
+						<c:if test="${SID eq DATA.memid}">
 						<button class="delete">삭제</button>
-					</c:if></td>
+						</c:if>
+					</td>
 			</tr>
 			</table>
 	</form>
 		<div class="rtt">
-	<form id="cfrm" name ="cfrm">
+	<form id="cfrm">
 			<input type="hidden" id="borino" name="borino" value="${DATA.bdno}">
 			<textarea id="cbd" name="bdbd" style="width: 100%" rows="3" cols="50"></textarea>
 	</form>
-			<button id="comment" name="comment" style="height: 3em">댓글</button>
+			<button id="comment" style="height: 3em">댓글</button>
 		</div>
 	<div class="rtt">
 		<div class="w3-center w3-green ">댓글 영역</div>
