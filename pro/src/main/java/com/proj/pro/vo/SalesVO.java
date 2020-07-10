@@ -9,21 +9,53 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class SalesVO {
-	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno, carno, carcount;
-	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut, edit, carct;
+	private int pno, bcnt, rno, imgno, memno, rst, rpno, rcnt, lcnt, lno, carno, carcount, mno, mprice, sno, sum;
+	private String ptt, bno, pbd, name, today, cate, bceo, memid, bname, bloc, oriname, savename, rtt, rbd, isshow, imgrut, edit, carct, mname;
 	private Date pDate;
 	private Time pTime;
 	private MultipartFile file;
+	
 	
 	@Override
 	public String toString() {
 		return "SalesVO [pno=" + pno + ", bcnt=" + bcnt + ", rno=" + rno + ", imgno=" + imgno + ", memno=" + memno
 				+ ", rst=" + rst + ", rpno=" + rpno + ", rcnt=" + rcnt + ", lcnt=" + lcnt + ", lno=" + lno + ", carno="
-				+ carno + ", carcount=" + carcount + ", ptt=" + ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name
-				+ ", today=" + today + ", cate=" + cate + ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname
-				+ ", bloc=" + bloc + ", oriname=" + oriname + ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd
-				+ ", isshow=" + isshow + ", imgrut=" + imgrut + ", edit=" + edit + ", carct=" + carct + ", pDate="
-				+ pDate + ", pTime=" + pTime + ", file=" + file + "]";
+				+ carno + ", carcount=" + carcount + ", mno=" + mno + ", mprice=" + mprice + ", sno=" + sno + ", sum="
+				+ sum + ", ptt=" + ptt + ", bno=" + bno + ", pbd=" + pbd + ", name=" + name + ", today=" + today
+				+ ", cate=" + cate + ", bceo=" + bceo + ", memid=" + memid + ", bname=" + bname + ", bloc=" + bloc
+				+ ", oriname=" + oriname + ", savename=" + savename + ", rtt=" + rtt + ", rbd=" + rbd + ", isshow="
+				+ isshow + ", imgrut=" + imgrut + ", edit=" + edit + ", carct=" + carct + ", mname=" + mname
+				+ ", pDate=" + pDate + ", pTime=" + pTime + ", file=" + file + "]";
+	}
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+	public int getMno() {
+		return mno;
+	}
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+	public int getMprice() {
+		return mprice;
+	}
+	public void setMprice(int mprice) {
+		this.mprice = mprice;
+	}
+	public int getSno() {
+		return sno;
+	}
+	public void setSno(int sno) {
+		this.sno = sno;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
 	public int getCarno() {
 		return carno;

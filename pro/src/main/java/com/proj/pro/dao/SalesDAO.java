@@ -89,4 +89,12 @@ public class SalesDAO {
 	public List carchart(int cpno) {
 		return sqlSession.selectList("sSQL.carchart",cpno);
 	}
+	// 주문하기 페이지
+	public List order(SalesVO sVO) {
+		return sqlSession.selectList("sSQL.orderBtn", sVO);
+	}
+	// 결제 데이터 남기기
+	public int pay(SalesVO sVO) {
+		return sqlSession.insert("sSQL.pay", sVO);
+	}
 }

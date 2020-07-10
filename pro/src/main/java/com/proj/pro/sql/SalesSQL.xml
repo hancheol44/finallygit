@@ -198,6 +198,7 @@
 		    AND
 		    memno = (SELECT memno FROM member WHERE memid=#{memid})
 	</delete>
+	<!-- 이용자 차량 통계 -->
 	<select id="carchart" resultType="sVO" parameterType="int">
 		SELECT
 		    e.carno, c.carct, carcount
@@ -208,13 +209,12 @@
 		        (SELECT
 		            c.carno, carct, m.memno, p.pno
 		        FROM
-		            promotion p, car c, member m, review r
+		            promotion p, car c, member m, sale s
 		        WHERE
 		            m.carno = c.carno
-		            AND r.memno = m.memno
-		            AND p.pno = r.pno
+		            AND s.memno = m.memno
+		            AND p.pno = s.pno
 		            AND p.pno = #{pno}
-                    AND r.isshow = 'Y'
 		        )
 		    GROUP BY
 		            carno) e, member m, car c
@@ -225,4 +225,22 @@
 		ORDER BY
 		    e.carno
 	</select>
+	<!-- 주문하기 버튼 클릭시 페이지에 뽑을 데이터 -->
+	<select id="orderBtn" resultType="sVO">
+		SELECT
+	        pno, mno, mname, mprice
+	    FROM
+	        menu
+	    WHERE
+	        pno = #{pno}
+	</select>
+	<insert id="pay" parameterType="sVO">
+		INSERT INTO
+	        sale(sno, memno, pno, mno)
+	    VALUES(
+	        (SELECT NVL(MAX(sno)+1, 100000) FROM sale),
+	        (SELECT memno FROM member WHERE memid = #{memid}),
+	        #{pno}, #{mno}
+        )
+	</insert>
 </mapper>

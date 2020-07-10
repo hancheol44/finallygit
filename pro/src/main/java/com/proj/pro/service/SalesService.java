@@ -112,5 +112,12 @@ public class SalesService {
 	public List car(int cpno) {
 		return sDAO.carchart(cpno);
 	}
-	
+	// 주문하기 페이지
+	public List order(SalesVO sVO) {
+		return sDAO.order(sVO);
+	}
+	// 결제 데이터 남기기
+	public int pay(SalesVO sVO) {
+		return sDAO.pay(sVO);
+	}
 }

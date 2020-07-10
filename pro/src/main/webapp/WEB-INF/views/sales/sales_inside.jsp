@@ -50,6 +50,10 @@
 	<form method="post" action="/pro/sales/sales_inside.pro" id="car">
 		<input type="hidden" name="pno" id="cpno">
 	</form>
+	<!-- 주문하기 페이지 폼태그 -->
+	<form method="post" action="" id="menufrm">
+		<input type="hidden" id="mpno" name="pno">
+	</form>
 	<input type="hidden" id="isshow" value="${DATA.isshow}">
 	<div id="detail">
 		<br>
@@ -62,8 +66,8 @@
 					<img id="burger2" alt="" src="/pro/upload/burger2.png">
 				</c:if>
 				&nbsp<span id="likecnt">${DATA.lcnt}</span>
-			<button id="menu" class="menu">주문하기</button>
 			</span></h3>
+			<span><h4><button id="menu" class="menu">주문하기</button></h4></span>	
 		</div>
 		<hr>
 		<br>

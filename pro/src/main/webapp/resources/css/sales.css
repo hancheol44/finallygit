@@ -331,3 +331,12 @@ hr {
 #review2 {
 	display: none;
 }
+#menuList {
+	margin-top: 100px;
+	width: 500px;
+	font-size: 25px;
+}
+#menuOK {
+	margin-top: 3em;
+	margin-left: 2em;
+}

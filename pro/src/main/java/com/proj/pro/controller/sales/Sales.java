@@ -205,5 +205,26 @@ public class Sales {
 		SalesVO vo = service.likeCheck(sVO);
 		return sVO;
 	}
+	// menu page
+	@RequestMapping("/salesMenu.pro")
+	public ModelAndView salesMenu(ModelAndView mv, SalesVO sVO) {
+		String view = "sales/salesMenu";
+		ArrayList<SalesVO> list = (ArrayList<SalesVO>) service.order(sVO);
+		mv.addObject("LIST", list);
+		mv.setViewName(view);
+		return mv;
+	}
+	// 주문 기록 남기기
+	@RequestMapping("/salesPay.pro")
+	public ModelAndView salesPay(ModelAndView mv, SalesVO sVO) {
+		String view = "sales/sales_inside";
+		System.out.println(sVO);
+		int cnt = service.pay(sVO);
+		if(cnt == 1) {
+			RedirectView rv = new RedirectView("/pro/sales/sales_inside.pro?pno="+sVO.getPno());
+			mv.setView(rv);
+		}
+		return mv;
+	}
 	
 }

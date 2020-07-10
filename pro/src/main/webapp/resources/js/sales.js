@@ -1,26 +1,4 @@
 $(document).ready(function(){
-	
-//	$('#burger1').click(function(){
-//		var memid = $('#burger').attr('value');
-//		var sid = $('#asid').attr('value');
-//		alert("burger1 : memid " + memid + " sid : " + sid);
-//		if(memid === ''){
-//			$('#burger1').hide();
-//			$('#burger2').show();
-//		}
-//	});
-//	$('#burger2').click(function(){
-//		var memid = $('#burger').attr('value');
-//		var sid = $('#asid').attr('value');
-//		alert("burger2 : memid " + memid + " sid : " + sid);
-//		if(memid == sid){
-//			$('#burger1').show();
-//			$('#burger2').hide();
-//		} else {
-//			$('#burger1').hide();
-//			$('#burger2').show();
-//		}
-//	});
 	// 글쓰기 이동
 	$('#write').click(function(){
 		$(location).attr('href', '/pro/sales/sales_write.pro');
@@ -70,6 +48,7 @@ $(document).ready(function(){
 		$('#cate').val(cate);
 		$('#frm4').submit();
 	});
+	
 	// 수정페이지 처리
 	$('#edsave').click(function(){
 		var pno = $('#pno').attr('value');
@@ -95,4 +74,23 @@ $(document).ready(function(){
 		var profile = e.target.files;
 		console.log(profile);
 	}); 
+	// 주문하기 페이지 보내기
+	$('#menu').click(function(){
+		var pno = $('#apno').attr('value');
+		$('#mpno').val(pno);
+		$('#menufrm').attr('action','/pro/sales/salesMenu.pro');
+		$('#menufrm').submit();
+	});
+	$('#menuOK').click(function(){
+		var select = $(':radio[name="menuCk"]:checked').attr('class');
+		var pno = $('#mpno').attr('value');
+		var sid = $('#sid').attr('value');
+		var mno =  $(':radio[name="menuCk"]:checked').attr('value');
+		alert(select+'원 결제되었습니다.');
+		$('#memid').val(sid);
+		$('#pno').val(pno);
+		$('#mno').val(mno);
+		$('#ckfrm').attr('action', '/pro/sales/salesPay.pro');
+		$('#ckfrm').submit();
+	});
 });
