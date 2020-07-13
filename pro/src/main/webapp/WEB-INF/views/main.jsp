@@ -26,7 +26,24 @@
   <input type="hidden" id="visitor" name="vcnt" value="${LCNT}" />
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <div class="centercolumn w3-center">
-  <div class="card" style="height: 30em;">
+  		<div class="card" style="margin: 0; width: 100%; height: 40em; background-color: #ffffff;">
+	      <h2>매장위치</h2>
+		      <div id="map" style="width: 600px; height: 400px; margin:auto;"></div>
+		</div>
+		<div class="card">
+	      <h2>드루왕?!</h2><br>
+	      <h4>'CODIV-19 Pandemic' 차를 활용한 거래의 시작과 끝, 사회적 거리두기 잘 지킵시당.</h4><br>
+		      <div style="float: left; margin-left: 100px;">
+		      <br><br>
+		      <h3>카카오 지도를 통한 위치기반 시스템으로 </h3><br>
+		      <h3>드라이브스루 시스템이 갖춰지지 않은 매장에</h3><br>
+		      <h3>간편하게 드라이브스루 기능을 도입시키기 위한 플랫폼</h3>
+		      </div>
+		      <div>
+		      	<img width="400" height="400" src="/pro/img/businessmodel.jpg" alt="Noimg" id="business"/>
+		      </div>
+		</div>	
+  		<div class="card" style="height: 30em;">
 	      <h2>서비스현황</h2>
 		      <div style="float: left; margin-left: 15%;">
 					<div>등록판매점</div>
@@ -45,30 +62,10 @@
 					<div class="visitor">0</div>
 		      </div>
 		</div>
-		 <div class="cardm" style="width: 100%; height: 30em; background-color: #ffffff;">
+		<div class="cardm" style="width: 100%; height: 30em; background-color: #ffffff;">
 	      <h2>구글차트API들어가요</h2>
 		  <div id="curve_chart" style="width: 900px; height: 400px; margin:auto;"></div>
 		</div>
-		<br><br><br><br><br>
-	    <div class="card">
-	      <h2>드루왕?!</h2><br>
-	      <h4>'CODIV-19 Pandemic' 차를 활용한 거래의 시작과 끝, 사회적 거리두기 잘 지킵시당.</h4><br>
-		      <div style="float: left; margin-left: 100px;">
-		      <br><br>
-		      <h3>카카오 지도를 통한 위치기반 시스템으로 </h3><br>
-		      <h3>드라이브스루 시스템이 갖춰지지 않은 매장에</h3><br>
-		      <h3>간편하게 드라이브스루 기능을 도입시키기 위한 플랫폼</h3>
-		      </div>
-		      <div>
-		      	<img width="400" height="400" src="/pro/img/businessmodel.jpg" alt="Noimg" id="business"/>
-		      </div>
-		</div>
-		<div><p></p></div>
-		<div class="card" style="margin: 0; width: 100%; height: 30em; background-color: #ffffff;">
-	      <h2>매장위치</h2>
-		      <div id="map" style="width: 600px; height: 400px; margin:auto;"></div>
-		</div>
-		<div><p></p></div>
 		
    </div>
   

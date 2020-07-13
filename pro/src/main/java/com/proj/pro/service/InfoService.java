@@ -178,7 +178,15 @@ public class InfoService {
 				return iVO;
 			}
 			
+		
+			// right promotion 좋아요 처리
+			public List<SalesVO> getLike(){
+				return iDAO.getLike(); // promotion 좋아요 가져오기
+			}
 			
+			public List<InfoVO> getiLike(){
+				return iDAO.getiLike();
+			}
 			
 			
 			

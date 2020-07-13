@@ -1,0 +1,171 @@
+Info 요청설계
+---------------------------------------------------------------------
+	
+#Info 자동차 캠핑	
+
+---------------------------------------------------------------------
+#Info 자동차 캠핑 뷰 보기 요청
+	요청내용 : /pro/Info/infoAC.pro  
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.getViewAC()
+	뷰         : /WEB-INF/views/info/infoAC.jsp
+----------------------------------------------------------------------
+#Info 자동차 캠핑 상세보기 요청 처리
+	요청내용 : /pro/Info/infoAC_Detail.pro
+	파라미터 : ifno, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.infoDetail()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 캠핑 리뷰보기 요청 처리
+	요청내용 : /pro/Info/infoAC_ReviewList.pro
+	파라미터 : ifno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.AC_ReviewList()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 캠핑 리뷰 쓰기 처리
+	요청내용 : /pro/Info/infoAC_ReviewWrite.pro
+	파라미터 : ifno, ifrst, ifrtt, ifrbd, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.AC_ReviewWrite()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 캠핑 리뷰 수정 처리
+	요청내용 : /pro/Info/infoAC_ReviewMod.pro
+	파라미터 : ifrno, ifrtt, ifrbd
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.AC_ReviewMod()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 캠핑 리뷰 삭제 처리
+	요청내용 : /pro/Info/infoAC_ReviewDel.pro
+	파라미터 : ifrno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.AC_ReviewDel()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 캠핑 등록 주소 요청 처리
+	요청내용 : /pro/Info/infoAC_Addr.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.AC_Addr()
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+----------------------------------------------------------------------
+
+#Info 자동차 극장	
+
+---------------------------------------------------------------------
+#Info 자동차 극장 뷰 보기 요청
+	요청내용 : /pro/Info/infoCT.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.getViewAC()
+	뷰         : /WEB-INF/views/info/infoAC.jsp
+----------------------------------------------------------------------
+#Info 자동차 극장 상세보기 요청 처리
+	요청내용 : /pro/Info/infoCT_Detail.pro
+	파라미터 : ifno, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.infoCTDetail()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 극장 리뷰보기 요청 처리
+	요청내용 : /pro/Info/infoCT_ReviewList.pro
+	파라미터 : ifno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.CT_ReviewList()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 극장 리뷰 쓰기 처리
+	요청내용 : /pro/Info/infoCT_ReviewWrite.pro
+	파라미터 : ifno, ifrst, ifrtt, ifrbd, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.CT_ReviewWrite()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 극장 리뷰 수정 처리
+	요청내용 : /pro/Info/infoCT_ReviewMod.pro
+	파라미터 : ifrno, ifrtt, ifrbd
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.CT_ReviewMod()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 극장 리뷰 삭제 처리
+	요청내용 : /pro/Info/infoCT_ReviewDel.pro
+	파라미터 : ifrno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.CT_ReviewDel()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 자동차 극장 등록 주소 요청 처리
+	요청내용 : /pro/Info/infoCT_Addr.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.CT_Addr()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+----------------------------------------------------------------------
+
+#Info 승차 검진소	
+
+---------------------------------------------------------------------
+#Info 승차검진소 뷰 보기 요청
+	요청내용 : /pro/Info/infoDT.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.getViewDT()
+	뷰         : /WEB-INF/views/info/infoDT.jsp
+----------------------------------------------------------------------
+#Info 승차검진소 상세보기 요청 처리
+	요청내용 : /pro/Info/infoDT_Detail.pro
+	파라미터 : ifno, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.infoDTDetail()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 승차검진소 리뷰보기 요청 처리
+	요청내용 : /pro/Info/infoDT_ReviewList.pro
+	파라미터 : ifno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.DT_ReviewList()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 승차검진소 리뷰 쓰기 처리
+	요청내용 : /pro/Info/infoDT_ReviewWrite.pro
+	파라미터 : ifno, ifrst, ifrtt, ifrbd, memid
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.DT_ReviewWrite()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 승차검진소 리뷰 수정 처리
+	요청내용 : /pro/Info/infoDT_ReviewMod.pro
+	파라미터 : ifrno, ifrtt, ifrbd
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.DT_ReviewMod()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 승차검진소 리뷰 삭제 처리
+	요청내용 : /pro/Info/infoDT_ReviewDel.pro
+	파라미터 : ifrno
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.DT_ReviewDel()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+#Info 승차검진소 등록 주소 요청 처리
+	요청내용 : /pro/Info/infoDT_Addr.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.DT_Addr()
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------
+
+#Info 좋아요 기능 처리
+	요청내용 : /pro/Info/infoLike.pro
+	파라미터 : 없음
+	컨트롤러 : com.proj.pro.controller.info.Info
+	처리함수 : Info.infolike()
+	뷰         : /WEB-INF/views/info/infoCT.jsp (ajax)
+	뷰         : /WEB-INF/views/info/infoAC.jsp (ajax)
+	뷰         : /WEB-INF/views/info/infoDT.jsp (ajax)
+----------------------------------------------------------------------

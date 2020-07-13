@@ -154,5 +154,15 @@ public class InfoDAO {
 		public InfoVO getCnt () {
 			return sqlSession.selectOne("iSQL.mainCnt");
 		}
+		
+		// 우측 promotion 좋아요 
+		public List<SalesVO> getLike() {
+			return sqlSession.selectList("iSQL.pro_like_top5");
+		}
+		
+		// 우측 promotion 좋아요 
+		public List<InfoVO> getiLike() {
+			return sqlSession.selectList("iSQL.info_like_top5");
+		}
 	
 }

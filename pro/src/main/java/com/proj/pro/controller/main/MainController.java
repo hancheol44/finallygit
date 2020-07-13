@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -14,13 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.pro.service.InfoService;
 import com.proj.pro.vo.InfoVO;
+import com.proj.pro.vo.SalesVO;
 
 @Controller
 public class MainController {
 	
 	@Inject
 	InfoService service;
-	
 	
 	@RequestMapping("/main.pro")
 	public ModelAndView getMain(ModelAndView mv, InfoVO iVO) {
@@ -34,7 +35,6 @@ public class MainController {
 		            String line = "";
 		            int linecnt = 0;
 		            while((line = bufReader.readLine()) != null){
-		                System.out.println(line);
 		                linecnt++;
 		            }
 		            mv.addObject("LCNT", linecnt);
@@ -55,6 +55,9 @@ public class MainController {
 		mv.setViewName("main");
 		return mv;
 	}
+	
+	
+	
 
 	@RequestMapping("/head.pro")
 	public String test02() {
@@ -67,8 +70,38 @@ public class MainController {
 	}
 
 	@RequestMapping("/right.pro")
-	public String test04() {
-		return "/side/right";
+	public ModelAndView test04(ModelAndView mv) {
+		int[] plike = new int[5];
+		String splike = null;
+		String[] plikes = new String[5];
+		String plikess = null;
+			List<SalesVO> proLike = service.getLike();
+			
+			  for(int i = 0 ; i < proLike.size() ; i++) {
+				  int like = proLike.get(i).getLcnt();
+				  String name = proLike.get(i).getBname();
+				  plike[i] = like;
+				  plikes[i] = name;
+				  splike = Arrays.toString(plike);
+				  plikess = Arrays.toString(plikes);
+				  mv.addObject("LIKE", splike);
+				  mv.addObject("NAME", plikess);
+			  }
+			  
+			  List<InfoVO> infoLike = service.getiLike();
+			  for(int i = 0 ; i < infoLike.size(); i++) {
+				  int like = infoLike.get(i).getIflike();
+				  String name = infoLike.get(i).getIfname();
+				  plike[i] = like;
+				  plikes[i] = name;
+				  splike = Arrays.toString(plike);
+				  plikess = Arrays.toString(plikes);
+				  mv.addObject("ILIKE", splike);
+				  mv.addObject("INAME", plikess);
+			  }
+			 
+		mv.setViewName("/side/right");
+		return mv;
 	}
 
 	@RequestMapping("/welcome.pro")

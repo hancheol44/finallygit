@@ -16,7 +16,7 @@
 				FROM
 					promotion p, member m, image i
 				WHERE
-					p.memno = m.memno AND p.isshow = 'Y' AND i.pno = p.pno
+					p.memno = m.memno AND p.isshow = 'Y' AND i.pno(+) = p.pno
 				ORDER BY
 					today desc) e) ee
 	</select>

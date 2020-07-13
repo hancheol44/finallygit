@@ -120,7 +120,7 @@
 				var imageSrc = "/pro/img/icons8-old-car-48.png";
 				// 주소로 좌표를 검색합니다
 				for(var i = 0 ; i < obj.length ; i++){
-					//setCti(obj[i].ifname);
+					
 					let tmp = obj[i].ifname;
 					let str = '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>';
 					
@@ -137,17 +137,13 @@
 					            position: coords,
 					            image : markerImage
 					        });
-					        // var ifcontent = '<div style="width:150px;text-align:center;padding:6px 0;">'+ obj[i].ifname +'</div>';
-					        // alert('ifcontent : '+ifcontent)
 					        // 인포윈도우를 생성합니다
 					        var infowindow = new kakao.maps.InfoWindow({
 					            content : str
-/* 					            content : '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>', */
 					        });
 							
 					        
 					        kakao.maps.event.addListener(marker,'click', function(){
-					        	alert('ggg');
 								// 마커 위에 인포 윈도우를 표시합니다.
 								infowindow.open(map, marker);
 							}); 
@@ -181,7 +177,7 @@
 			}
 		 });
 		
-		 
+		 // 리스트 클릭시 지도에 마커 표시
 		 $('td').click(function(){
 			 var ifno = $(this).attr('id');
 			 var memid = $('#sid').val();
@@ -225,7 +221,6 @@
 				        
 				        // 인포윈도우로 장소에 대한 설명을 표시합니다
 				        var infowindow = new kakao.maps.InfoWindow({
-
 				            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+ifname+'</div>'
 				        });
 				        infowindow.open(map, marker);

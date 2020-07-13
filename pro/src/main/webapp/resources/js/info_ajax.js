@@ -24,7 +24,6 @@ $(document).ready(function(){
 				'memid':memid
 			},
 			success: function(obj){
-				alert(obj.ifrcnt);
 				$('#ifrcnt').text('('+obj.ifrcnt+')');
 			},
 			error: function(){
@@ -97,10 +96,6 @@ function reList(){
 			});
 		
 		};
-	
-
-	
-	
 	
 	// 글 삭제 ajax 클릭시
 $(document).on('click','.delbtn', function remove(){
@@ -214,7 +209,6 @@ $(document).on('click','.modbtn', function modi(){
 		} else if(urlArray[5] === 'infoDT.pro'){
 			infourl ='/pro/info/infoDT_Detail.pro';
 		}
-		alert(infourl);
 		$.ajax({
 			url: infourl,
 			type: 'post',
@@ -232,7 +226,6 @@ $(document).on('click','.modbtn', function modi(){
 				var strp = obj.ifrst;
 				var like = obj.iflike;
 				var clike = obj.clike;
-				alert(clike);
 				if(strp == 5){
 					$('#strpoint').html('★★★★★');
 				} else if(strp == 4){
@@ -407,13 +400,10 @@ $(document).on('click','.modbtn', function modi(){
 	
 	// 좋아요 관련 처리 ajax
 	$('img').click(function(){
-		alert('좋아요 ajax 처리');
 		var clike = $(this).val();
 		var ifno = $('#c_ifno').val();
 		var sid = $('#sid').val();
 		var ifct = $('#infoct').val();
-		alert('ifct : '+ifct);
-		alert('clike : ' +clike + '   ifno : '+ifno +'    sid : ' + sid);
 		
 			$.ajax({
 				url:'/pro/info/infoLike.pro',

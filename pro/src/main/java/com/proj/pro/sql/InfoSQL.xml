@@ -379,4 +379,37 @@
 		    )   
 	</select>
 	
+	<!-- right promotion 좋아요 TOP 5-->
+	<select id="pro_like_top5" resultType="sVO">
+		SELECT
+		   e.bname bname, e.lcnt lcnt
+		FROM
+		(SELECT
+		    bname, lcnt 
+		FROM
+		    promotion p, member m
+		WHERE
+		    p.memno = m.memno
+		ORDER BY
+		    lcnt desc) e
+		WHERE
+		    rownum BETWEEN 1 AND 5
+	</select>
+	
+	
+	<!-- right info 좋아요 TOP 5-->
+	<select id="info_like_top5" resultType="iVO">
+		SELECT
+		   ifname, iflike
+		FROM
+		(SELECT
+		    ifname, iflike
+		FROM
+		    info
+		ORDER BY
+		    iflike desc) e
+		WHERE
+		    rownum BETWEEN 1 AND 5
+	</select>
+	
 </mapper>

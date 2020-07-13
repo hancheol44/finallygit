@@ -98,7 +98,6 @@ public class InfoController {
 	@RequestMapping(value="/infoAC_ReviewDel", method=RequestMethod.POST, params= {"ifrno"})
 	@ResponseBody
 	public Integer AC_ReviewDel(int ifrno) {
-		System.out.println("왔니?");
 		int cnt = 0;
 		try {
 			cnt = service.delAC_Review(ifrno);
@@ -181,7 +180,6 @@ public class InfoController {
 		@RequestMapping(value="/infoCT_ReviewDel", method=RequestMethod.POST, params= {"ifrno"})
 		@ResponseBody
 		public Integer CT_ReviewDel(int ifrno) {
-			System.out.println("왔니?");
 			int cnt = 0;
 			try {
 				cnt = service.delCT_Review(ifrno);
@@ -265,7 +263,6 @@ public class InfoController {
 			@RequestMapping(value="/infoDT_ReviewDel", method=RequestMethod.POST, params= {"ifrno"})
 			@ResponseBody
 			public Integer DT_ReviewDel(int ifrno) {
-				System.out.println("왔니?");
 				int cnt = 0;
 				try {
 					cnt = service.delDT_Review(ifrno);

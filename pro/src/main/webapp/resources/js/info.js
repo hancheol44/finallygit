@@ -46,7 +46,6 @@ $(document).ready(function(){
 	
 	
 	$('img').click(function(){
-		alert('좋아요');
 		var clike = $(this).val();
 		alert(clike);
 	});
