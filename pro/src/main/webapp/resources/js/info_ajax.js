@@ -61,7 +61,7 @@ function reList(){
 									'<div>'+
 									'<span><b>작성일 : <span id="rdate">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
-									'<span id="rname">작성자 : '+ obj[i].memid + '</span><br>'+
+									'<span id="rname">작성자 : '+ obj[i].name + '</span><br>'+
 									'<span id="rrtt">'+ obj[i].ifrtt + '</span>'+
 									'</div>'+
 									'<div>'+
@@ -78,7 +78,7 @@ function reList(){
 									'<div>'+
 									'<span><b>작성일 : <span id="rrst">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
-									'<span id="rname">작성자 : '+ obj[i].ifname + '</span><br>'+
+									'<span id="rname">작성자 : '+ obj[i].name + '</span><br>'+
 									'<span id="rrtt">'+ obj[i].ifrtt + '</span>'+
 									'</div>'+
 									'<div>'+
@@ -198,7 +198,7 @@ $(document).on('click','.modbtn', function modi(){
 	$('td').click(function (){
 		var ifno = $(this).attr('id');
 		var memid = $('#sid').val();
-		var cifno = $('#c_ifno').val(ifno);
+		$('#c_ifno').val(ifno);
 		// 카테고리 주소값 가져오기
 		var url = window.location.href;
 		var urlArray = url.split("/");
@@ -226,6 +226,7 @@ $(document).on('click','.modbtn', function modi(){
 				var strp = obj.ifrst;
 				var like = obj.iflike;
 				var clike = obj.clike;
+				
 				if(strp == 5){
 					$('#strpoint').html('★★★★★');
 				} else if(strp == 4){
@@ -320,7 +321,7 @@ $(document).on('click','.modbtn', function modi(){
 									'<div>'+
 									'<span><b>작성일 : <span id="rrst">'+ obj[i].rdate + '</span></b></span><br>'+
 									'<span><b>평점 : <span id="rrst">'+ obj[i].ifrst + '</span></b></span><br>'+
-									'<span id="rname">작성자 : '+ obj[i].memid + '</span><br>'+
+									'<span id="rname">작성자 : '+ obj[i].name + '</span><br>'+
 									'<span><b>제목 : </b></span><span id="rtt'+obj[i].ifrno+'">'+ obj[i].ifrtt + '</span>'+
 									'</div>'+
 									'<div>'+
@@ -360,7 +361,6 @@ $(document).on('click','.modbtn', function modi(){
 		} else if(urlArray[5] === 'infoDT.pro'){
 			infourl ='/pro/info/infoDT_ReviewWrite.pro';
 		}
-		
 			$.ajax({
 				url: infourl,
 				type: 'post',
@@ -378,7 +378,7 @@ $(document).on('click','.modbtn', function modi(){
 							'<div>'+
 							'<span><b>작성일 : <span id="rrst">'+ obj.rdate + '</span></b></span><br>'+
 							'<span><b>평점 : <span id="rrst">'+ obj.ifrst + '</span></b></span><br>'+
-							'<span id="rname">작성자 : '+ obj.memid + '</span><br>'+
+							'<span id="rname">작성자 : '+ obj.name + '</span><br>'+
 							'<span id="rrtt">제목 : '+ obj.ifrtt + '</span>'+
 							'</div>'+
 							'<div>'+
@@ -418,10 +418,8 @@ $(document).on('click','.modbtn', function modi(){
 					$('#like').val(obj.clike);
 					if(clike == 1){
 						$('#like').attr('src','/pro/img/icons8-good-quality-64 default.png');
-						alert('좋아요 취소되었습니다');
 					} else {
 						$('#like').attr('src','/pro/img/icons8-good-quality-64 like.png');
-						alert('좋아요 등록되었습니다');
 					}
 					$('#likecnt').html(obj.iflike);
 				},

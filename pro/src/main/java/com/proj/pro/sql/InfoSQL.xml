@@ -63,7 +63,7 @@
 	
 	<select id="review_ac" resultType="iVO">
 		SELECT
-		    rtt ifrtt, rbd ifrbd, name, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
+		    rtt ifrtt, rbd ifrbd, m.name name, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
 		FROM
 		    member m , info i , review r
 		WHERE
@@ -164,7 +164,7 @@
 	
 	<select id="review_ct" resultType="iVO">
 		SELECT
-		    rtt ifrtt, rbd ifrbd, name ifname, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
+		    rtt ifrtt, rbd ifrbd, m.name name , r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
 		FROM
 		    member m , info i , review r
 		WHERE
@@ -266,7 +266,7 @@
 	
 	<select id="review_dt" resultType="iVO">
 		SELECT
-		    rtt ifrtt, rbd ifrbd, name ifname, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
+		    rtt ifrtt, rbd ifrbd, m.name name, r.rst ifrst , TO_CHAR(r.today,'yyyy/MM/dd HH24:mm:ss') rdate, memid, r.rno ifrno
 		FROM
 		    member m , info i , review r
 		WHERE

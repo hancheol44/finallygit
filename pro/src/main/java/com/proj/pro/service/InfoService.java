@@ -137,54 +137,44 @@ public class InfoService {
 			
 			// Info Like 처리 서비스
 			public InfoVO likeproc(InfoVO iVO) throws Exception {
-				System.out.println("service vo : "+iVO);
-		
+				// Info 카테고리별 VO 데이터 채우기
 				if(iVO.getIfct().equals("ctt")) {
-					System.out.println("자동차 극장");
 					iVO = iDAO.getCT_Detail(iVO);
 				} else if(iVO.getIfct().equals("acp")) {
-					System.out.println("자동차 캠핑장");
 					iVO = iDAO.getAC_Detail(iVO);
 				} else if(iVO.getIfct().equals("dtc")) {
-					System.out.println("승차검진소");
 					iVO = iDAO.getDT_Detail(iVO);
 				}
 				
 				if(iVO.getClike() == 0) {
+					// 좋아요 등록
 					int addlike = iDAO.addlike(iVO);
 					int likeplus = iDAO.pluslike(iVO);
-					System.out.println(addlike +" 여긴 플 "+likeplus);
 				} else {
+					// 좋아요 취소
 					int likeminus = iDAO.minuslike(iVO);
 					int dellike = iDAO.dellike(iVO);
-					System.out.println(likeminus +" 여긴 마 "+dellike);
 				}
-				System.out.println("좋아요 : "+iVO);
 
-				System.out.println(iVO.getIfct());
 				
 				if(iVO.getIfct().equals("ctt")) {
-					System.out.println("자동차 극장");
 					iVO = iDAO.getCT_Detail(iVO);
 				} else if(iVO.getIfct().equals("acp")) {
-					System.out.println("자동차 캠핑장");
 					iVO = iDAO.getAC_Detail(iVO);
 				} else if(iVO.getIfct().equals("dtc")) {
-					System.out.println("승차검진소");
 					iVO = iDAO.getDT_Detail(iVO);
 				}
 				
-				System.out.println("최종 반환 vo : "+iVO);
 				return iVO;
 			}
 			
 		
 			// right promotion 좋아요 처리
-			public List<SalesVO> getLike(){
+			public List<SalesVO> getLike() throws Exception {
 				return iDAO.getLike(); // promotion 좋아요 가져오기
 			}
 			
-			public List<InfoVO> getiLike(){
+			public List<InfoVO> getiLike() throws Exception {
 				return iDAO.getiLike();
 			}
 			

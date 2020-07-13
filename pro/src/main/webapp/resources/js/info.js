@@ -44,9 +44,4 @@ $(document).ready(function(){
 		}
 	});
 	
-	
-	$('img').click(function(){
-		var clike = $(this).val();
-		alert(clike);
-	});
 });

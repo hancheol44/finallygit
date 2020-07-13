@@ -43,7 +43,7 @@ public class MainController {
 		        }catch (FileNotFoundException e) {
 		            // TODO: handle exception
 		        }catch(IOException e){
-		            System.out.println(e);
+		          //  System.out.println(e);
 		        }
 	    
 		        try {
@@ -71,35 +71,17 @@ public class MainController {
 
 	@RequestMapping("/right.pro")
 	public ModelAndView test04(ModelAndView mv) {
-		int[] plike = new int[5];
-		String splike = null;
-		String[] plikes = new String[5];
-		String plikess = null;
+		try {
+			// 팝니당 좋아요 top 5
 			List<SalesVO> proLike = service.getLike();
-			
-			  for(int i = 0 ; i < proLike.size() ; i++) {
-				  int like = proLike.get(i).getLcnt();
-				  String name = proLike.get(i).getBname();
-				  plike[i] = like;
-				  plikes[i] = name;
-				  splike = Arrays.toString(plike);
-				  plikess = Arrays.toString(plikes);
-				  mv.addObject("LIKE", splike);
-				  mv.addObject("NAME", plikess);
-			  }
+				mv.addObject("PROMO", proLike);
 			  
-			  List<InfoVO> infoLike = service.getiLike();
-			  for(int i = 0 ; i < infoLike.size(); i++) {
-				  int like = infoLike.get(i).getIflike();
-				  String name = infoLike.get(i).getIfname();
-				  plike[i] = like;
-				  plikes[i] = name;
-				  splike = Arrays.toString(plike);
-				  plikess = Arrays.toString(plikes);
-				  mv.addObject("ILIKE", splike);
-				  mv.addObject("INAME", plikess);
-			  }
-			 
+			  // 오세용 좋아요 top 5
+            List<InfoVO> infoLike = service.getiLike();
+			  	mv.addObject("INFO", infoLike);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		mv.setViewName("/side/right");
 		return mv;
 	}

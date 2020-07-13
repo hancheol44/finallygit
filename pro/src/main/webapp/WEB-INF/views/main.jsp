@@ -30,7 +30,7 @@
 	      <h2>매장위치</h2>
 		      <div id="map" style="width: 600px; height: 400px; margin:auto;"></div>
 		</div>
-		<div class="card">
+		<div class="card" style="height: 40em;">
 	      <h2>드루왕?!</h2><br>
 	      <h4>'CODIV-19 Pandemic' 차를 활용한 거래의 시작과 끝, 사회적 거리두기 잘 지킵시당.</h4><br>
 		      <div style="float: left; margin-left: 100px;">
@@ -62,10 +62,10 @@
 					<div class="visitor">0</div>
 		      </div>
 		</div>
-		<div class="cardm" style="width: 100%; height: 30em; background-color: #ffffff;">
+	<!-- 	<div class="cardm" style="width: 100%; height: 30em; background-color: #ffffff;">
 	      <h2>구글차트API들어가요</h2>
 		  <div id="curve_chart" style="width: 900px; height: 400px; margin:auto;"></div>
-		</div>
+		</div> -->
 		
    </div>
   
@@ -81,31 +81,6 @@
 
 </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-	  
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'Sales', 'Member'],
-          ['20/06/01',  12,      44],
-          ['20/06/15',  152,     68],
-          ['20/06/30',  660,     101],
-          ['20/07/10',  1030,    226]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-    
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd8f721c7ccf9b1ba7c336d64d77a8aa&libraries=services"></script>
 	  <script type="text/javascript">
 	  var mapContainer = document.getElementById('map');
@@ -127,7 +102,6 @@
 				var imageSrc = "/pro/img/drive-thru.png";
 				// 주소로 좌표를 검색합니다
 				for(var i = 0 ; i < obj.length ; i++){
-					//setCti(obj[i].ifname);
 					let tmp = obj[i].bname;
 					let str = '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>';
 					
@@ -144,14 +118,9 @@
 					            position: coords,
 					            image : markerImage
 					        });
-					        // var ifcontent = '<div style="width:150px;text-align:center;padding:6px 0;">'+ obj[i].ifname +'</div>';
-					        // alert('ifcontent : '+ifcontent)
-					        // 인포윈도우를 생성합니다
 					        var infowindow = new kakao.maps.InfoWindow({
 					            content : str
-                  //  content : '<div style="width:150px;text-align:center;padding:6px 0;">'+ tmp +'</div>', 
 					        });
-							
 					        
 					        kakao.maps.event.addListener(marker,'click', function(){
 					        	alert('팝니당 페이지로 이동합니다');
@@ -174,16 +143,12 @@
 							        infowindow.close();
 							    };
 							} 
-					       
 					     }
-				       
 					});
 				}
-				
 			},
 			error: function(request, error){
 			}
 		 });
-		
 	  </script>
 </html>
