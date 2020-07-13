@@ -22,8 +22,26 @@ public class PageUtil {
    
    private int startCont;  // 현재 페이지에서 보여줄 시작 게시물 넘버
    private int endCont;    // 현재 페이지에서 보여줄 마지막 게시물 넘버
-   
-   // public PageUtil() {}
+   private int preNo;
+	private int nextNo;
+	
+   public int getPreNo() {
+		return preNo;
+	}
+
+	public void setPreNo(int preNo) {
+		this.preNo = preNo;
+	}
+
+	public int getNextNo() {
+		return nextNo;
+	}
+
+	public void setNextNo(int nextNo) {
+		this.nextNo = nextNo;
+	}
+
+// public PageUtil() {}
    // new 시킬때 현재페이지와 게시글토탈카운트는 가져가야한다
    public void setPage() {
       setPage(nowPage, totalCount, pageRow, pageGroup);

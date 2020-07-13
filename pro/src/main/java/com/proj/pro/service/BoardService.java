@@ -1,5 +1,6 @@
 package com.proj.pro.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.proj.pro.dao.BoardDAO;
 import com.proj.pro.util.PageUtil;
 import com.proj.pro.vo.BoardVO;
+import com.proj.pro.vo.SalesVO;
 
 
 @Service("BoardService")
@@ -21,21 +23,21 @@ public class BoardService {
 	public void setbDAO(BoardDAO bDAO) {
 		this.bDAO = bDAO;
 	}
-	public int getTotal(BoardVO bVO) throws Exception{
-		
-		String ct = bVO.getBdct();
-		String tp = bVO.getType();
-		String ip = bVO.getInput();
-		System.out.println(ct);
-		
-		bVO.setBdct(ct);
-		bVO.setType(tp);
-		bVO.setInput(ip);
-	
-		
-		return bDAO.getTotal(bVO);
-	}
-	
+//	public int getTotal(BoardVO bVO) throws Exception{
+//		
+//		String ct = bVO.getBdct();
+//		String tp = bVO.getType();
+//		String ip = bVO.getInput();
+//		System.out.println(ct);
+//		
+//		bVO.setBdct(ct);
+//		bVO.setType(tp);
+//		bVO.setInput(ip);
+//	
+//		
+//		return bDAO.getTotal(bVO);
+//	}
+//	
 	public int cnt(int bdno) throws Exception{
 		
 		return bDAO.cnt(bdno);
@@ -46,20 +48,10 @@ public class BoardService {
 
 
 		
-	
+		
 		return bDAO.getList(bVO);
 	}
-	public List<BoardVO> sList(BoardVO bVO) throws Exception {
-		String ct = bVO.getType();
-		String ip = bVO.getInput();
-		
-		System.out.println(ct+ " : " + ip);
-		bVO.setType(ct);
-		bVO.setInput(ip);
-		
-		return bDAO.sList(bVO);
-	}
-	
+
 	// Board Detail
 	public BoardVO bDetail(BoardVO bVO) throws Exception{
 		return bDAO.bDetail(bVO);
@@ -121,6 +113,10 @@ public class BoardService {
 	public List<BoardVO> rest(int bdno) throws Exception{
 		
 		return bDAO.rest(bdno);
+	}
+	
+	public List<SalesVO> starRanking(SalesVO sVO) throws Exception{
+		return bDAO.starRanking(sVO);
 	}
 	
 

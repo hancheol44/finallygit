@@ -1,6 +1,8 @@
 package com.proj.pro.controller.board;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -35,10 +37,8 @@ public class Board {
 	public void cocnt(BoardVO bVO) throws Exception{
 	}
 
-	@RequestMapping(value = "/board.pro", method =RequestMethod.GET)
+	@RequestMapping(value = "/board.pro", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView getList(ModelAndView mv, BoardVO bVO, PageUtil page) throws Exception {
-		
-
 		String view = "board/board";
 		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
 		mv.addObject("LIST", list);
@@ -46,15 +46,7 @@ public class Board {
 		mv.setViewName(view);
 		return mv;
 	}
-	@RequestMapping(value = "/search.pro", method = RequestMethod.POST)
-	public ModelAndView search(ModelAndView mv, BoardVO bVO) throws Exception {
-		String view = "board/board";
-		ArrayList<BoardVO> list = (ArrayList<BoardVO>) service.getList(bVO);
-		mv.addObject("LIST", list);
-		System.out.println(list.size());
-		mv.setViewName(view);
-		return mv;
-	}
+	
 	
 	@RequestMapping(value = "/reBoard.pro")
 	@ResponseBody
@@ -138,9 +130,7 @@ public class Board {
 	@RequestMapping(value = "/boardWriteProc.pro", method = RequestMethod.POST)
 	public String writeProc( BoardVO bVO, HttpSession session) throws Exception {
 		String memid = (String) session.getAttribute("SID");
-		System.out.println("도착");
 		service.boardWrite(bVO, memid);
-		System.out.println(bVO);
 		return "redirect:board.pro";
 	}
 	
@@ -195,6 +185,14 @@ public class Board {
 		
 		System.out.println("컨트롤러 " + bVO);
 		return bVO;
+	}
+	@RequestMapping(value = "/starRanking.pro")
+	@ResponseBody
+	public ArrayList<SalesVO> starRanking(SalesVO sVO) throws Exception{
+		ArrayList<SalesVO> starlist =(ArrayList<SalesVO>) service.starRanking(sVO);
+		System.out.println(starlist.size());
+		return starlist;
+		
 	}
 
 }

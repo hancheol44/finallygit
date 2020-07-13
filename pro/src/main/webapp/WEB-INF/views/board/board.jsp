@@ -30,7 +30,9 @@
 <jsp:include page="/head.pro" flush="true" />
 <body>
 	<jsp:include page="/left.pro" flush="true" />
-
+	<form method="POST" action="" id="frm">
+		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage }">
+	</form>
 	<form action="POST" id="dfrm">
 		<input type="hidden" name="bdno" id="dbdno">
 	</form>
@@ -89,26 +91,7 @@
 			</div>
 			<div class="w3-center">
 				<div class="w3-bar w3-border">
-					<c:if test="${PAGE.startPage lt (PAGE.pageGroup + 1) }">
-						<span class="w3-bar-item w3-light-gray">PRE</span>
-					</c:if>
-					<c:if test="${PAGE.startPage ge (PAGE.pageGroup + 1) }">
-						<span class="w3-bar-item pgbt w3-button w3-hover-blue pbtn"
-							id="${PAGE.preNo}">PRE</span>
-					</c:if>
-					<c:forEach var="pageNo" begin="${PAGE.startPage}"
-						end="${PAGE.endPage}">
-						<span
-							class="w3-bar-item pgbt w3-border-left w3-button w3-hover-blue pbtn">${pageNo}</span>
-					</c:forEach>
-					<c:if test="${PAGE.endPage ne PAGE.totalPage}">
-						<span
-							class="w3-bar-item pgbt w3-border-left w3-button w3-hover-blue pbtn"
-							id="${PAGE.nextNo}">NEXT</span>
-					</c:if>
-					<c:if test="${PAGE.endPage eq PAGE.totalPage}">
-						<span class="w3-bar-item  w3-border-left w3-light-gray ">NEXT</span>
-					</c:if>
+		
 				</div>
 				<form id="searchForm" method="POST" >
 					<select style="width:7em;" name="type">

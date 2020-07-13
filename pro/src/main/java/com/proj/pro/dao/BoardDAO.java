@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.proj.pro.util.PageUtil;
 import com.proj.pro.vo.BoardVO;
+import com.proj.pro.vo.SalesVO;
 
 public class BoardDAO {
 	@Autowired
@@ -25,9 +26,6 @@ public class BoardDAO {
 	}
 	public List getList(BoardVO bVO) {
 		return sqlSession.selectList("bSQL.boardList", bVO);
-	}
-	public List sList(BoardVO bVO) {
-		return sqlSession.selectList("bSQL.search",bVO);
 	}
 	
 	public BoardVO bDetail(BoardVO bVO) {
@@ -57,6 +55,9 @@ public class BoardDAO {
 	public List rest(int bdno) {
 		System.out.println("DAO" + bdno);
 		return sqlSession.selectList("bSQL.rest",bdno);
+	}
+	public List starRanking(SalesVO sVO) {
+		return sqlSession.selectList("bSQL.starRanking",sVO);
 	}
 	
 }

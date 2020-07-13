@@ -78,7 +78,7 @@
 			<input type="hidden" id="borino" name="borino" value="${DATA.bdno}">
 			<textarea id="cbd" name="bdbd" style="width: 100%" rows="3" cols="50"></textarea>
 	</form>
-			<button id="comment" style="height: 3em">댓글</button>
+			<button type = "button" id="comment" style="height: 3em">댓글</button>
 		</div>
 	<div class="rtt">
 		<div class="w3-center w3-green ">댓글 영역</div>

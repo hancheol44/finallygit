@@ -35,9 +35,10 @@
 			<b><font size="6" color="gray">수정하기 </font></b>
 			<br>
 		</c:if>
+		<c:if test="${not empty bdno}">
 		<form id="efrm" method="post">
 			<input type="hidden" id="bdno" name="bdno" value="${bdno}">
-			<form id="wfrm" method="post">
+			
 				<table width="80%" border="3" bordercolor="lightgray" align="center">
 					<tr>
 						<td>작성자 :</td>
@@ -70,7 +71,43 @@
 					</tr>
 				</table>
 			</form>
-		</form>
+			</c:if>
+			<c:if test="${empty bdno}">
+			<form id="wfrm" method="post">
+			
+				<table width="80%" border="3" bordercolor="lightgray" align="center">
+					<tr>
+						<td>작성자 :</td>
+						<td id="memid" name="memid">${SID}</td>
+					</tr>
+					<tr>
+						<td>제 목
+						<td><select id="bdct" style="width: 15%; height: 30px;"
+							name="bdct">
+								<option value="공지">공지</option>
+								<option value="팁">팁</option>
+								<option value="이벤트">이벤트</option>
+						</select> <input style="width: 80%; height: 30px;" name="bdtt" type="text"
+							size="30" id="bdtt" value="${EDIT.bdtt}"></td>
+					</tr>
+					<tr>
+						<td>내 용</td>
+						<td><textarea style="width: 95%; resize: none;" id="bdbd"
+								name="bdbd" cols="72" rows="20">${EDIT.bdbd}</textarea></td>
+					</tr>
+
+					<tr align="center" valign="middle">
+						<td colspan="5"><input type="reset" id="hbtn" value="작성취소">
+							<c:if test="${empty EDIT.bdtt}">
+								<button id="wbtn">등록</button>
+							</c:if> <c:if test="${not empty EDIT.bdtt}">
+								<button id="edbtn">수정</button>
+							</c:if>
+							<button id="bdh">목록</button></td>
+					</tr>
+				</table>
+			</form>
+			</c:if>
 	</div>
 	<jsp:include page="/right.pro" flush="true" />
 

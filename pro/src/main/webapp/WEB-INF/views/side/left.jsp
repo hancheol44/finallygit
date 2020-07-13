@@ -8,88 +8,57 @@
 <script type="text/javascript" src="/pro/js/jquery-3.5.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		starList();
 		$(".logo").hover(function(){
 			$('#header').css('border-bottom','7px solid yellow');
 		}, function() {
 			$('#header').css('border-bottom','5px dashed yellow');
 		});
 	});
+	function starList(){
+		$.ajax({
+			url: '/pro/board/starRanking.pro',
+			type: 'post',
+			dataType: 'json',
+			success: function(obj){
+				var len = obj.length;
+				for(var i = 0; i < len; i++){
+					$('#starList').append('<div class="w3-left starList">'+
+							'<div id = "1st">'+obj[i].bname+'</div>'+
+							'<c:if test="${'+obj[i].rst+' == "5"}"><div id = "2ed">★★★★★</div> </c:if>'+
+							'<c:if test="${'+obj[i].rst+' == "4"}"><div id = "2ed">★★★★</div> </c:if>'+
+							'<c:if test="${'+obj[i].rst+' == "3"}"><div id = "2ed">★★★ </div></c:if>'+
+							'<c:if test="${'+obj[i].rst+' == "2"}"><div id = "2ed">★★ </div></c:if>'+
+							'<c:if test="${'+obj[i].rst+' == "1"}"><div id = "2ed">★ </div></c:if>'+
+							'</div>')		
+				}
+			},
+			error: function(request,status,error){
+				alert("### 리스트 뽑기 통신에러 ###");
+				alert("code:"+request.status+"\n"+"\n"+"error:"+error);
+
+			}
+		});
+	};
 </script>
-<script type="text/javascript">
-// 소스 출처 : http://magic.wickedmiso.com/188
-    document.addEventListener("DOMContentLoaded", function() {
 
-
-
-        // 시간을 딜레이 없이 나타내기위한 선 실행
-
-        realTimer();
-
-
-
-        // 이후 0.5초에 한번씩 시간을 갱신한다.
-
-        setInterval(realTimer, 500);
-
-    });
-
-
-
-    // 시간을 출력
-
-    function realTimer() {
-
-		const nowDate = new Date();
-
-		const year = nowDate.getFullYear();
-
-		const month= nowDate.getMonth() + 1;
-
-		const date = nowDate.getDate();
-
-		const hour = nowDate.getHours();
-
-		const min = nowDate.getMinutes();
-
-		const sec = nowDate.getSeconds();
-
-		document.getElementById("nowTimes").innerHTML = 
-
-                  year + "-" + addzero(month) + "-" + addzero(date) + "&nbsp;" + hour + ":" + addzero(min) + ":" + addzero(sec);
-
-	}
-
-
-
-        // 1자리수의 숫자인 경우 앞에 0을 붙여준다.
-
-	function addzero(num) {
-
-		if(num < 10) { num = "0" + num; }
-
- 		return num;
-
-	}
-
-</script>
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 </head>
 <body>
   <!-- 왼쪽 영역 태그 -->
+  
   <div class="leftcolumn" style="width: 15%">
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height:100px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-        <h1>■ 현재시간 : <span id="nowTimes"></span></h1>
-    </div>
-    <div class="card">
-      <h3>Popular Post</h3>
-      <div class="fakeimg"><p>Image</p></div>
-      <div class="fakeimg"><p>Image</p></div>
-      <div class="fakeimg"><p>Image</p></div>
-    </div>
+  	<div style="margin-top: 2em; text-align: center; font-size: 30px; font-style:고딕; font-weight: bold; text-shadow: 3px 3px 2px gray; ">별점 순위</div>
+    <div id = "starList">
+  		
+  </div>
+
+        
+
+
+
+
   </div>
 </body>
 </html>

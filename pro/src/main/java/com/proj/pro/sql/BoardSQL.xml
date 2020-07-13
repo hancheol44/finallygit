@@ -56,50 +56,48 @@
 	
 	<select id="boardList" resultType="bVO" parameterType="bVO">
 		SELECT
-		rno, bdno, bdct, bdtt, name, today, vcnt, ccnt
+			rno, bdno, bdct, bdtt, name, today, vcnt, ccnt
 		FROM
-		( SELECT
-		ROWNUM rno,
-		bdno, bdct, bdtt, name, today, vcnt
-		FROM
-		(SELECT
-		bdno, bdct, bdtt, name,
-		today, vcnt
-		FROM
-		board b, member m
-		<where>
-			b.memno = m.memno AND
-			b.bdshow = 'Y' AND
-			bdct != '댓글'
-		 	 <trim prefix="AND">
-					<choose>
-						<when test="bdct != null">
-							 bdct = #{bdct}
-						</when>
-						<when test="type == 'bdtt'">
-							 bdtt Like '%'||#{input}||'%' 
-						</when>
-						<when test="type == 'bdbd'">
-							bdbd Like '%'||#{input}||'%' 
-						</when>
-						<when test="type == 'name'">
-							name Like '%'||#{input}||'%' 
-						</when>
-					</choose>
-				</trim>
-		</where>
-	
-		)d
-		),(SELECT
-            borino, count(*) ccnt
-        FROM
-            board
-        WHERE
-            bdshow = 'Y' AND
-            borino IS NOT NULL
-        GROUP BY
-        borino) c
-       	where
+			( SELECT
+				ROWNUM rno, bdno, bdct, bdtt, name, today, vcnt
+				FROM
+					(SELECT
+						bdno, bdct, bdtt, name,today, vcnt
+					FROM
+						board b, member m
+					<where>
+						b.memno = m.memno AND
+						b.bdshow = 'Y' AND
+						bdct != '댓글'
+		 				 <trim prefix="AND">
+							<choose>
+								<when test="bdct != null">
+									 bdct = #{bdct}
+								</when>
+								<when test="type == 'bdtt'">
+									 bdtt Like '%'||#{input}||'%' 
+								</when>
+								<when test="type == 'bdbd'">
+									bdbd Like '%'||#{input}||'%' 
+								</when>
+								<when test="type == 'name'">
+									name Like '%'||#{input}||'%' 
+								</when>
+							</choose>
+						</trim>
+					</where>
+				
+					)d
+					),(SELECT
+			            borino, count(*) ccnt
+			        FROM
+			            board
+			        WHERE
+			            bdshow = 'Y' AND
+			            borino IS NOT NULL
+			        GROUP BY
+			        borino) c
+   		WHERE
        	c.borino(+) = bdno
 	ORDER BY
 		bdno DESC
@@ -213,6 +211,17 @@
 		)
 
 		
+	</select>
+	<select id="starRanking" resultType = "sVO">
+	SELECT
+    	AVG(rst) rst, bname
+	FROM
+		review r, promotion p, member m
+	WHERE
+   		 r.pno = p.pno AND
+    	p.memno= m.memno
+	GROUP by
+    	m.bname
 	</select>
 
 </mapper>
