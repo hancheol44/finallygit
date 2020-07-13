@@ -9,26 +9,35 @@
 	<!-- 작성글 리스트 가져오기 -->
 	<select id="qnaList" resultType="qVO" parameterType="page">
 		SELECT
-    qno, qtt, name, today, ok
-    FROM
-    (
+     qno, qtt, name, today, cnt, qhits
+FROM(
     SELECT
-       ROWNUM rno, brd.*
+        ROWNUM rno, q.qno, qtt, name, q.today today, cnt, qhits
     FROM
-        (SELECT
-        qno, qtt, name, qna.today today, ok
-    FROM
-        qna, member
+        qna q, member m,
+        (
+            select
+              qorno, count(*) cnt
+            from
+                qna
+            where
+                qorno is not null
+                AND qshow ='Y'
+            group by
+                qorno
+        ) qq
     WHERE
-        member.memno = qna.memno
-        AND qna.qshow = 'Y'
-        AND qorno is null
+        m.memno = q.memno
+        AND q.qshow = 'Y'
+        AND q.qorno is null
+        AND q.qno = qq.qorno(+)
     ORDER BY
-        today desc) brd
-    )
-    WHERE
-        rno BETWEEN #{startCont} AND #{endCont}
+        q.today desc)
+WHERE
+    rno BETWEEN #{startCont} AND #{endCont}
+    
 	</select>
+	<!-- 페이징 처리 -->
 	<select id="selCnt" resultType="int">
 		SELECT
 			COUNT(*) totalCount
@@ -70,6 +79,7 @@
 			  )
 	</insert>
 	
+	<!-- Q&A 글 삭제 -->
 	<update id="qnaDel">
 		UPDATE
 			qna
@@ -78,8 +88,17 @@
 		WHERE 
 			qno = #{qno}
 	</update>
+	 <!-- Q&A 관리자 답변 삭제 -->
+	  <update id="qnaDel2">
+	 	UPDATE
+	 		qna
+	 	SET
+	 		qshow = 'N'
+	 	WHERE
+	 		qorno = #{qno}
+	 </update> 
 	
-
+	<!-- Q&A 글 수정 -->
 	<update id="mobtn" parameterType="qVO">
 		UPDATE
 			qna
@@ -89,6 +108,18 @@
 		WHERE 
             qno = #{qno}
 	</update>
+	
+	<update id="mobtnn" parameterType="qVO">
+		UPDATE
+			qna
+		SET
+			qtt= #{qtt}
+			qip= #{qip}
+		WHERE
+			qorno =#{qorno}
+	</update>
+	
+	<!-- Q&A 관리자가 답변처리 -->
 	<insert id="qnamno" parameterType="qVO">
 		INSERT INTO
     		qna(qno, qtt, qip, qorno, memno)
@@ -96,8 +127,10 @@
     		(SELECT NVL (MAX(qno) + 1, 1000) FROM qna),
      		#{qtt}, #{qip}, #{qorno}, (SELECT memno FROM member WHERE memid = #{memid})
      		)
+	
 		
 	</insert>
+	<!-- 관리자 답변 리스트 처리 -->
 	<select id="qornoList" resultType="qVO"  parameterType="int">
 	SELECT
 			qtt, qip, TO_CHAR(today, 'yyyy/MM/dd') today, name, memid
@@ -106,22 +139,41 @@
 		WHERE
 			qorno = #{qorno}
 			AND q.memno = m.memno
+			AND qshow = 'Y'
+		
 			
 	</select>
-	<update id="qnaok" parameterType="int">
+	<!-- 답변 확인 유무 -->
+	<!-- <update id="qnaok" parameterType="int">
 		UPDATE
 			qna
 		SET
-			ok = 'N'
+			ok = 'Y'
 		WHERE
 			qno = #{qorno}
+	</update> -->
+	
+	<!-- 조회수 up -->
+	<update id="hits" parameterType="int">
+	UPDATE 
+    	qna
+	SET
+    	qhits = qhits + 1
+	WHERE
+    	qno = #{qno}
 	</update>
-	<!-- <select id="anscnt">
-		SELECT
-			count(*)
-		FROM
-			qna
-		WHERE
-			qorno = #{qorno} 
-	</select> -->
+	<select id="selTop" resultType="qVO">
+	SELECT 
+    qno, qtt, qip, name, today, qorno, memno, qhits
+	FROM
+    (
+    SELECT qno, qtt, qip, name, today, qorno, q.memno memno, qhits
+    FROM qna q, member m
+    WHERE q.memno = m.memno
+    ORDER BY qhits DESC
+    )
+	WHERE 
+		ROWNUM BETWEEN 1 AND 5
+	</select>
+	
 </mapper>

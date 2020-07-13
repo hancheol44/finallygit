@@ -28,14 +28,21 @@
   <div class="centercolumn w3-center">
     <div class="card">
       <h2>물어봥</h2>
+      	<form method="post" action="" id="delfrm2">
+      		<input type="hidden" name="qno" id="qno" value="${qno}"/>
+      	</form>
 		<form method="post" action="" id="delfrm">
 			<input type="hidden" name="qno" id="qno" value="${qno}"/>
-
 		</form>
 		<form method="post" action="" id="modifrm">
 			<input type="hidden" name="qno" id="qno" value="${qno}"/>
 			<input type="hidden" name="qtt" id="qttinn" value=""/>
 			<input type="hidden" name="qip" id="qip7" value=""/>
+		</form>
+		<form method="post" action="" id="modifrm2">
+			<input type="hidden" name="qorno" id="qorno" value="${qorno}"/>
+			<input type="hidden" name="qtt" id="qttinq" value=""/>
+			<input type="hidden" name="qip" id="qipp" value=""/>
 		</form>
 		   <form method="post" action="" id="menfrm">
 			<input type="hidden" name="qtt" id="qtt" value=""/>
@@ -110,10 +117,17 @@
 				<tr>
 					<td id="title">내 용</td>
 					<td>
-						<textarea name="qip" cols="80" rows="8" style="height:10em;" id="qorno3" readonly>${data.qip}</textarea>
+						<textarea name="qip" cols="80" rows="8" style="height:10em;" id="qip0" readonly>${data.qip}</textarea>
 					</td>	
 				</tr>
-				
+				<%-- <c:if test="${SID ne 'sej0267@naver.com'}"> --%>
+						<c:if test="${SID eq DETAIL.memid}">
+							<td colspan="5">
+								<button class="reset" id="delbtnn">글삭제</button>
+								<button class="obtnn" id="modibtnn">글수정</button>
+							</td>
+						</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 			</table>
 			

@@ -4,10 +4,23 @@ import java.sql.*;
 import java.text.*;
 
 public class QnaVO {
-	private int qno, qorno, qmemno;
+	private int qno, qorno, qmemno, qhits, cnt;
 	private String qtt, qip, name, today, anstt, ansip, ansDate, memid, ok;
 	private Date qqDate, asDate;
 	private Time qqTime, asTime;
+	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public int getQhits() {
+		return qhits;
+	}
+	public void setQhits(int qhits) {
+		this.qhits = qhits;
+	}
 	public int getQno() {
 		return qno;
 	}
@@ -116,11 +129,14 @@ public class QnaVO {
 	}
 	@Override
 	public String toString() {
-		return "QnaVO [qno=" + qno + ", qorno=" + qorno + ", qmemno=" + qmemno + ", qtt=" + qtt + ", qip=" + qip
-				+ ", name=" + name + ", today=" + today + ", anstt=" + anstt + ", ansip=" + ansip + ", ansDate="
-				+ ansDate + ", memid=" + memid + ", ok=" + ok + ", qqDate=" + qqDate + ", asDate=" + asDate
-				+ ", qqTime=" + qqTime + ", asTime=" + asTime + "]";
+		return "QnaVO [qno=" + qno + ", qorno=" + qorno + ", qmemno=" + qmemno + ", qhits=" + qhits + ", cnt=" + cnt
+				+ ", qtt=" + qtt + ", qip=" + qip + ", name=" + name + ", today=" + today + ", anstt=" + anstt
+				+ ", ansip=" + ansip + ", ansDate=" + ansDate + ", memid=" + memid + ", ok=" + ok + ", qqDate=" + qqDate
+				+ ", asDate=" + asDate + ", qqTime=" + qqTime + ", asTime=" + asTime + "]";
 	}
+	
+	
+	
 	
 	
 }

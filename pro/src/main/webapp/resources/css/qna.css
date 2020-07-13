@@ -13,7 +13,10 @@
   font-size: 50px;
 }
 
-
+#desc th{
+	background-color : orange;
+	color: white;
+}
 #customers th {
   background-color : #2E2E2E; 
   color: white;

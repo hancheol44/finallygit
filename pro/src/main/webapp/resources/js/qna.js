@@ -15,12 +15,18 @@ $(document).ready(function(){
 	});
 	
 	  
-	// qna 글삭제 기능 처리
+	// Q&A 글삭제 기능 처리
 	$('#delbtn').click(function(){
 	 
 	  $('#delfrm').attr('action','/pro/qna/qnaDelProc.pro');
 	  $('#delfrm').submit()
 	});
+	// Q&A 관리자 글 삭제 기능 처리
+	$('#delbtnn').click(function(){
+		$('#delfrm2').attr('action','/pro/qna/qnaDel2Proc.pro');
+		$('#delfrm2').submit()
+	});
+	
 
 	// qnaWrite.jsp 기능처리
 	// qnaWrite -> qnalist 버튼 기능처리
@@ -81,6 +87,25 @@ $(document).ready(function(){
 			}
 		
 		});
+	// 관리자 글 수정 기능처리
+		$('#modibtnn').click(function(){
+		var updown = $('#modibtnn').text();
+			if(updown === '글수정'){
+				$('#qttin0').attr('readonly', false);
+				$('#qip0').attr('readonly', false);
+				$('#modibtnn').text('수정완료');
+			}else{
+				var zz = $('#qttin0').val();
+				var xx = $('#qip0').val();
+				
+				$('#qttinq').val(zz);
+				$('#qipp').val(xx);
+				
+				$('#modifrm2').attr('action', 'pro/qna/mobtnnProc.pro');
+			}
+		});
+	
+		
 	// 관리자 답변 등록버튼 기능처리
 		$("#ansbtn").click(function(){
 			alert('답변 쓰시오');

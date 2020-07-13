@@ -34,6 +34,32 @@
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <div class="centercolumn w3-center">
     <div class="card">
+    <h2>자주 찾는 질문 TOP5</h2>  
+    		<table id="desc">
+    		 <tr>
+    		 	<th style="width: 100px;">글번호</th>
+    		 	<th>제목</th>
+			    <th style="width: 100px;">작성자</th>
+			    <th style="width: 150px;">작성일</th>
+			    <th style="width: 100px;">답변상태</th>
+			    <th style="width: 100px;">조회수</th>
+    		 </tr>
+    		 <c:forEach var="data" items="${TOP}">
+			  <tr id="${data.qno}">
+			  	<td class="qlist">${data.qno}</td>
+			  	<td>${data.qtt}</td>
+			  	<td>${data.name}</td>
+			  	<td>${data.today}</td>
+			  	<c:if test="${data.cnt ne 0}">
+			  		<td><img src="/pro/img/qa_icon2.gif"></td>
+			  	</c:if>
+			  	<c:if test="${data.cnt eq 0}">
+			  		<td><img src="/pro/img/qa_icon1.gif"></td>
+			  	</c:if>
+			  	<td>${data.qhits}</td>
+			  </tr>
+			  </c:forEach>
+    		</table>
       <h2>물어봥</h2>
 			<table id="customers">
 			  <tr>
@@ -42,6 +68,7 @@
 			    <th style="width: 100px;">작성자</th>
 			    <th style="width: 150px;">작성일</th>
 			    <th style="width: 100px;">답변상태</th>
+			    <th style="width: 100px;">조회수</th>
 			  </tr>
 			  <c:forEach var="data" items="${LIST}">
 			  <tr id="${data.qno}">
@@ -49,12 +76,13 @@
 			  	<td>${data.qtt}</td>
 			  	<td>${data.name}</td>
 			  	<td>${data.today}</td>
-			  	<c:if test="${not empty data.ok}">
+			  	<c:if test="${data.cnt ne 0}">
 			  		<td><img src="/pro/img/qa_icon2.gif"></td>
 			  	</c:if>
-			  	<c:if test="${empty data.ok}">
+			  	<c:if test="${data.cnt eq 0}">
 			  		<td><img src="/pro/img/qa_icon1.gif"></td>
 			  	</c:if>
+			  	<td>${data.qhits}</td>
 			  </tr>
 			  </c:forEach>
 			</table>
