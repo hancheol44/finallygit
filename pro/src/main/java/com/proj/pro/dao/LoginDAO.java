@@ -1,5 +1,6 @@
 package com.proj.pro.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -50,6 +51,14 @@ public class LoginDAO {
 	
 	public List SalList(SalesVO sVO) {
 		return sqlSession.selectList("lSQL.salList", sVO);
+	}
+	
+	public List menuList(int memno) {
+		return sqlSession.selectList("lSQL.menu", memno);
+	}
+	
+	public int eidtmenu(HashMap<String, String> map) {
+		return sqlSession.update("lSQL.editmenu", map);
 	}
 	
 }

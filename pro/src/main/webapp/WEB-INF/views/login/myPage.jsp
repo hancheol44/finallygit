@@ -26,6 +26,12 @@
         $('#msform').attr('action', '/pro/kakao/busiInfoProc.pro');
         $('#msform').submit();
 	});
+	$("#btn10").click(function(){
+		$('#msform').attr('method', 'POST');
+        $('#msform').attr('action', '/pro/kakao/eidtmenuProc.pro');
+        $('#msform').submit();
+	});
+	
 	
 });
 	
@@ -131,7 +137,6 @@
 </head>
 <jsp:include page="/head.pro" flush="true" />
 <body>
-
   <!-- 가운데 영역 (주내용 담길 곳) -->
   <form class="msform" id="msform" name="msform">
   <div class="centercolumn w3-center">
@@ -281,7 +286,7 @@
 			  
 			
 			  <div id="id02" class="w3-modal">
-			    <div class="w3-modal-content" style="width:500px; height:800px; margin-top: 100px;">
+			    <div class="w3-modal-content" style="width:500px; height:400px; margin-top: 200px;">
 			      <div class="w3-container">
 						  <div class="pro w3-center">
 							<h4>사업자 정보</h4>
@@ -296,24 +301,6 @@
 			          <div class="w3-row" style="margin-top: 30px;">
 			      		<p style="display:inline; font-size: 20px;"> 사업자 주소  : &nbsp; </p><input type="text" style="width: 323px; height:40px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
 			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴1 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴1 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴2 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴2 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴3 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
-			          <div class="w3-row" style="margin-top: 30px;">
-			      		<p style="display:inline; font-size: 20px;"> 메뉴3 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="bloc" id="bloc" value="${LIST[0].bloc}" />
-			          </div>
 			        <button type="submit" class="w3-button w3-center w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-left: 218px;" id="btn4">완료</button>
 			      </div>
 			    </div>
@@ -321,7 +308,46 @@
 			</div>
     		</div>
     	<div class="sh_group">
-    	
+    		<div class="sh_header">
+    			<h2> 메뉴 정보</h2>
+    			<div class="sh-content">
+    				<h2> 메뉴 이름,메뉴 가격</h2>
+    			</div>
+    		</div>
+    		<div class="w3-container">
+			  <button onclick="document.getElementById('id1').style.display='inline'" type="button" class="w3-button w3-green"  style="width: 60px; height: 40px; margin-top: 30px;" id="btn09">수정</button>
+			  
+			
+			  <div id="id1" class="w3-modal">
+			    <div class="w3-modal-content" style="width:500px; height:600px; margin-top: 200px;">
+			      <div class="w3-container">
+						  <div class="pro w3-center">
+							<h4>회원 정보</h4>
+						</div>
+			        <span onclick="document.getElementById('id1').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴1 이름  : &nbsp; </p><input class="type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mname" id="mname" value="${MENU[0].mname}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴1 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mprice" id="mprice" value="${MENU[0].mprice}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴2 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mname2" id="mname2" value="${MENU[1].mname}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴2 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mprice2" id="mprice2" value="${MENU[1].mprice}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴3 이름  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mname3" id="mname3" value="${MENU[2].mname}" />
+			          </div>
+			          <div class="w3-row" style="margin-top: 30px;">
+			      		<p style="display:inline; font-size: 20px;"> 메뉴3 가격  : &nbsp; </p><input type="text" style="width: 323px; height:40px; margin-left: 7px;" name="mprice3" id="mprice3" value="${MENU[2].mprice}" />
+			          </div>
+			        <button type="submit" class="w3-button w3-center w3-green" style="width: 60px; height: 40px; margin-top: 37px; margin-left: 218px;" id="btn10">완료</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
     	</div>
     	<div class="sh_group">
     	

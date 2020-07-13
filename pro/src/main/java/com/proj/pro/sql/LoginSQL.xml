@@ -91,5 +91,26 @@
 		    	today desc
 		</select>
 		
+		<select id="menu" resultType="lVO">
+			SELECT
+			    mno, mname, mprice, m.pno, p.memno
+			FROM
+			    menu m, promotion p, member b
+			WHERE
+			    p.pno = m.pno
+			    AND p.memno = b.memno
+			    AND b.memno = #{memno}
+		
+		</select>
+		
+		<update id="editmenu" parameterType="hashmap">
+			UPDATE
+			    menu
+			SET
+			    mname = #{MENU},
+			    mprice = #{PRICE}
+			WHERE
+			    mno = #{MNO}
+		</update>
 		
 </mapper>

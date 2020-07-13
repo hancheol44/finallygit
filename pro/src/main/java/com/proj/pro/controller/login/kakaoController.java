@@ -126,13 +126,15 @@ public class kakaoController {
 	
 	// 마이페이지 폼 처리
 	@RequestMapping(value="/myPage.pro")
-	public ModelAndView myPage(HttpSession session, ModelAndView mv, SalesVO sVO) {
+	public ModelAndView myPage(HttpSession session, ModelAndView mv, SalesVO sVO, LoginVO lVO) {
 		int memno = (int) session.getAttribute("userId");
 		ArrayList<LoginVO> list = (ArrayList<LoginVO>)lDAO.getList(memno);
 		sVO.setMemno(memno);
 		ArrayList<SalesVO> list1 = (ArrayList<SalesVO>)lDAO.SalList(sVO);
+		ArrayList<LoginVO> list2 = (ArrayList<LoginVO>)lDAO.menuList(memno);
 		mv.addObject("SAL", list1);
 		mv.addObject("LIST", list);
+		mv.addObject("MENU", list2);
 		mv.setViewName("login/myPage");
 		return mv;
 	}
@@ -177,6 +179,27 @@ public class kakaoController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return mv;
+	}
+	
+	@RequestMapping("eidtmenuProc.pro")
+	public ModelAndView editMenu(HttpSession session, ModelAndView mv, LoginVO lVO) {
+		int memno = (int) session.getAttribute("userId");
+		ArrayList<LoginVO> list2 = (ArrayList<LoginVO>)lDAO.menuList(memno);
+		
+		String[] mname = {lVO.getMname(),lVO.getMname2(),lVO.getMname3()};
+		String[] mprice = {lVO.getMprice(),lVO.getMprice2(),lVO.getMprice3()};
+		HashMap<String,String> map = new HashMap<String,String>();
+		
+		for(int i=0; i<3; i++) {
+			map.put("MNO",list2.get(i).getMno());
+			map.put("MENU",mname[i]);
+			map.put("PRICE",mprice[i]);
+			lDAO.eidtmenu(map);
+		}
+		
+		RedirectView rv = new RedirectView("/pro/main.pro");
+		mv.setView(rv);
 		return mv;
 	}
 	

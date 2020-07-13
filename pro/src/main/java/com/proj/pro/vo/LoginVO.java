@@ -5,13 +5,65 @@ import java.text.*;
 
 public class LoginVO {
 	
-	private int memno, carno;
+	private int memno, carno, pno;
 	private double rd;
-	private String memid, bno, name, phone, sDate, membir, bname, bloc;
+	private String memid, bno, name, phone, sDate, membir, bname, bloc, mno, mname, mname2, mname3, mprice, mprice2, mprice3;
 	private Date joinDate;
 	private Time joinTime;
 	
 	
+	
+	
+	
+	public String getMno() {
+		return mno;
+	}
+	public void setMno(String mno) {
+		this.mno = mno;
+	}
+	public String getMprice() {
+		return mprice;
+	}
+	public void setMprice(String mprice) {
+		this.mprice = mprice;
+	}
+	public String getMprice2() {
+		return mprice2;
+	}
+	public void setMprice2(String mprice2) {
+		this.mprice2 = mprice2;
+	}
+	public String getMprice3() {
+		return mprice3;
+	}
+	public void setMprice3(String mprice3) {
+		this.mprice3 = mprice3;
+	}
+	public String getMname2() {
+		return mname2;
+	}
+	public void setMname2(String mname2) {
+		this.mname2 = mname2;
+	}
+	public String getMname3() {
+		return mname3;
+	}
+	public void setMname3(String mname3) {
+		this.mname3 = mname3;
+	}
+	public int getPno() {
+		return pno;
+	}
+	public void setPno(int pno) {
+		this.pno = pno;
+	}
+	
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
 	public int getMemno() {
 		return memno;
 	}
@@ -99,9 +151,10 @@ public class LoginVO {
 	}
 	@Override
 	public String toString() {
-		return "LoginVO [memno=" + memno + ", carno=" + carno + ", rd=" + rd + ", memid=" + memid + ", bno=" + bno
-				+ ", name=" + name + ", phone=" + phone + ", sDate=" + sDate + ", membir=" + membir + ", bname=" + bname
-				+ ", bloc=" + bloc + ", joinDate=" + joinDate + ", joinTime=" + joinTime + "]";
+		return "LoginVO [memno=" + memno + ", carno=" + carno + ", mno=" + mno + ", pno=" + pno + ", mprice=" + mprice
+				+ ", rd=" + rd + ", memid=" + memid + ", bno=" + bno + ", name=" + name + ", phone=" + phone
+				+ ", sDate=" + sDate + ", membir=" + membir + ", bname=" + bname + ", bloc=" + bloc + ", mname=" + mname
+				+ "]";
 	}
 
 	
