@@ -121,7 +121,7 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.13</version>
+         <version>4.13.1</version>
          <!-- scope 는 영역을 나타내고 아래는 test영역에서 사용할 것이라는 의미이다 -->
          <scope>test</scope>
       </dependency>        
